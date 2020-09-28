@@ -6,7 +6,7 @@
 #    By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2020/09/28 14:56:25 by sreijola         ###   ########.fr        #
+#    Updated: 2020/09/28 15:31:28 by sreijola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME = lem-in
 
-SRCS_C = main.c
+SRCS_C = lemin_main.c lemin_data.c
 
 SRCS_PATH = ./srcs/
 
