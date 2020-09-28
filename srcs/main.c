@@ -6,11 +6,11 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/09/24 12:41:07 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/09/28 12:49:26 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/includes/libft.h"
+#include "../includes/lem_in.h"
 
 /*
 **
@@ -43,38 +43,22 @@
 **			L1-1		<--- move ant "1" to room "1"
 **			L1-4 L2-1	<--- move ant "1" to room "4" and ant "2" to room "1"
 **			L2-4		<--- move ant "2" to room "4"
+**
+**
+**
+**	- We'll search for all possible routes
+**	- (and arrange them in order based on smallest cost (least moves))
+**	- "linked tree(general tree?)" 
+**	- how many moves away route is from "end"-room
+**	- Ant moves through shortest AVAILABLE route
+**
+**
+**
+**
+**
+**
+**
 */
-
-// void	create_rooms()
-// {
-
-// }
-
-void	get_data()
-{
-	t_list	*data;
-	t_list	*app;
-	t_list	*start;
-	char	*temp;
-	int		ants;
-
-	get_next_line(0, &temp, 0);
-	ants = ft_atoi(temp);
-	get_next_line(0, &temp, 0);
-	data = ft_lstnew(temp, ft_strlen(temp) + 1);
-	data->content = ft_strdup(temp);
-	while (get_next_line(0, &temp, 0) > 0)
-	{
-		app = ft_lstnew(temp, ft_strlen(temp) + 1);
-		app->content = ft_strdup(temp);
-		if (!start)
-			start = data;
-		data->next = app;
-		data = data->next;
-	}
-	ft_lstprint(start);
-	// create_rooms();
-}
 
 int		main()
 {

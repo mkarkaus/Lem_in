@@ -6,12 +6,14 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 12:38:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/09/23 11:20:06 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/09/28 14:41:07 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
+
+# include "../libft/includes/libft.h"
 
 typedef struct	s_hill
 {
@@ -22,6 +24,9 @@ typedef struct	s_hill
 	char	**link;
 	int		**coor;
 }				t_hill;
+
+// t_list			*input_to_list(t_list *head);
+void			get_data();
 
 /*
 	name = names of the rooms
