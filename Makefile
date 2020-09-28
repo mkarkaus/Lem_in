@@ -6,7 +6,7 @@
 #    By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2020/09/28 14:44:14 by sreijola         ###   ########.fr        #
+#    Updated: 2020/09/28 14:56:25 by sreijola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRCS = $(addprefix $(SRCS_PATH), $(SRCS_C))
 
 LIB = libft/libft.a
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra 
+#-Werror
 
 all: $(NAME)
 
