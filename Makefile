@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+         #
+#    By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2020/09/28 15:31:28 by sreijola         ###   ########.fr        #
+#    Updated: 2020/09/28 16:39:36 by mkarkaus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,7 @@ SRCS = $(addprefix $(SRCS_PATH), $(SRCS_C))
 
 LIB = libft/libft.a
 
-FLAGS = -Wall -Wextra 
-#-Werror
+FLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
@@ -49,4 +48,7 @@ fun: re
 	@echo "Only binaries and .cs left"
 
 lem: $(NAME)
+	@gcc $(SRCS) $(LIB) -o $(NAME)
+
+lemf: $(NAME)
 	@gcc $(SRCS) $(FLAGS) $(LIB) -o $(NAME)
