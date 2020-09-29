@@ -6,7 +6,7 @@
 #    By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2020/09/28 16:39:36 by mkarkaus         ###   ########.fr        #
+#    Updated: 2020/09/29 13:04:12 by mkarkaus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ all: $(NAME)
 $(NAME):
 	@make -C libft
 	@gcc $(SRCS) $(FLAGS) $(LIB) -o $(NAME)
-	@echo "Library and filler made"
+	@echo "Library and $(NAME) made"
 
 clean:
 	@make -C libft clean

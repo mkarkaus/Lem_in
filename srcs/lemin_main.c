@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/09/28 15:57:14 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/09/29 13:05:33 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int		main()
 {
 	t_hill	ah;
 
-	get_data(&ah);
+	if (get_data(&ah) == -1)
+		ft_printf("{fd}Invalid input!\n", 2);
 	return (0);
 }
