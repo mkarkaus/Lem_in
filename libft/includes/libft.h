@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 14:57:46 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/09/24 12:40:18 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/09/30 16:51:10 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,8 @@ int				ft_onlydigits(char *str);
 void			ft_free_arrays(void **ptr, int rows);
 void			ft_pr_intarr(int **arr, int maxr, int maxc, int fd);
 void			ft_pr_chararr(char **arr, int maxr, int fd);
+void			ft_strarr_free(char **arr);
+char			**ft_strarr_malloc(int rows, int cols);
+int				ft_strarrsize(char **arr);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 12:38:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/09/29 12:20:12 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/09/30 16:07:28 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ typedef struct	s_hill
 	int			**coor;
 }				t_hill;
 
+void			init_struct(t_hill *ah);
 int				get_data(t_hill *ah);
+int				valid_content(t_hill *ah, t_list *lst);
 
 /*
 	name = names of the rooms

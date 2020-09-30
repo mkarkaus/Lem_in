@@ -6,7 +6,7 @@
 #    By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2020/09/29 13:04:12 by mkarkaus         ###   ########.fr        #
+#    Updated: 2020/09/30 16:52:37 by mkarkaus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME = lem-in
 
-SRCS_C = lemin_main.c lemin_data.c
+SRCS_C = lemin_main.c lemin_data.c validate_input.c
 
 SRCS_PATH = ./srcs/
 
@@ -35,7 +35,7 @@ clean:
 	@make -C libft clean
 	@echo "Object files removed from libft. Beep-Bop"
 
-fclean: clean
+fclean:
 	@make -C libft fclean
 	@rm -f $(NAME)
 	@echo "Binaries and object files gone."
@@ -47,8 +47,8 @@ fun: re
 	@make -C libft clean
 	@echo "Only binaries and .cs left"
 
-lem: $(NAME)
+lem:
 	@gcc $(SRCS) $(LIB) -o $(NAME)
 
-lemf: $(NAME)
+lemf:
 	@gcc $(SRCS) $(FLAGS) $(LIB) -o $(NAME)
