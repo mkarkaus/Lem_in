@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 12:38:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/09/30 17:36:54 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/09/30 21:58:32 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@
 
 typedef struct	s_hill
 {
-	char		**name;
-	int			*r_id;
-	int			*res;
 	int			ants;
 	int			rooms;
-	char		**link;
+	char		**name;
 	int			**coor;
+	int			*r_id;
+	int			links;
+	int			**link;
+	int			*res;
 }				t_hill;
 
 void			ft_strarr_print(char **arr);

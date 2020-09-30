@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 15:13:44 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/09/30 16:06:18 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/09/30 22:15:25 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		check_format(char *contents)
 	i = 0;
 	while (contents[i] != ' ' && contents[i] != '-' && contents[i] != '#')
 		i++;
-	if (contents[i] == ' ' && ft_isdigit(contents[i + 1]) && i != 0 && ++i)
+	if (contents[i] == ' ' && ft_isdigit(contents[i + 1]) && i != 0 && ++i)// contents[0] != 'L' tän pitää chekata myös se iso L
 	{
 		while (ft_isdigit(contents[i]))
 			i++;
@@ -27,7 +27,7 @@ int		check_format(char *contents)
 			while (ft_isdigit(contents[i]))
 				i++;
 	}
-	else if (contents[i] == '-' && contents[i + 1] && i != 0 && ++i)
+	else if (contents[i] == '-' && contents[i + 1] && i != 0 && ++i) //sama tässä 0. ja viivan jälkeinen ei oo 'L'
 		while (contents[i] && contents[i] != ' ' && contents[i] != '-')
 			i++;
 	else if ((contents[0] == '#' && contents[1] != '#') || \
@@ -68,8 +68,8 @@ int		valid_content(t_hill *ah, t_list *lst)
 			ah->rooms++;
 		else if (str[0] != '#' && str[0] != 'L' && !ft_strchr(str, '-'))
 			return (-1);
-		else if (ft_strchr(str, '-'))
-			rooms_checked = 1;
+		else if (ft_strchr(str, '-') && (rooms_checked = 1))
+			ah->links++;
 		else if (str[0] == '#' && str[1] == '#' && rooms_checked == 0 && \
 				valid_start_end(&lst, &str, &start, &end) == -1)
 			return (-1);
