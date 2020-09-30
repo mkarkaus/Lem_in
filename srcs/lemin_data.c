@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 12:42:03 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/09/30 17:19:10 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/09/30 18:17:58 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,13 @@ void	save_room_info(t_hill *ah, t_list **lst, int i)
 {
 	char	**temp;
 
+	ah->coor[i] = (int *)ft_memalloc(sizeof(int) * 2);
 	if (i < 2)
 		*lst = (*lst)->next;
 	temp = ft_strsplit((*lst)->content, ' ');
 	ah->name[i] = ft_strdup(temp[0]);
+	ah->coor[i][0] = ft_atoi(temp[1]);
+	ah->coor[i][1] = ft_atoi(temp[2]);
 }
 
 int		get_rooms(t_hill *ah, t_list *lst)
@@ -57,25 +60,18 @@ int		get_rooms(t_hill *ah, t_list *lst)
 	while (i < ah->rooms)
 	{
 		if (ft_strequ(lst->content, "##start"))
-		{
-			lst = lst->next;
-			temp = ft_strsplit(lst->content, ' ');
-			ah->name[0] = ft_strdup(temp[0]);
-		}
+			save_room_info(ah, &lst, 0);
 		else if (ft_strequ(lst->content, "##end"))
-		{
-			lst = lst->next;
-			temp = ft_strsplit(lst->content, ' ');
-			ah->name[1] = ft_strdup(temp[0]);
-
-		}
+			save_room_info(ah, &lst, 1);
 		else
 		{
-			temp = ft_strsplit(lst->content, ' ');
-			ah->name[i++] = ft_strdup(temp[0]);
+			save_room_info(ah, &lst, i);
+			i++;
 		}
 		lst = lst->next;
 	}
+	ah->name[ah->rooms] = NULL;
+	return (0);
 }
 
 int		get_data(t_hill *ah)
@@ -86,6 +82,10 @@ int		get_data(t_hill *ah)
 	if (input_to_list(&input, ah) == -1 || valid_content(ah, input) == -1)
 		return (-1);
 	/* HERE COMES THE GET_ROOMS */
+	get_rooms(ah, input);
 	ft_lstprint(input);
+	//ft_printf("%s\n", ah->name[0]);
+	ft_strarr_print(ah->name);
+	ft_pr_intarr(ah->coor, ah->rooms, 2, 1);
 	return (0);
 }

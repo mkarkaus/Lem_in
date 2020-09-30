@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 12:38:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/09/30 16:07:28 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/09/30 17:36:54 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ typedef struct	s_hill
 	char		**link;
 	int			**coor;
 }				t_hill;
+
+void			ft_strarr_print(char **arr);
+
 
 void			init_struct(t_hill *ah);
 int				get_data(t_hill *ah);

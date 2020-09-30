@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+         #
+#    By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2020/09/30 16:52:37 by mkarkaus         ###   ########.fr        #
+#    Updated: 2020/09/30 17:33:25 by sreijola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME = lem-in
 
-SRCS_C = lemin_main.c lemin_data.c validate_input.c
+SRCS_C = lemin_main.c lemin_data.c validate_input.c ft_strarr_print.c
 
 SRCS_PATH = ./srcs/
 
