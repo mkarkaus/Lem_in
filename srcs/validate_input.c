@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 15:13:44 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/09/30 22:15:25 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/01 11:01:44 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		check_format(char *contents)
 				ft_strequ(contents, "##start") || ft_strequ(contents, "##end"))
 		while (contents[i])
 			i++;
-	if (!contents[i])
+	if (!contents[i] && contents[0] != 'L')
 		return (1);
 	return (0);
 }

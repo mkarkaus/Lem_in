@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 12:38:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/09/30 21:58:32 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/01 14:59:34 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,23 @@
 # define LEM_IN_H
 
 # include "../libft/includes/libft.h"
+
+typedef struct	s_node
+{
+	int				room;
+	struct s_node 	*next;
+}				t_node;
+
+typedef struct	s_alhead
+{
+	t_node			*head;
+}				t_alhead;
+
+typedef struct	s_graph
+{
+	int				ver;
+	t_alhead		*array;
+}				t_graph;
 
 typedef struct	s_hill
 {
