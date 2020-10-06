@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_adjlstnew.c                                     :+:      :+:    :+:   */
+/*   graph_maze.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/01 14:44:41 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/01 14:54:12 by mkarkaus         ###   ########.fr       */
+/*   Created: 2020/10/06 13:28:46 by mkarkaus          #+#    #+#             */
+/*   Updated: 2020/10/06 14:03:59 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-t_graph		*create_graph(int ver, int **edges)
+void	graph_maze(t_hill *ah)// ft_adjlstfill
 {
-	t_graph		*graph;
+	int		i;
 
-	graph = (t_graph *)ft_memalloc(sizeof(t_graph));
-	graph->array = (t_alhead *)ft_memalloc(ver * sizeof(t_alhead));
-	
+	i = -1;
+	ah->maze = ft_graph_new(ah->rooms);
+	while (++i < ah->links)
+		ft_graph_edgeadd(ah->maze, ah->link[i][0], ah->link[i][1], 0);
 }

@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 12:42:03 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/01 14:59:37 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/10/06 13:58:32 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,11 @@ int		get_links(t_list *lst, t_hill *ah)
 		lst = lst->next;
 	while (lst != NULL && (tmp = lst->content) && (ft_strchr(tmp, '-') != NULL) && tmp[0] != 'L')
 	{
-		ft_lstprint(lst);
+		// ft_lstprint(lst);
 		if (convert_link(tmp, ah, k) == -1)
 			return (-1);
-		ft_pr_intarr(ah->link, k + 1, 2, 1);
-		ft_printf("\n");
+		// ft_pr_intarr(ah->link, k + 1, 2, 1);
+		// ft_printf("\n");
 		lst = lst->next;
 		k++;
 	}
@@ -129,6 +129,9 @@ int		get_data(t_hill *ah)
 	get_rooms(ah, input);
 	if (get_links(input, ah) == -1)
 		return (-1);
+	ft_pr_intarr(ah->link, ah->links, 2, 1);
+	graph_maze(ah);
+	ft_graph_print(ah->maze);
 	// ft_printf("[%d]\n", sizeof(int));
 	// ft_printf("[%d]\n", sizeof(t_graph));
 	// ft_printf("[%d]\n", sizeof(t_node));
@@ -136,6 +139,5 @@ int		get_data(t_hill *ah)
 	// create_graph(ah);
 	// ft_strarr_print(ah->name);
 	// ft_pr_intarr(ah->coor, ah->rooms, 2, 1);
-	// ft_pr_intarr(ah->link, ah->links, 2, 1);
 	return (0);
 }

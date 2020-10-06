@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 12:38:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/01 14:59:34 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/10/06 13:54:44 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 typedef struct	s_node
 {
-	int				room;
+	int				v;
 	struct s_node 	*next;
 }				t_node;
 
@@ -34,6 +34,7 @@ typedef struct	s_graph
 
 typedef struct	s_hill
 {
+	t_graph		*maze;
 	int			ants;
 	int			rooms;
 	char		**name;
@@ -44,12 +45,17 @@ typedef struct	s_hill
 	int			*res;
 }				t_hill;
 
-void			ft_strarr_print(char **arr);
-
-
-void			init_struct(t_hill *ah);
 int				get_data(t_hill *ah);
+void			init_struct(t_hill *ah);
 int				valid_content(t_hill *ah, t_list *lst);
+void			graph_maze(t_hill *ah);
+
+void			ft_strarr_print(char **arr);
+void			ft_graph_print(t_graph *graph);
+t_node			*ft_graph_nodenew(int dest_ver);
+t_graph			*ft_graph_new(int vertices);
+void			ft_graph_edgeadd(t_graph *graph, int a, int b, int dir);
+t_node			*ft_graph_nodenew(int dest_ver);
 
 /*
 	name = names of the rooms
