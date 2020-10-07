@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 15:13:44 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/06 11:12:55 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/10/06 15:51:23 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,23 @@ int		valid_content(t_hill *ah, t_list *lst)
 {
 	int			start;
 	int			end;
-	int			rooms_checked;
-	char		*str;
+	int			rms_check;
+	char		*s;
 
-	rooms_checked = 0;
+	rms_check = 0;
 	start = 0;
 	end = 0;
 	while (lst != NULL && check_format(lst->content) && (start < 2 || end < 2))
 	{
-		str = lst->content;
-		if (str[0] != '#' && str[0] != 'L' && !ft_strchr(str, '-') && rooms_checked == 0)
+		s = lst->content;
+		if (s[0] != '#' && s[0] != 'L' && !ft_strchr(s, '-') && rms_check == 0)
 			ah->rooms++;
-		else if (str[0] != '#' && str[0] != 'L' && !ft_strchr(str, '-'))
+		else if (s[0] != '#' && s[0] != 'L' && !ft_strchr(s, '-'))
 			return (-1);
-		else if (ft_strchr(str, '-') && (rooms_checked = 1))
+		else if (ft_strchr(s, '-') && (rms_check = 1))
 			ah->links++;
-		else if (str[0] == '#' && str[1] == '#' && rooms_checked == 0 && \
-				valid_start_end(&lst, &str, &start, &end) == -1)
+		else if (s[0] == '#' && s[1] == '#' && rms_check == 0 && \
+				valid_start_end(&lst, &s, &start, &end) == -1)
 			return (-1);
 		lst = lst->next;
 	}

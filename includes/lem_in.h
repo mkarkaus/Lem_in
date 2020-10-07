@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 12:38:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/06 13:54:44 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/10/06 16:00:40 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct	s_hill
 }				t_hill;
 
 int				get_data(t_hill *ah);
+void			get_rooms(t_hill *ah, t_list *lst);
 void			init_struct(t_hill *ah);
 int				valid_content(t_hill *ah, t_list *lst);
 void			graph_maze(t_hill *ah);
