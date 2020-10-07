@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_get_rooms.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:59:14 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/06 15:59:49 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/10/07 11:28:39 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	save_room_info(t_hill *ah, t_list **lst, int i)
 	ah->name[i] = ft_strdup(temp[0]);
 	ah->coor[i][0] = ft_atoi(temp[1]);
 	ah->coor[i][1] = ft_atoi(temp[2]);
+	ft_strarr_free(temp);
 }
 
 void	get_rooms(t_hill *ah, t_list *lst)

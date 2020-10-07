@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_tabarr_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/16 19:10:40 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/07 12:58:07 by sreijola         ###   ########.fr       */
+/*   Created: 2020/09/28 04:24:18 by sreijola          #+#    #+#             */
+/*   Updated: 2020/10/07 11:26:19 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "../../includes/libft.h"
+//#include "./includes/libft.h"
+#include "../includes/lem_in.h"
 
-char	*ft_strdup(const char *src)
+void	ft_tabarr_free(int **tab, int max_rows)
 {
-	char	*cpy;
-	int		i;
-	int		len;
-
-	len = 0;
-	while (src[len])
-		len++;
-	if (!(cpy = (char *)malloc((len + 1) * sizeof(char))))
-		return (0);
-	i = 0;
-	while (src[i])
-	{
-		cpy[i] = src[i];
-		i++;
-	}
-	cpy[i] = '\0';
-	return (cpy);
+	if (!tab)
+		return ;
+	while (--max_rows >= 0)
+		free(tab[max_rows]);
+	free(tab);
 }

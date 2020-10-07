@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strarr_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/16 19:10:40 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/07 12:58:07 by sreijola         ###   ########.fr       */
+/*   Created: 2020/09/27 18:53:34 by sreijola          #+#    #+#             */
+/*   Updated: 2020/10/06 19:17:59 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "../../includes/libft.h"
+#include "../includes/lem_in.h"
+//#include "./includes/libft.h"
 
-char	*ft_strdup(const char *src)
+void	ft_strarr_free(char **arr)
 {
-	char	*cpy;
-	int		i;
-	int		len;
+	int	rows;
 
-	len = 0;
-	while (src[len])
-		len++;
-	if (!(cpy = (char *)malloc((len + 1) * sizeof(char))))
-		return (0);
-	i = 0;
-	while (src[i])
+	rows = ft_strarrsize(arr);
+	while (rows > -1)
 	{
-		cpy[i] = src[i];
-		i++;
+		ft_strdel(&arr[rows]);
+		rows--;
 	}
-	cpy[i] = '\0';
-	return (cpy);
+	free(arr);
+	arr = NULL;
 }

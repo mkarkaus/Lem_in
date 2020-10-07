@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_graph_free.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/16 19:10:40 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/07 12:58:07 by sreijola         ###   ########.fr       */
+/*   Created: 2020/10/06 19:08:33 by sreijola          #+#    #+#             */
+/*   Updated: 2020/10/07 11:20:59 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "../../includes/libft.h"
+#include "../includes/lem_in.h"
 
-char	*ft_strdup(const char *src)
+
+void	ft_graph_free(t_graph *graph)
 {
-	char	*cpy;
-	int		i;
-	int		len;
+	t_node	*tmp;
 
-	len = 0;
-	while (src[len])
-		len++;
-	if (!(cpy = (char *)malloc((len + 1) * sizeof(char))))
-		return (0);
-	i = 0;
-	while (src[i])
+	while (--graph->ver >= 0) //(vai tässä --graph->ver)
 	{
-		cpy[i] = src[i];
-		i++;
+		while (graph->array[graph->ver].head)
+		{
+			tmp = graph->array[graph->ver].head;
+			graph->array[graph->ver].head = graph->array[graph->ver].head->next;
+			free(tmp);
+		}
 	}
-	cpy[i] = '\0';
-	return (cpy);
+	free(graph->array);
+	free(graph);
 }

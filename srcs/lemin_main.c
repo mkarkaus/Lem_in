@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/06 16:05:46 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/10/07 11:30:37 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,26 @@
 **
 */
 
+void	free_struct_elements(t_hill *ah) //lista pitää vapauttaa get_datassa
+{
+	ft_strarr_free(ah->name);
+	ft_tabarr_free(ah->coor, ah->rooms);
+	ft_tabarr_free(ah->link, ah->links);
+	ft_graph_free(ah->maze);
+}
+
 int		main()
 {
 	t_hill	ah;
 
 	if (get_data(&ah) == -1)
 		ft_printf("{fd}Invalid input!\n", 2);
+	ft_strarr_print(ah.name);
+	ft_pr_intarr(ah.coor, ah.rooms, 2, 1);
+	ft_graph_print(ah.maze);
+	free_struct_elements(&ah);
+	// ft_strarr_print(ah.name);
+	// ft_pr_intarr(ah.coor, ah.rooms, 2, 1);
+	// ft_graph_print(ah.maze);
 	return (0);
 }

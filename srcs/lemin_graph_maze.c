@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   graph_maze.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/16 19:10:40 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/07 12:58:07 by sreijola         ###   ########.fr       */
+/*   Created: 2020/10/06 13:28:46 by mkarkaus          #+#    #+#             */
+/*   Updated: 2020/10/06 19:17:28 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "../../includes/libft.h"
+#include "../includes/lem_in.h"
 
-char	*ft_strdup(const char *src)
+void	graph_maze(t_hill *ah)
 {
-	char	*cpy;
 	int		i;
-	int		len;
 
-	len = 0;
-	while (src[len])
-		len++;
-	if (!(cpy = (char *)malloc((len + 1) * sizeof(char))))
-		return (0);
-	i = 0;
-	while (src[i])
-	{
-		cpy[i] = src[i];
-		i++;
-	}
-	cpy[i] = '\0';
-	return (cpy);
+	i = -1;
+	ah->maze = ft_graph_new(ah->rooms);
+	while (++i < ah->links)
+		ft_graph_edgeadd(ah->maze, ah->link[i][0], ah->link[i][1], 0);
 }

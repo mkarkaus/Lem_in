@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strarr_size.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/16 19:10:40 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/07 12:58:07 by sreijola         ###   ########.fr       */
+/*   Created: 2020/09/24 13:42:15 by sreijola          #+#    #+#             */
+/*   Updated: 2020/10/06 19:18:15 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "../../includes/libft.h"
+#include "../includes/lem_in.h"
+//#include "./includes/libft.h"
 
-char	*ft_strdup(const char *src)
+int		ft_strarr_size(char **arr)
 {
-	char	*cpy;
-	int		i;
-	int		len;
+	size_t i;
 
-	len = 0;
-	while (src[len])
-		len++;
-	if (!(cpy = (char *)malloc((len + 1) * sizeof(char))))
-		return (0);
 	i = 0;
-	while (src[i])
-	{
-		cpy[i] = src[i];
+	while (arr[i] != NULL)
 		i++;
-	}
-	cpy[i] = '\0';
-	return (cpy);
+	return (i);
 }
