@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/07 11:30:37 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/07 15:49:24 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,5 @@ int		main()
 	ft_pr_intarr(ah.coor, ah.rooms, 2, 1);
 	ft_graph_print(ah.maze);
 	free_struct_elements(&ah);
-	// ft_strarr_print(ah.name);
-	// ft_pr_intarr(ah.coor, ah.rooms, 2, 1);
-	// ft_graph_print(ah.maze);
 	return (0);
 }
