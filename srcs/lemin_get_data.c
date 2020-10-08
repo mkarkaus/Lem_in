@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_get_data.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 12:42:03 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/07 13:18:57 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/08 16:10:25 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		input_to_list(t_list **head, t_hill *ah)
 			data->next = app;
 			data = data->next;
 		}
-		ft_strdel(&temp);
+		// ft_strdel(&temp);
 	}
 	return (0);
 }

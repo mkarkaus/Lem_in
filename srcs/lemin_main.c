@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/07 15:49:24 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/08 16:36:06 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,9 @@ int		main()
 
 	if (get_data(&ah) == -1)
 		ft_printf("{fd}Invalid input!\n", 2);
-	ft_strarr_print(ah.name);
-	ft_pr_intarr(ah.coor, ah.rooms, 2, 1);
+	fill_distances(&ah);
+	// ft_strarr_print(ah.name);
+	// ft_pr_intarr(ah.coor, ah.rooms, 2, 1);
 	ft_graph_print(ah.maze);
 	free_struct_elements(&ah);
 	return (0);

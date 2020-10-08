@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_graph_print.c                                   :+:      :+:    :+:   */
+/*   ft_tabint_find.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/06 13:35:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/08 16:34:32 by mkarkaus         ###   ########.fr       */
+/*   Created: 2020/10/08 15:22:02 by mkarkaus          #+#    #+#             */
+/*   Updated: 2020/10/08 15:25:03 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-void	ft_graph_print(t_graph *graph)
+int		ft_tabint_find(int *tab, int to_find, int tab_len)
 {
-	t_node	*ptr;
 	int		i;
 
 	i = -1;
-	while (++i < graph->ver)
+	while (++i < tab_len)
 	{
-		ptr = graph->array[i].head;
-		ft_printf("[ %d ] dd: {%d}", i, graph->array[i].dd);
-		while (ptr != NULL)
-		{
-			ft_printf(" -> %d", ptr->v);
-			ptr = ptr->next;
-		}
-		ft_printf("\n");
+		if (tab[i] == to_find)
+			return (1);
 	}
+	return (0);
 }
