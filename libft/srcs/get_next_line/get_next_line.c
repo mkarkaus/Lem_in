@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 13:03:14 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/07 13:06:28 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/09 10:19:00 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ ssize_t		ft_makeline(char **line, char **tab, const int fd)
 	temp = NULL;
 	while (tab[fd][k] != '\n' && tab[fd][k] != '\0')
 		k++;
-	(k == 0 && tab[fd][k] == '\0') ? free(tab[fd]) : 0;	
 	if (k == 0 && tab[fd][k] == '\0')
+	{
+		free(tab[fd]);
 		return (0);
+	}
 	if (tab[fd][k] == '\n')
 	{
 		if (!(*line = ft_strsub(tab[fd], 0, k)))

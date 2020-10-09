@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:28:46 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/08 16:59:40 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/10/09 10:24:18 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	remake_queue(t_hill *ah, int **queue, int only_clear)
 			}
 			k++;
 		}
-		free(temp);
 	}
+	free(temp);
 }
 
 void	fill_distances(t_hill *ah)
@@ -99,4 +99,5 @@ void	fill_distances(t_hill *ah)
 		remake_queue(ah, &q, 0);
 		dis++;
 	}
+	free(q);
 }

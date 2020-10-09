@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 12:42:03 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/08 16:10:25 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/10/09 10:36:16 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		input_to_list(t_list **head, t_hill *ah)
 			data->next = app;
 			data = data->next;
 		}
-		// ft_strdel(&temp);
+		ft_strdel(&temp);
 	}
 	return (0);
 }
@@ -61,7 +61,9 @@ int		get_data(t_hill *ah)
 	get_rooms(ah, input);
 	if (get_links(input, ah) == -1)
 		return (-1);
-	// ft_lstprint(input);
+	ft_printf("%d\n", ah->ants);
+	ft_lstprint(input);
+	write(1, "\n", 1);
 	// ft_strarr_print(ah->name);
 	// ft_pr_intarr(ah->link, ah->links, 2, 1);
 	ft_lstfree(input);
