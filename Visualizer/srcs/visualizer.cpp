@@ -18,6 +18,8 @@ Visualizer::~Visualizer()
 void	Visualizer::init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen, \
 							t_data *v, vector<Ants *> antv)
 {
+	double			min_x;
+	double			min_y;
 	SDL_Surface		*tmpSurface;
 	int				flags;
 
@@ -48,11 +50,17 @@ void	Visualizer::init(const char *title, int xpos, int ypos, int width, int heig
 	roomR.h = ((bckR.h / (find_max(v->coors, 1) + 1) < bckR.w / (find_max(v->coors, 0) + 1)) \
 				? bckR.h / (find_max(v->coors, 1) + 1) : bckR.w / (find_max(v->coors, 0) + 1));
 	roomR.w = roomR.h;
+	min_x = find_min(v->coors, 0) - 1;
+	min_y = find_min(v->coors, 1) - 1;
 	for (int i = 0; i < v->coors.size(); i++)
 	{
+		v->coors[i][0] -= min_x;
 		v->coors[i][0] *= roomR.w;
+		v->coors[i][1] -= min_y;
 		v->coors[i][1] *= roomR.w;
 	}
+	scale_coor(v, ((((bckR.w - ((find_max(v->coors, 0) - find_min(v->coors, 0)))) / 2) - 2 * roomR.w)), \
+					((((bckR.h - ((find_max(v->coors, 1) - find_min(v->coors, 1)))) / 2)) - 2 * roomR.w), roomR.w / 2);
 	pipeR.h = roomR.h / 5 * 2;
 	for (int i = 0; i < antv.size(); i++)
 		antv[i]->init(renderer, pipeR.h);
@@ -85,9 +93,6 @@ void	Visualizer::render(t_data *v, vector<Ants *> *antv)
 {
 	double		angle;
 
-	if (!roomR.x)
-		scale_coor(v, ((((bckR.w - ((find_max(v->coors, 0) - find_min(v->coors, 0)))) / 2) - 2 * roomR.w)), \
-						((((bckR.h - ((find_max(v->coors, 1) - find_min(v->coors, 1)))) / 2)) - 2 * roomR.w), roomR.w / 2);
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, bckTex, NULL, &bckR);
 	for (int j = 0; j < v->links.size(); j++)
