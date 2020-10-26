@@ -40,6 +40,7 @@ class	Visualizer {
 		int				count = 0;
 		bool			ants_in_end = false;
 		bool			isRunning;
+		TTF_Font		*font;
 		SDL_Window		*window;
 		SDL_Renderer	*renderer;
 };

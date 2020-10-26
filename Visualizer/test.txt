@@ -1,4 +1,4 @@
-3
+1
 ##start
 Ankkuri 1 0
 ##end
@@ -9,3 +9,5 @@ Sotasorsa 2 1
 Ankkuri-Cello
 Cello-Dodokarhu
 Dodokarhu-Banaani
+
+L1-Banaani

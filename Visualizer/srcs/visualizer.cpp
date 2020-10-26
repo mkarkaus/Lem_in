@@ -5,9 +5,11 @@ using namespace std;
 SDL_Texture		*bckTex;
 SDL_Texture		*roomTex;
 SDL_Texture		*pipeTex;
+SDL_Texture		*textTex;
 SDL_Rect		bckR;
 SDL_Rect		roomR;
 SDL_Rect		pipeR;
+SDL_Rect		textR;
 
 Visualizer::Visualizer()
 {}
@@ -25,10 +27,9 @@ void	Visualizer::init(const char *title, int xpos, int ypos, int width, int heig
 
 	flags = 0;
 
-	TTF_Init();
 	if (fullscreen)
 		flags = SDL_WINDOW_FULLSCREEN;
-	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
+	if (SDL_Init(SDL_INIT_EVERYTHING) == 0 && TTF_Init() == 0)
 	{
 		cout << "SDL initialized!" << endl;
 		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
@@ -40,6 +41,7 @@ void	Visualizer::init(const char *title, int xpos, int ypos, int width, int heig
 			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 			cout << "Renderer created!" << endl;
 		}
+		font = TTF_OpenFont("assets/arial-bold.ttf", 16);
 		isRunning = true;
 	}
 	else
@@ -85,12 +87,12 @@ void	Visualizer::handleEvents()
 void	Visualizer::update(t_data *v, vector<Ants *> *antv)
 {
 	count++;
-
 	cout << count << endl;
 }
 
 void	Visualizer::render(t_data *v, vector<Ants *> *antv)
 {
+	SDL_Surface	*textSurface;
 	double		angle;
 
 	SDL_RenderClear(renderer);
@@ -112,7 +114,26 @@ void	Visualizer::render(t_data *v, vector<Ants *> *antv)
 	{
 		roomR.x = v->coors[j][0];
 		roomR.y = v->coors[j][1];
+		if (j == 0)
+		{
+			TTF_SizeText(font, "START", &textR.w, &textR.h);
+			textSurface = TTF_RenderText_Solid(font, "START", {202, 0, 42});
+		}
+		else if (j == 1)
+		{
+			TTF_SizeText(font, "**END**", &textR.w, &textR.h);
+			textSurface = TTF_RenderText_Solid(font, "**END**", {75, 140, 97});
+		}
+		else
+		{
+			TTF_SizeText(font, v->names[j].c_str(), &textR.w, &textR.h);
+			textSurface = TTF_RenderText_Solid(font, v->names[j].c_str(), {0, 0, 0});
+		}
+		textTex = SDL_CreateTextureFromSurface(renderer, textSurface);
+		textR.x = v->coors[j][0] + (roomR.w / 7);
+		textR.y = v->coors[j][1] + (roomR.w / 7);
 		SDL_RenderCopy(renderer, roomTex, NULL, &roomR);
+		SDL_RenderCopy(renderer, textTex, NULL, &textR);
 	}
 	for (int j = 0; j < v->ants; j++)
 	{
@@ -139,11 +160,13 @@ void	Visualizer::render(t_data *v, vector<Ants *> *antv)
 			(*antv)[ant - 1]->getDesDir(v->coors[temp][0], v->coors[temp][1], roomR.w);
 		}
 	}
+	SDL_FreeSurface(textSurface);
 	SDL_RenderPresent(renderer);
 }
 
 void	Visualizer::clean()
 {
+	TTF_CloseFont(font);
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	TTF_Quit();
