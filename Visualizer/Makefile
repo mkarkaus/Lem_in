@@ -14,7 +14,7 @@ $(EXE_NAME):
 	@echo "Executable 'visu' successfully compiled!"
 
 fclean:
-	@rm $(EXE_NAME)
+	@rm -f $(EXE_NAME)
 	@echo "Executable removed."
 
 re: fclean all

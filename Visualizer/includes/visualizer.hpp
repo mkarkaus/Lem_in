@@ -31,7 +31,7 @@ class	Visualizer {
 		void	init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen, \
 						t_data *v, vector<Ants *> antv);
 		void	handleEvents();
-		void	update(t_data *v, vector<Ants *> *antv, double max_x, double max_y);
+		void	update(t_data *v, vector<Ants *> *antv);
 		void	render(t_data *v, vector<Ants *> *antv);
 		void	clean();
 		bool	running();

@@ -2,8 +2,6 @@
 using namespace	std;
 #include "../includes/visualizer.hpp"
 
-// g++ -o visu srcs/main.cpp srcs/get_input.cpp srcs/ants.cpp srcs/visualizer.cpp -lSDL2 -lSDL2_image -lSDL2_ttf
-
 bool	antsMoving(vector<Ants *> *antv)
 {
 	for (int i = 0; i < (*antv).size(); i++)
@@ -78,7 +76,7 @@ int		main(int argc, char **argv)
 		frameStart = SDL_GetTicks();
 		
 		vis->handleEvents();
-		vis->update(&v, &antv, find_max(v.coors, 0) + 2, find_max(v.coors, 1) + 2);
+		vis->update(&v, &antv);
 		vis->render(&v, &antv);
 
 		frameTime = SDL_GetTicks() - frameStart;

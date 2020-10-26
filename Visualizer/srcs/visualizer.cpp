@@ -74,7 +74,7 @@ void	Visualizer::handleEvents()
 		isRunning = false;
 }
 
-void	Visualizer::update(t_data *v, vector<Ants *> *antv, double max_x, double max_y)
+void	Visualizer::update(t_data *v, vector<Ants *> *antv)
 {
 	count++;
 
@@ -101,7 +101,7 @@ void	Visualizer::render(t_data *v, vector<Ants *> *antv)
 		angle = atan2(v->coors[v->links[j][1]][1] - v->coors[v->links[j][0]][1],
 						v->coors[v->links[j][1]][0] - v->coors[v->links[j][0]][0]);
 		angle *= (180 / M_PI);
-		SDL_RenderCopyEx(renderer, pipeTex, NULL, &pipeR, angle, &center, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, pipeTex, NULL, &pipeR, angle, &center, (angle <= 90 && angle > -90) ? SDL_FLIP_NONE: SDL_FLIP_VERTICAL);
 	}
 	for (int j = 0; j < v->coors.size(); j++)
 	{
