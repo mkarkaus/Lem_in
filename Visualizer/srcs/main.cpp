@@ -2,7 +2,7 @@
 using namespace	std;
 #include "../includes/visualizer.hpp"
 
-// g++ -o exe_dbl srcs/main.cpp srcs/get_input.cpp srcs/ants.cpp srcs/class_functions.cpp -lSDL2 -lSDL2_image -lSDL2_ttf
+// g++ -o visu srcs/main.cpp srcs/get_input.cpp srcs/ants.cpp srcs/visualizer.cpp -lSDL2 -lSDL2_image -lSDL2_ttf
 
 bool	antsMoving(vector<Ants *> *antv)
 {

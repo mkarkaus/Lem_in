@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_graph_free.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 19:08:33 by sreijola          #+#    #+#             */
-/*   Updated: 2020/10/07 11:20:59 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/26 10:06:38 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
-
 
 void	ft_graph_free(t_graph *graph)
 {
