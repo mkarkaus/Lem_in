@@ -6,7 +6,7 @@
 #    By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2020/10/27 10:30:19 by sreijola         ###   ########.fr        #
+#    Updated: 2020/10/28 10:53:15 by sreijola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,6 +76,7 @@ fun: re
 	@echo "Only binaries and .cs left"
 
 lem:
+	@@rm -f $(NAME)
 	@gcc $(SRCS) $(LIB) -o $(NAME)
 
 lemf:

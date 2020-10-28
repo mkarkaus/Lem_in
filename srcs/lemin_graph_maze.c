@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:28:46 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/28 10:18:30 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/28 10:52:19 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	graph_maze(t_hill *ah)
 			ah->maze->array[i].antnb[a] = 1;
 		while (i != 0 && ++a < ah->ants)
 			ah->maze->array[i].antnb[a] = 0;
+		ah->maze->array[i].q = 0;
 	}
-	ah->maze->array[i].q = 0;
 	fill_distances(ah);
 }
 
