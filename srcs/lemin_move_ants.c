@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_move_ants.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:29:30 by sreijola          #+#    #+#             */
-/*   Updated: 2020/10/28 13:15:15 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/28 13:41:35 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,16 @@ int		check_routes(t_hill *ah, int ant)
 	while (node != NULL) // pitää tarkistaa array[i]:hin linkattujen nodejen dd + q ja valita pienin
 	{
 		tmp = node->v;
-		if (ptr[tmp].dd != -1 && ptr[tmp].antnb[ant] != -1 && (nxt_rm == -1 || ((ptr[tmp].dd + ptr[tmp].q) < \
-		(ptr[nxt_rm].dd + ptr[nxt_rm].q))))
+		if (ptr[tmp].dd != -1 && ptr[tmp].antnb[ant] != -1 && \
+			(nxt_rm == -1 || ((ptr[tmp].dd + ptr[tmp].q) < (ptr[nxt_rm].dd + ptr[nxt_rm].q)) || \
+			(((ptr[tmp].dd + ptr[tmp].q) == (ptr[nxt_rm].dd + ptr[nxt_rm].q)) && ptr[tmp].q < ptr[nxt_rm].q)))
 			nxt_rm = tmp;
 		node = node->next;
 	}
 	if (nxt_rm == -1)
 		return (-1);
-	ptr[nxt_rm].q++;
+	if (nxt_rm != 1)
+		ptr[nxt_rm].q++;
 	ptr[i].antnb[ant] = -1;
 	ptr[i].q = 0;
 	if (ptr[nxt_rm].q == 1 || nxt_rm == 1)

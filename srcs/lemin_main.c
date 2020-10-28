@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/28 11:35:58 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/28 13:31:00 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		main()
 		ft_printf("{fd}Invalid input!\n", 2);
 	// ft_strarr_print(ah.name);
 	// ft_pr_intarr(ah.coor, ah.rooms, 2, 1);
-	//ft_graph_print(ah.maze);
+	// ft_graph_print(ah.maze);
 	if (route_ants(&ah) < 0)
 		ft_printf("Error: No valid routes to the end of the maze!\n");
 	free_struct_elements(&ah);

@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 12:42:03 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/09 10:36:16 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/10/28 13:57:46 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		input_to_list(t_list **head, t_hill *ah)
 
 	get_next_line(0, &temp, 0);
 	ah->ants = ft_atoi(temp);
-	if (!ft_onlydigits(temp))
+	if (!ft_onlydigits(temp) || ah->ants == 0)
 		return (-1);
 	free(temp);
 	while (get_next_line(0, &temp, 0) && temp[0] == '#' && temp[1] != '#')
