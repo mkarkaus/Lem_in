@@ -6,7 +6,7 @@
 #    By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2020/10/28 10:53:15 by sreijola         ###   ########.fr        #
+#    Updated: 2020/10/28 12:15:04 by sreijola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,8 +76,13 @@ fun: re
 	@echo "Only binaries and .cs left"
 
 lem:
-	@@rm -f $(NAME)
 	@gcc $(SRCS) $(LIB) -o $(NAME)
+	@echo "$(NAME) made!"
+
+relem:
+	@rm -f $(NAME)
+	@gcc $(SRCS) $(LIB) -o $(NAME)
+	@echo "$(NAME) remade!"
 
 lemf:
 	@gcc $(SRCS) $(FLAGS) $(LIB) -o $(NAME)
@@ -87,8 +92,8 @@ vis:
 
 #$(VIS)
 #$(VIS):
-	# @g++ $(VIS_SRCS) -o $(VIS)
-	# @echo "Visulalizer $(VIS) made"
+# @g++ $(VIS_SRCS) -o $(VIS)
+# @echo "Visualizer $(VIS) made"
 #	g++ -o exe Visualizer/srcs/main.cpp Visualizer/srcs/get_input.cpp Visualizer/srcs/ants.cpp Visualizer/srcs/class_functions.cpp -lSDL2 -lSDL2_image -lSDL2_ttf
 #	g++ -o exe srcs/main.cpp srcs/get_input.cpp srcs/ants.cpp srcs/class_functions.cpp -lSDL2 -lSDL2_image -lSDL2_ttf
 

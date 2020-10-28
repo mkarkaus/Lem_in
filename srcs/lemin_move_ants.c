@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:29:30 by sreijola          #+#    #+#             */
-/*   Updated: 2020/10/28 11:13:26 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/28 13:15:15 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 
 #include "../includes/lem_in.h"
 
-void	print_move(int antnb, char *roomname, int first, int j)
+void	print_move(int antnb, char *roomname, int first)
 {
 	if (first == 0)
 		write(1, " ", 1);
-	ft_printf("L%d-%s:%d", antnb, roomname, j);
+	ft_printf("L%d-%s", antnb, roomname);
 }
 
 int		check_routes(t_hill *ah, int ant)
@@ -38,11 +38,17 @@ int		check_routes(t_hill *ah, int ant)
 	i = 0;
 	tmp = 0;
 	nxt_rm = -1;
-		// ft_printf("SOTASORSA\n");
-	while (i < (ah->maze->ver - 1) && ah->maze->array[i].antnb[ant] == 0)
-	{
+	// ft_printf("\n");
+	// for (int j = 0; j < ah->maze->ver; j++)
+	// {
+	// 	for (int k = 0; k < ah->ants; k++)
+	// 		ft_printf("%3d", ah->maze->array[j].antnb[k]);
+	// 	ft_printf("\n");
+	// }
+	// ft_printf("SOTASORSA\n");
+	while (i < (ah->maze->ver - 1) && ah->maze->array[i].antnb[ant] < 1)
 		++i;
-	}
+	// ft_printf("\ni:%d ant:%d\n", i, ant);
 	if (i == 1)
 		return (0);
 	ptr = ah->maze->array;
@@ -50,7 +56,7 @@ int		check_routes(t_hill *ah, int ant)
 	while (node != NULL) // pitää tarkistaa array[i]:hin linkattujen nodejen dd + q ja valita pienin
 	{
 		tmp = node->v;
-		if (ptr[tmp].dd != -1 && (nxt_rm == -1 || ((ptr[tmp].dd + ptr[tmp].q) < \
+		if (ptr[tmp].dd != -1 && ptr[tmp].antnb[ant] != -1 && (nxt_rm == -1 || ((ptr[tmp].dd + ptr[tmp].q) < \
 		(ptr[nxt_rm].dd + ptr[nxt_rm].q))))
 			nxt_rm = tmp;
 		node = node->next;
@@ -58,9 +64,11 @@ int		check_routes(t_hill *ah, int ant)
 	if (nxt_rm == -1)
 		return (-1);
 	ptr[nxt_rm].q++;
-	ptr[i].antnb[i] = 0;
-	if (ptr[nxt_rm].q == 1)
+	ptr[i].antnb[ant] = -1;
+	ptr[i].q = 0;
+	if (ptr[nxt_rm].q == 1 || nxt_rm == 1)
 		return(nxt_rm);
+	ptr[i].antnb[ant] = 1;
 	return (0);
 }
 
@@ -76,21 +84,21 @@ int		route_ants(t_hill *ah)
 	while (finished < ah->ants)//niin kauan kun kaikki ei oo maalissa)
 	{
 		first = 1;
-		a = 0;
+		a = -1;
 		while (++a < ah->ants) //anna liike jokaiselle muurahaiselle
 		{
 			if ((nxt_rm = check_routes(ah, a)) == -1) //palauttaa -1 jos ei reitteja maaliin, 0 jos jää odottamaan
 				return (-1);
 			else if (nxt_rm > 0)
 			{
-				print_move(a + 1, ah->name[nxt_rm], first, nxt_rm);
-				ah->maze->array[nxt_rm].q = 0;
+				print_move(a + 1, ah->name[nxt_rm], first);//, nxt_rm);
 				ah->maze->array[nxt_rm].antnb[a] = 1;
 				first = 0;
 				if (nxt_rm == 1)//jos liike vie endroomin
 					finished++;
 			}
 		}
+		write(1, "\n", 1);
 	}
 	return (0);
 }
