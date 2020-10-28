@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_graph_maze.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:28:46 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/09 10:24:18 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/10/28 10:18:30 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,25 @@
 void	graph_maze(t_hill *ah)
 {
 	int		i;
+	int		a;
 
 	i = -1;
 	ah->maze = ft_graph_new(ah->rooms);
 	while (++i < ah->links)
 		ft_graph_edgeadd(ah->maze, ah->link[i][0], ah->link[i][1], 0);
+	i = -1;
+	while (++i < ah->rooms)
+	{
+		ah->maze->array[i].antnb = (int *)ft_memalloc(sizeof(int) * ah->ants);
+		a = -1;
+		while (i == 0 && ++a < ah->ants)
+			ah->maze->array[i].antnb[a] = 1;
+		while (i != 0 && ++a < ah->ants)
+			ah->maze->array[i].antnb[a] = 0;
+	}
+	ah->maze->array[i].q = 0;
+	fill_distances(ah);
 }
-
-// void	clear_queue(int **queue)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	while (i < ah->rooms)
-// 	{
-// 		*queue[i] = -1;
-// 		i++;
-// 	}
-// }
 
 void	remake_queue(t_hill *ah, int **queue, int only_clear)
 {
@@ -73,7 +74,6 @@ void	remake_queue(t_hill *ah, int **queue, int only_clear)
 
 void	fill_distances(t_hill *ah)
 {
-	// t_alhead	*ptr;
 	int			*q;
 	int			i;
 	int			dis;
@@ -85,17 +85,11 @@ void	fill_distances(t_hill *ah)
 	q[0] = 1;
 	while (++i < ah->rooms)
 		ah->maze->array[i].dd = -1;
-	// ah->maze->array[1].dd = 0;
-	// ptr = maze->array;
 	while (q[0] > -1)
 	{
-		i = 0;
-		// ah->maze->array[i].dd = dis;
-		while (q[i] != -1)
-		{
+		i = -1;
+		while (q[++i] != -1)
 			ah->maze->array[q[i]].dd = dis;
-			i++;
-		}
 		remake_queue(ah, &q, 0);
 		dis++;
 	}

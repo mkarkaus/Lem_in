@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/08 16:36:06 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/10/27 17:34:18 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
 /*
-**
 **						[0]
 **						/  \
 **					 [1]    [2]
@@ -44,19 +43,11 @@
 **			L1-4 L2-1	<--- move ant "1" to room "4" and ant "2" to room "1"
 **			L2-4		<--- move ant "2" to room "4"
 **
-**
-**
 **	- We'll search for all possible routes
 **	- (and arrange them in order based on smallest cost (least moves))
 **	- "linked tree(general tree?)" 
 **	- how many moves away route is from "end"-room
 **	- Ant moves through shortest AVAILABLE route
-**
-**
-**
-**
-**
-**
 **
 */
 
@@ -74,10 +65,11 @@ int		main()
 
 	if (get_data(&ah) == -1)
 		ft_printf("{fd}Invalid input!\n", 2);
-	fill_distances(&ah);
 	// ft_strarr_print(ah.name);
 	// ft_pr_intarr(ah.coor, ah.rooms, 2, 1);
 	ft_graph_print(ah.maze);
+	if (route_ants(&ah) < 0)
+		ft_printf("Error: No valid routes to the end of the maze!\n");
 	free_struct_elements(&ah);
 	return (0);
 }

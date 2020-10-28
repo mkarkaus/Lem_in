@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 12:38:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/08 15:45:09 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/10/27 15:47:04 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct	s_node
 typedef struct	s_alhead
 {
 	int				dd;
+	int				*antnb;
+	int				q;
 	t_node			*head;
 }				t_alhead;
 
@@ -36,6 +38,7 @@ typedef struct	s_graph
 typedef struct	s_hill
 {
 	t_graph		*maze;
+//	int			**been_there;
 	int			ants;
 	int			rooms;
 	char		**name;
@@ -51,6 +54,8 @@ int				get_links(t_list *lst, t_hill *ah);
 int				valid_content(t_hill *ah, t_list *lst);
 void			graph_maze(t_hill *ah);
 void			fill_distances(t_hill *ah);
+int				route_ants(t_hill *ah);
+
 
 void			ft_lstfree(t_list *lst);
 

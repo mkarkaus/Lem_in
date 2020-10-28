@@ -3,16 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+         #
+#    By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2020/10/08 15:25:44 by mkarkaus         ###   ########.fr        #
+#    Updated: 2020/10/27 10:30:19 by sreijola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: all clean fclean re fun lem
+.PHONY: all clean fclean re fun lem vis vfclean vre
 
 NAME = lem-in
+
+VIS = exe
 
 SRCS_C = lemin_main.c \
 	lemin_get_data.c \
@@ -20,6 +22,7 @@ SRCS_C = lemin_main.c \
 	lemin_get_links.c \
 	lemin_validate_input.c \
 	lemin_graph_maze.c \
+	lemin_move_ants.c \
 	ft_lstfree.c \
 	ft_tabarr_free.c \
 	ft_tabint_find.c \
@@ -35,6 +38,15 @@ SRCS_C = lemin_main.c \
 SRCS_PATH = ./srcs/
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_C))
+
+VIS_SRCS_CPP = main.cpp \
+	get_input.cpp \
+	ants.cpp \
+	visualizer.cpp
+
+VIS_SRCS_PATH = ./Visualizer/srcs/
+
+VIS_SRCS = $(addprefix $(VIS_SRCS_PATH), $(VIS_SRCS_CPP))
 
 LIB = libft/libft.a
 
@@ -68,3 +80,19 @@ lem:
 
 lemf:
 	@gcc $(SRCS) $(FLAGS) $(LIB) -o $(NAME)
+
+vis: 
+	@make -C Visualizer
+
+#$(VIS)
+#$(VIS):
+	# @g++ $(VIS_SRCS) -o $(VIS)
+	# @echo "Visulalizer $(VIS) made"
+#	g++ -o exe Visualizer/srcs/main.cpp Visualizer/srcs/get_input.cpp Visualizer/srcs/ants.cpp Visualizer/srcs/class_functions.cpp -lSDL2 -lSDL2_image -lSDL2_ttf
+#	g++ -o exe srcs/main.cpp srcs/get_input.cpp srcs/ants.cpp srcs/class_functions.cpp -lSDL2 -lSDL2_image -lSDL2_ttf
+
+vfclean:
+	@make -C Visualizer fclean
+
+vre:
+	@make -C Visualizer re
