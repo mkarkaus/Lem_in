@@ -42,10 +42,10 @@ void	Visualizer::init(const char *title, int xpos, int ypos, int width, int heig
 			cout << "Renderer created!" << endl;
 		}
 		font = TTF_OpenFont("assets/arial-bold.ttf", 16);
-		isRunning = true;
+		speed > 0;
 	}
 	else
-		isRunning = false;
+		speed = 0;
 	SDL_GetWindowSize(window, &bckR.w, &bckR.h);
 	bckR.x = 0;
 	bckR.y = 0;
@@ -75,13 +75,24 @@ void	Visualizer::init(const char *title, int xpos, int ypos, int width, int heig
 	SDL_FreeSurface(tmpSurface);
 }
 
-void	Visualizer::handleEvents()
+void	Visualizer::handleEvents(vector<Ants *> *antv)
 {
 	SDL_Event		event;
 
-	SDL_PollEvent(&event);
-	if (event.type == SDL_QUIT || (SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
-		isRunning = false;
+	if (SDL_PollEvent(&event) == 1)
+	{
+		if (event.type == SDL_QUIT || (SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
+			speed = 0;
+		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_c)
+		{
+			for (int i = 0; i < (*antv).size(); i++)
+				(*antv)[i]->changeImage(renderer);
+		}
+		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_x)
+			speed += 1;
+		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_z && speed > 1)
+			speed -= 1;
+	}
 }
 
 void	Visualizer::update(t_data *v, vector<Ants *> *antv)
@@ -137,7 +148,7 @@ void	Visualizer::render(t_data *v, vector<Ants *> *antv)
 	}
 	for (int j = 0; j < v->ants; j++)
 	{
-		(*antv)[j]->update(v, roomR.w);
+		(*antv)[j]->update(v, roomR.w, speed);
 		for (int i = 0; i < (*antv).size() && (*antv)[i]->antDone(v->coors[1][0] + ((roomR.w - pipeR.h) / 2), v->coors[1][1] + ((roomR.w - pipeR.h) / 2)); i++)
 			if (i == (*antv).size() - 1)
 				ants_in_end = true;
@@ -176,5 +187,5 @@ void	Visualizer::clean()
 
 bool	Visualizer::running()
 {
-	return isRunning;
+	return (speed > 0);
 }

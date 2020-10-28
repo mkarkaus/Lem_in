@@ -75,7 +75,7 @@ int		main(int argc, char **argv)
 	{
 		frameStart = SDL_GetTicks();
 		
-		vis->handleEvents();
+		vis->handleEvents(&antv);
 		vis->update(&v, &antv);
 		vis->render(&v, &antv);
 

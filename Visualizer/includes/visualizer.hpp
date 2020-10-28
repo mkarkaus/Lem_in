@@ -30,7 +30,7 @@ class	Visualizer {
 
 		void	init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen, \
 						t_data *v, vector<Ants *> antv);
-		void	handleEvents();
+		void	handleEvents(vector<Ants *> *antv);
 		void	update(t_data *v, vector<Ants *> *antv);
 		void	render(t_data *v, vector<Ants *> *antv);
 		void	clean();
@@ -39,7 +39,7 @@ class	Visualizer {
 	private:
 		int				count = 0;
 		bool			ants_in_end = false;
-		bool			isRunning;
+		int				speed = 1;
 		TTF_Font		*font;
 		SDL_Window		*window;
 		SDL_Renderer	*renderer;
