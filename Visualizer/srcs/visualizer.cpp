@@ -81,17 +81,20 @@ void	Visualizer::handleEvents(vector<Ants *> *antv)
 
 	if (SDL_PollEvent(&event) == 1)
 	{
-		if (event.type == SDL_QUIT || (SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
+		if (event.type == SDL_QUIT)
 			speed = 0;
-		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_c)
+		else if (event.type == SDL_KEYDOWN)
 		{
-			for (int i = 0; i < (*antv).size(); i++)
-				(*antv)[i]->changeImage(renderer);
+			if (event.key.keysym.sym == SDLK_ESCAPE)
+				speed = 0;
+			if (event.key.keysym.sym == SDLK_c)
+				for (int i = 0; i < (*antv).size(); i++)
+					(*antv)[i]->changeImage(renderer);
+			if (event.key.keysym.sym == SDLK_x)
+				speed += 1;
+			if (event.key.keysym.sym == SDLK_z && speed > 1)
+				speed -= 1;
 		}
-		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_x)
-			speed += 1;
-		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_z && speed > 1)
-			speed -= 1;
 	}
 }
 
