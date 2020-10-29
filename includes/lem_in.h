@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 12:38:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/27 15:47:04 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/29 10:33:13 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void			init_struct(t_hill *ah);
 void			get_rooms(t_hill *ah, t_list *lst);
 int				get_links(t_list *lst, t_hill *ah);
 int				valid_content(t_hill *ah, t_list *lst);
-void			graph_maze(t_hill *ah);
+int				graph_maze(t_hill *ah);
 void			fill_distances(t_hill *ah);
 int				route_ants(t_hill *ah);
 

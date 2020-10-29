@@ -6,11 +6,11 @@
 #    By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2020/10/28 12:15:04 by sreijola         ###   ########.fr        #
+#    Updated: 2020/10/28 20:38:46 by sreijola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: all clean fclean re fun lem vis vfclean vre
+.PHONY: all clean fclean re fun lem vis vfclean vre ltest
 
 NAME = lem-in
 
@@ -102,3 +102,6 @@ vfclean:
 
 vre:
 	@make -C Visualizer re
+
+ltest:
+	./maps/lemin_error.sh 

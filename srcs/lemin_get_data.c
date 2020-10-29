@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_get_data.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 12:42:03 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/28 13:57:46 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/10/29 13:04:56 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,48 @@ void	init_struct(t_hill *ah)
 	ah->links = 0;
 }
 
-int		input_to_list(t_list **head, t_hill *ah)
+int		input_to_data(t_list **input, t_list **data, t_hill *ah)
+{
+	char	*tmp;
+	t_list	*add;
+	t_list	*it;
+
+	it = *input;
+	ah->ants = ft_atoi(it->content);
+	if (!ft_onlydigits(it->content) || ah->ants == 0)
+		return (-1);
+	it = it->next;
+	while (it && (tmp = it->content) && ((tmp[0] == '#' && tmp[1] == '#'\
+			&& !(ft_strequ("##start", tmp) || ft_strequ("##end", tmp)))\
+			|| (tmp[0] == '#' && tmp[1] != '#')))
+		it = it->next;
+	add = ft_lstnew(it->content, it->content_size);
+	*data = add;
+	while ((it = it->next) && it != NULL)
+		if ((tmp = it->content) && !(tmp[0] == '#' && tmp[1] != '#') \
+			&& !(tmp[0] == '#' && tmp[1] == '#' \
+			&& !(ft_strequ("##start", tmp) || ft_strequ("##end", tmp))))
+		{
+			add->next = ft_lstnew(it->content, it->content_size);
+			add = add->next;
+		}
+	return (0);
+}
+
+int		save_input(t_list **head)
 {
 	t_list	*data;
 	t_list	*app;
 	char	*temp;
-	int		ret;
 
 	get_next_line(0, &temp, 0);
-	ah->ants = ft_atoi(temp);
-	if (!ft_onlydigits(temp) || ah->ants == 0)
-		return (-1);
+	*head = ft_lstnew(temp, ft_strlen(temp) + 1);
+	data = *head;
 	free(temp);
-	while (get_next_line(0, &temp, 0) && temp[0] == '#' && temp[1] != '#')
-		free(temp);
-	data = ft_lstnew(temp, ft_strlen(temp) + 1);
-	*head = data;
-	free(temp);
-	while ((ret = get_next_line(0, &temp, 0)) > 0)
+	while ((get_next_line(0, &temp, 0)) > 0)
 	{
-		if (!(temp[0] == '#' && temp[1] != '#'))
-		{
-			app = ft_lstnew(temp, ft_strlen(temp) + 1);
-			data->next = app;
-			data = data->next;
-		}
+		data->next = ft_lstnew(temp, ft_strlen(temp) + 1);
+		data = data->next;
 		ft_strdel(&temp);
 	}
 	return (0);
@@ -52,22 +69,21 @@ int		input_to_list(t_list **head, t_hill *ah)
 int		get_data(t_hill *ah)
 {
 	t_list	*input;
+	t_list	*data;
 
 	input = NULL;
 	init_struct(ah);
-	if (input_to_list(&input, ah) == -1 || valid_content(ah, input) == -1)
+	save_input(&input);
+	if (input_to_data(&input, &data, ah) == -1 || valid_content(ah, data) == -1)
 		return (-1);
-	// ft_printf("a:[%d]r:[%d]l:[%d]\n", ah->ants, ah->rooms, ah->links); //tää heiluu hulluja
-	get_rooms(ah, input);
-	if (get_links(input, ah) == -1)
-		return (-1);
-	ft_printf("%d\n", ah->ants);
+	get_rooms(ah, data);
+	if (get_links(data, ah) == -1)
+		return (-2);
+	if (graph_maze(ah) == -1)
+		return (-3);
 	ft_lstprint(input);
 	write(1, "\n", 1);
-	// ft_strarr_print(ah->name);
-	// ft_pr_intarr(ah->link, ah->links, 2, 1);
+	ft_lstfree(data);
 	ft_lstfree(input);
-	graph_maze(ah);
-	// ft_graph_print(ah->maze);
 	return (0);
 }

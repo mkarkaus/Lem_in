@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_graph_free.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 19:08:33 by sreijola          #+#    #+#             */
-/*   Updated: 2020/10/26 10:06:38 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/10/28 16:14:01 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_graph_free(t_graph *graph)
 {
 	t_node	*tmp;
 
-	while (--graph->ver >= 0) //(vai tässä --graph->ver)
+	while (--graph->ver >= 0)
 	{
 		while (graph->array[graph->ver].head)
 		{

@@ -6,13 +6,13 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:28:46 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/28 10:52:19 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/29 10:37:46 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-void	graph_maze(t_hill *ah)
+int		graph_maze(t_hill *ah)
 {
 	int		i;
 	int		a;
@@ -33,6 +33,10 @@ void	graph_maze(t_hill *ah)
 		ah->maze->array[i].q = 0;
 	}
 	fill_distances(ah);
+	i = -1;
+	if (ah->maze->array[0].dd == -1)
+		return (-1);
+	return (0);
 }
 
 void	remake_queue(t_hill *ah, int **queue, int only_clear)

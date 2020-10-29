@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/28 13:31:00 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/10/29 10:54:52 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,25 +51,53 @@
 **
 */
 
+void	free_antnb(t_graph *graph)
+{
+	int		i;
+
+	i = -1;
+	while (++i < graph->ver)
+		free(graph->array[i].antnb);
+}
+
 void	free_struct_elements(t_hill *ah) //lista pitää vapauttaa get_datassa
 {
-	ft_strarr_free(ah->name);
-	ft_tabarr_free(ah->coor, ah->rooms);
-	ft_tabarr_free(ah->link, ah->links);
-	ft_graph_free(ah->maze);
+	if (ah->name[0] != NULL)
+		ft_strarr_free(ah->name);
+	if (ah->rooms > 0)
+		ft_tabarr_free(ah->coor, ah->rooms);
+	if (ah->links > 0)
+		ft_tabarr_free(ah->link, ah->links);
+	if (ah->maze->array != NULL)
+	{
+		free_antnb(ah->maze);
+		ft_graph_free(ah->maze);
+	}	
+}
+
+int		handle_errors(int error)
+{
+	if (error == -1)
+		ft_printf("{fd}ERROR: Invalid input!\n", 2);
+	else if (error == -2)
+		ft_printf("{fd}ERROR: No links or invalid link!\n", 2);
+	else if (error == -3)
+		ft_printf("{fd}ERROR: No valid routes to the end of the maze!\n", 2);
+	//free_struct_elements(&ah);
+	return (error);
 }
 
 int		main()
 {
 	t_hill	ah;
+	int ret;
 
-	if (get_data(&ah) == -1)
-		ft_printf("{fd}Invalid input!\n", 2);
+	if ((ret = get_data(&ah)) < 0)
+		return (handle_errors(ret));
 	// ft_strarr_print(ah.name);
 	// ft_pr_intarr(ah.coor, ah.rooms, 2, 1);
 	// ft_graph_print(ah.maze);
-	if (route_ants(&ah) < 0)
-		ft_printf("Error: No valid routes to the end of the maze!\n");
+	route_ants(&ah); //remove error returns
 	free_struct_elements(&ah);
 	return (0);
 }

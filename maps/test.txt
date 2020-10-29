@@ -1,0 +1,11 @@
+3
+##start
+Ankkuri 1 0
+##end
+Banaani 5 0
+Cello 9 0
+Dodokarhu 13 0
+Sotasorsa 2 1
+Ankkuri-Cello
+Cello-Dodokarhu
+Dodokarhu-Banaani
