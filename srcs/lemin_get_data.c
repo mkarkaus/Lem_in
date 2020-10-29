@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 12:42:03 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/29 13:04:56 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/29 15:13:27 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int		input_to_data(t_list **input, t_list **data, t_hill *ah)
 int		save_input(t_list **head)
 {
 	t_list	*data;
-	t_list	*app;
 	char	*temp;
 
 	get_next_line(0, &temp, 0);
