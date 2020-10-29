@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 16:01:49 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/06 16:04:08 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/10/29 15:32:33 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int		convert_link(char *str, t_hill *ah, int k)
 	while (ah->name[i] != NULL && ft_strequ(ah->name[i], str + j + 1) == 0)
 		i++;
 	ah->link[k][1] = i;
+	// ft_strarr_print(ah->name);
+	// ft_printf("!!! [%s] !!!", str);
 	if (ah->name[i] == NULL)
 		return (-1);
 	return (0);

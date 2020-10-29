@@ -37,8 +37,8 @@ void	Ants::update(t_data *v, int dim, int speed)
 	}
 	else
 	{
-		antR.x += (dir[0] * speed);
-		antR.y += (dir[1] * speed);
+		antR.x += (dir[0] * (double)speed);
+		antR.y += (dir[1] * (double)speed);
 	}
 }
 

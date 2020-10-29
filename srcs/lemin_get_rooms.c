@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_get_rooms.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:59:14 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/07 11:28:39 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/29 15:57:46 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@ void	save_room_info(t_hill *ah, t_list **lst, int i)
 void	get_rooms(t_hill *ah, t_list *lst)
 {
 	int		i;
+	int		j;
 
+	j = -1;
 	i = 2;
 	ah->name = (char **)ft_memalloc((ah->rooms + 1) * sizeof(char *));
 	ah->coor = (int **)ft_memalloc((ah->rooms) * sizeof(int *));
-	while (i < ah->rooms)
+	while (++j < ah->rooms)
 	{
 		if (ft_strequ(lst->content, "##start"))
 			save_room_info(ah, &lst, 0);
