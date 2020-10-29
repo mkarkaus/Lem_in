@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 12:42:03 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/29 15:13:27 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/29 16:32:33 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int		save_input(t_list **head)
 	t_list	*data;
 	char	*temp;
 
-	get_next_line(0, &temp, 0);
+	if (get_next_line(0, &temp, 0) < 1)
+		return (-1);
 	*head = ft_lstnew(temp, ft_strlen(temp) + 1);
 	data = *head;
 	free(temp);
@@ -72,7 +73,8 @@ int		get_data(t_hill *ah)
 
 	input = NULL;
 	init_struct(ah);
-	save_input(&input);
+	if (save_input(&input) == -1)
+		return (-4);
 	if (input_to_data(&input, &data, ah) == -1 || valid_content(ah, data) == -1)
 		return (-1);
 	get_rooms(ah, data);
