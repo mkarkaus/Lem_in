@@ -19,14 +19,15 @@ class	Ants {
 		void		clean();
 
 		bool		antDone(double end_x, double end_y);
+		bool		character() { return (isDog); };
 		bool		moving() { return (isMoving); };
 
 	private:
 		SDL_Texture	*antTex;
 		SDL_Rect	antR;
-		int			isDog = 0;
-		double		dir[2] = {0, 0};
-		double		des[2] = {0, 0};
+		int			isDog;
+		double		dir[2];
+		double		des[2];
 		bool		isMoving;
 };
 

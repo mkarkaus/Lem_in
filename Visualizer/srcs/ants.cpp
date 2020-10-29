@@ -7,9 +7,15 @@ void	Ants::init(SDL_Renderer *renderer, int dim)
 	SDL_Surface		*tmpSurface;
 
 	tmpSurface = IMG_Load("assets/ant.png");
+	isDog = 0;
 	antTex = SDL_CreateTextureFromSurface(renderer, tmpSurface);
 	antR.w = dim;
 	antR.h = dim;
+	for (int i = 0; i < 2; i++)
+	{
+		dir[i] = 0;
+		des[i] = 0;
+	}
 	antR.x = 0;
 	antR.y = 0;
 	isMoving = false;

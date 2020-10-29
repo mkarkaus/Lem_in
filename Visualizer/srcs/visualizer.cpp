@@ -42,7 +42,6 @@ void	Visualizer::init(const char *title, int xpos, int ypos, int width, int heig
 			cout << "Renderer created!" << endl;
 		}
 		font = TTF_OpenFont("assets/arial-bold.ttf", 16);
-		speed > 0;
 	}
 	else
 		speed = 0;
@@ -75,7 +74,7 @@ void	Visualizer::init(const char *title, int xpos, int ypos, int width, int heig
 	SDL_FreeSurface(tmpSurface);
 }
 
-void	Visualizer::handleEvents(vector<Ants *> *antv)
+void	Visualizer::handleEvents(t_data *v, vector<Ants *> *antv)
 {
 	SDL_Event		event;
 
@@ -94,6 +93,12 @@ void	Visualizer::handleEvents(vector<Ants *> *antv)
 				speed += 1;
 			if (event.key.keysym.sym == SDLK_z && speed > 1)
 				speed -= 1;
+			if (event.key.keysym.sym == SDLK_r)
+				restart(v, antv);
+			if (event.key.keysym.sym == SDLK_SPACE)
+				while (SDL_WaitEvent(&event))
+					if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE)
+						break;
 		}
 	}
 }
@@ -104,6 +109,52 @@ void	Visualizer::update(t_data *v, vector<Ants *> *antv)
 	cout << count << endl;
 }
 
+void	Visualizer::restart(t_data *v, vector<Ants *> *antv)
+{
+	int		temp;
+
+	v->moves = v->bckMoves;
+	temp = (*antv)[0]->character();
+	for (int i = 0; i < (*antv).size(); i++)
+		(*antv)[i]->init(renderer, pipeR.h);
+	for (int i = 0; temp == 1 && i < (*antv).size(); i++)
+		(*antv)[i]->changeImage(renderer);
+	ants_in_end = false;
+}
+
+void	Visualizer::drawLegend(SDL_Renderer *renderer, int dim)
+{
+	SDL_Surface	*textSurface;
+
+	textR.x = roomR.w / 4;
+	textR.y = roomR.w / 4;
+	TTF_SizeText(font, "Accelerate: [ X ]", &textR.w, &textR.h);
+	textSurface = TTF_RenderText_Solid(font, "Accelerate: [ X ]", {0, 0, 0});
+	textTex = SDL_CreateTextureFromSurface(renderer, textSurface);
+	SDL_RenderCopy(renderer, textTex, NULL, &textR);
+	textR.y += textR.h;
+	TTF_SizeText(font, "Decelerate: [ Z ]", &textR.w, &textR.h);
+	textSurface = TTF_RenderText_Solid(font, "Decelerate: [ Z ]", {0, 0, 0});
+	textTex = SDL_CreateTextureFromSurface(renderer, textSurface);
+	SDL_RenderCopy(renderer, textTex, NULL, &textR);
+	textR.y += textR.h;
+	TTF_SizeText(font, "Switch characters: [ C ]", &textR.w, &textR.h);
+	textSurface = TTF_RenderText_Solid(font, "Switch characters: [ C ]", {0, 0, 0});
+	textTex = SDL_CreateTextureFromSurface(renderer, textSurface);
+	SDL_RenderCopy(renderer, textTex, NULL, &textR);
+	textR.y += textR.h;
+	TTF_SizeText(font, "Restart: [ R ]", &textR.w, &textR.h);
+	textSurface = TTF_RenderText_Solid(font, "Restart: [ R ]", {0, 0, 0});
+	textTex = SDL_CreateTextureFromSurface(renderer, textSurface);
+	SDL_RenderCopy(renderer, textTex, NULL, &textR);
+	textR.y += textR.h;
+	TTF_SizeText(font, "Pause: [ Space ]", &textR.w, &textR.h);
+	textSurface = TTF_RenderText_Solid(font, "Pause: [ Space ]", {0, 0, 0});
+	textTex = SDL_CreateTextureFromSurface(renderer, textSurface);
+	SDL_RenderCopy(renderer, textTex, NULL, &textR);
+	SDL_FreeSurface(textSurface);
+}
+
 void	Visualizer::render(t_data *v, vector<Ants *> *antv)
 {
 	SDL_Surface	*textSurface;
@@ -111,6 +162,7 @@ void	Visualizer::render(t_data *v, vector<Ants *> *antv)
 
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, bckTex, NULL, &bckR);
+	drawLegend(renderer, roomR.w);
 	for (int j = 0; j < v->links.size(); j++)
 	{
 		SDL_Point	center = {0, pipeR.h / 2};

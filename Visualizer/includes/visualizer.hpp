@@ -18,6 +18,7 @@ typedef struct	s_data
 	vector<vector<double>>	coors;
 	vector<string>			names;
 	vector<string>			moves;
+	vector<string>			bckMoves;
 	int						ants;
 }				t_data;
 
@@ -30,8 +31,10 @@ class	Visualizer {
 
 		void	init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen, \
 						t_data *v, vector<Ants *> antv);
-		void	handleEvents(vector<Ants *> *antv);
+		void	handleEvents(t_data *v, vector<Ants *> *antv);
 		void	update(t_data *v, vector<Ants *> *antv);
+		void	restart(t_data *v, vector<Ants *> *antv);
+		void	drawLegend(SDL_Renderer *renderer, int dim);
 		void	render(t_data *v, vector<Ants *> *antv);
 		void	clean();
 		bool	running();

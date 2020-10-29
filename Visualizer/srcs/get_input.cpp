@@ -98,19 +98,5 @@ void	get_input(t_data *v)
 			temp_int.clear();
 		}
 	}
-
-	// for (int j = 0; j < v->moves.size(); j++)
-	// 	cout << v->moves[j] << endl;
-	// while (1);
-	// for (int j = 0; j < v->links.size(); j++)
-	// {
-	// 	cout << v->links[j][0] << ' ';
-	// 	cout << v->links[j][1] << endl;
-	// }
-
-	// for (int j = 0; j < v->coors.size(); j++)
-	// {
-	// 	cout << v->coors[j][0] << ' ';
-	// 	cout << v->coors[j][1] << endl;
-	// }
+	v->bckMoves = v->moves;
 }
