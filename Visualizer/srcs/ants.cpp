@@ -37,8 +37,8 @@ void	Ants::update(t_data *v, int dim, int speed)
 	}
 	else
 	{
-		antR.x += (dir[0] * (double)speed);
-		antR.y += (dir[1] * (double)speed);
+		antR.x += (dir[0] * speed);
+		antR.y += (dir[1] * speed);
 	}
 }
 
@@ -49,10 +49,24 @@ void	Ants::render(SDL_Renderer *renderer)
 
 void	Ants::getDesDir(double x, double y, int dim)
 {
+	double		smallest;
+	int			temp;
+
+	temp = 1;
 	des[0] = x + ((dim - antR.w) / 2);
 	des[1] = y + ((dim - antR.w) / 2);
-	dir[0] = (des[0] - antR.x) / 100;
-	dir[1] = (des[1] - antR.y) / 100;
+	smallest = abs(des[0] - antR.x);
+	if (abs(des[1] - antR.y) != 0 && (abs(des[0] - antR.x) > abs(des[1] - antR.y) || smallest == 0))
+		smallest = abs(des[1] - antR.y);
+
+	dir[0] = (des[0] - antR.x) / smallest;// /10
+	dir[1] = (des[1] - antR.y) / smallest;// /10
+
+	// if (dir[0] == 0)
+	// 	dir[1] *= ((des[1] - antR.y) / (double)dim / (double)2);
+	// if (dir[1] == 0)
+	// 	dir[0] *= ((des[0] - antR.x) / (double)dim / (double)2);
+
 	isMoving = true;
 }
 
