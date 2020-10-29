@@ -53,10 +53,10 @@ echo "*Valid A3:"
 ./lem-in < maps/a_subject3.map
 echo " "
 echo "*Map with comments:"
-./lem-in < maps/v_ekstra.map
+./lem-in < maps/v_extra.map
 echo " "
 echo "*Map with comments and extra commands:"
-./lem-in < maps/v_with_cmds_and_cmnts.map #ei hyväksy
+./lem-in < maps/v_with_cmds_and_cmnts.map
 echo " "
 echo "*Map with comments:"
 ./lem-in < maps/v_with_comments.map
