@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_graph_maze.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:28:46 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/29 10:37:46 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/30 16:23:45 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,16 @@ int		graph_maze(t_hill *ah)
 		return (-1);
 	return (0);
 }
+
+/*
+**	Function(graph, room where we came from) which traverses vertices until start room comes across or all the linked rooms
+**	are already in "been-in" queue (which means we have reached deadend which doesn't have route to start without going back to
+**	"room where we came from").
+**
+**	If it turns out that it's deadend, then we iterate through the "been-in" list and set their 'dd' to -2.
+**
+**	Remember to change all conditions using (dd != -1) to (dd >= 0)
+*/
 
 void	remake_queue(t_hill *ah, int **queue, int only_clear)
 {

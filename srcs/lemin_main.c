@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/30 12:30:25 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/10/30 15:23:16 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ int		main()
 		return (handle_errors(ret));
 	// ft_strarr_print(ah.name);
 	// ft_pr_intarr(ah.coor, ah.rooms, 2, 1);
-	// ft_graph_print(ah.maze);
-	if ((ret = route_ants(&ah)) < 0); //remove error returns
+	ft_graph_print(ah.maze);
+	if ((ret = route_ants(&ah)) < 0) //remove error returns
 		return (handle_errors(ret));
 	free_struct_elements(&ah);
 	return (0);

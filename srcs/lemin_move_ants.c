@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:29:30 by sreijola          #+#    #+#             */
-/*   Updated: 2020/10/30 12:28:42 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/10/30 16:25:12 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		check_routes(t_hill *ah, int ant)
 	// 	ft_printf("\n");
 	// }
 	// ft_printf("SOTASORSA\n");
-	while (i < (ah->maze->ver - 1) && ah->maze->array[i].antnb[ant] < 1)
+	while (i < (ah->maze->ver - 1) && ah->maze->array[i].antnb[ant] < 1)// Is that '-1' reeeally necessary?
 		++i;
 	// ft_printf("\ni:%d ant:%d\n", i, ant);
 	if (i == 1)
@@ -56,10 +56,14 @@ int		check_routes(t_hill *ah, int ant)
 	while (node != NULL) // pitää tarkistaa array[i]:hin linkattujen nodejen dd + q ja valita pienin
 	{
 		tmp = node->v;
+		// ft_printf("\n[!!   tmp.dd:%d   nxt_rm.dd:%d   nxt_rm:%d   tmp:%d   temp.antnb[ant]:%d    !!]\n", ptr[tmp].dd, ptr[nxt_rm].dd, nxt_rm, tmp, ptr[tmp].antnb[ant]);
+		// ft_printf("\ntmp.dd:[%d]     tmp.q:[%d]\n", ptr[tmp].dd,  ptr[tmp].q);
+		// ft_printf("\nnxt_rm:[%d]     tmp:[%d]\n", nxt_rm, tmp);
 		if (ptr[tmp].dd != -1 && ptr[tmp].antnb[ant] != -1 && \
 			(nxt_rm == -1 || ((ptr[tmp].dd + ptr[tmp].q) < (ptr[nxt_rm].dd + ptr[nxt_rm].q)) || \
 			(((ptr[tmp].dd + ptr[tmp].q) == (ptr[nxt_rm].dd + ptr[nxt_rm].q)) && ptr[tmp].q < ptr[nxt_rm].q)))
 			nxt_rm = tmp;
+		// ft_printf("\nnxt_rm:[%d]\n", node->v);
 		node = node->next;
 	}
 	if (nxt_rm == -1)
@@ -90,10 +94,7 @@ int		route_ants(t_hill *ah)
 		while (++a < ah->ants) //anna liike jokaiselle muurahaiselle
 		{
 			if ((nxt_rm = check_routes(ah, a)) == -1) //palauttaa -1 jos ei reitteja maaliin, 0 jos jää odottamaan
-			{
-				ft_printf("APUAKÄVILAPSUS");
 				return (-5);
-			}
 			else if (nxt_rm > 0)
 			{
 				print_move(a + 1, ah->name[nxt_rm], first);//, nxt_rm);
