@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/30 12:45:56 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/30 13:15:45 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,11 @@
 **
 */
 
-void	free_antnb(t_graph *graph)
+void	free_struct_elements(t_hill *ah) //lista pitää vapauttaa get_datassa
 {
 	int		i;
 
 	i = -1;
-	while (++i < graph->ver)
-		free(graph->array[i].antnb);
-}
-
-void	free_struct_elements(t_hill *ah) //lista pitää vapauttaa get_datassa
-{
 	if (ah->name[0] != NULL)
 		ft_strarr_free(ah->name);
 	if (ah->rooms > 0)
@@ -70,7 +64,8 @@ void	free_struct_elements(t_hill *ah) //lista pitää vapauttaa get_datassa
 		ft_tabarr_free(ah->link, ah->links);
 	if (ah->maze->array != NULL)
 	{
-		free_antnb(ah->maze);
+		while (++i < graph->ver)
+			free(graph->array[i].antnb);
 		ft_graph_free(ah->maze);
 	}	
 }
