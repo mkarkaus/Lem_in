@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/10/30 15:23:16 by mkarkaus         ###   ########.fr       */
+=======
+/*   Updated: 2020/10/30 13:15:45 by sreijola         ###   ########.fr       */
+>>>>>>> 654bb4ee6881e0dfd18206255cf6aff7f298b2f0
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +55,11 @@
 **
 */
 
-void	free_antnb(t_graph *graph)
+void	free_struct_elements(t_hill *ah) //lista pitää vapauttaa get_datassa
 {
 	int		i;
 
 	i = -1;
-	while (++i < graph->ver)
-		free(graph->array[i].antnb);
-}
-
-void	free_struct_elements(t_hill *ah) //lista pitää vapauttaa get_datassa
-{
 	if (ah->name[0] != NULL)
 		ft_strarr_free(ah->name);
 	if (ah->rooms > 0)
@@ -70,7 +68,8 @@ void	free_struct_elements(t_hill *ah) //lista pitää vapauttaa get_datassa
 		ft_tabarr_free(ah->link, ah->links);
 	if (ah->maze->array != NULL)
 	{
-		free_antnb(ah->maze);
+		while (++i < graph->ver)
+			free(graph->array[i].antnb);
 		ft_graph_free(ah->maze);
 	}	
 }
@@ -94,15 +93,20 @@ int		handle_errors(int error)
 int		main()
 {
 	t_hill	ah;
+	t_list	*input;
 	int 	ret;
 
-	if ((ret = get_data(&ah)) < 0)
+	input = NULL;
+	if ((ret = get_data(&ah, &input)) < 0)
 		return (handle_errors(ret));
 	// ft_strarr_print(ah.name);
 	// ft_pr_intarr(ah.coor, ah.rooms, 2, 1);
-	ft_graph_print(ah.maze);
+	// ft_graph_print(ah.maze);
+	ft_lstprint(input);
+	write(1, "\n", 1);
 	if ((ret = route_ants(&ah)) < 0) //remove error returns
 		return (handle_errors(ret));
+	ft_lstfree(input);
 	free_struct_elements(&ah);
 	return (0);
 }

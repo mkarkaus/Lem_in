@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 12:38:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/29 10:33:13 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/30 12:42:31 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct	s_hill
 	int			**link;
 }				t_hill;
 
-int				get_data(t_hill *ah);
+int				get_data(t_hill *ah, t_list **input);
 void			init_struct(t_hill *ah);
 void			get_rooms(t_hill *ah, t_list *lst);
 int				get_links(t_list *lst, t_hill *ah);
