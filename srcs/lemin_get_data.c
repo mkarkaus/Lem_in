@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 12:42:03 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/29 16:32:33 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/30 11:48:54 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		input_to_data(t_list **input, t_list **data, t_hill *ah)
 
 	it = *input;
 	ah->ants = ft_atoi(it->content);
-	if (!ft_onlydigits(it->content) || ah->ants == 0)
+	if (!ft_onlydigits(it->content) || ah->ants < 1)
 		return (-1);
 	it = it->next;
 	while (it && (tmp = it->content) && ((tmp[0] == '#' && tmp[1] == '#'\
