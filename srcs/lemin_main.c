@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/29 10:54:52 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/10/29 16:37:48 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int		handle_errors(int error)
 		ft_printf("{fd}ERROR: No links or invalid link!\n", 2);
 	else if (error == -3)
 		ft_printf("{fd}ERROR: No valid routes to the end of the maze!\n", 2);
+	else if (error == -4)
+		ft_printf("{fd}ERROR: Empty map!\n", 2);
 	//free_struct_elements(&ah);
 	return (error);
 }
