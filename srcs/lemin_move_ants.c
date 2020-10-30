@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:29:30 by sreijola          #+#    #+#             */
-/*   Updated: 2020/10/28 13:41:35 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/10/30 12:28:42 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,10 @@ int		route_ants(t_hill *ah)
 		while (++a < ah->ants) //anna liike jokaiselle muurahaiselle
 		{
 			if ((nxt_rm = check_routes(ah, a)) == -1) //palauttaa -1 jos ei reitteja maaliin, 0 jos jää odottamaan
-				return (-1);
+			{
+				ft_printf("APUAKÄVILAPSUS");
+				return (-5);
+			}
 			else if (nxt_rm > 0)
 			{
 				print_move(a + 1, ah->name[nxt_rm], first);//, nxt_rm);
