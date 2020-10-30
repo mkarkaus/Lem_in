@@ -59,14 +59,13 @@ void	Ants::getDesDir(double x, double y, int dim)
 	if (abs(des[1] - antR.y) != 0 && (abs(des[0] - antR.x) > abs(des[1] - antR.y) || smallest == 0))
 		smallest = abs(des[1] - antR.y);
 
-	dir[0] = (des[0] - antR.x) / smallest;// /10
-	dir[1] = (des[1] - antR.y) / smallest;// /10
+	dir[0] = (des[0] - antR.x) / smallest;
+	dir[1] = (des[1] - antR.y) / smallest;
 
-	// if (dir[0] == 0)
-	// 	dir[1] *= ((des[1] - antR.y) / (double)dim / (double)2);
-	// if (dir[1] == 0)
-	// 	dir[0] *= ((des[0] - antR.x) / (double)dim / (double)2);
-
+	if (dir[0] == 0)
+		dir[1] *= (abs(des[1] - antR.y) / dim / 2);
+	if (dir[1] == 0)
+		dir[0] *= (abs(des[0] - antR.x) / dim / 2);
 	isMoving = true;
 }
 
