@@ -6,7 +6,7 @@
 #    By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2020/10/28 20:38:46 by sreijola         ###   ########.fr        #
+#    Updated: 2020/10/30 19:39:27 by sreijola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,5 +103,8 @@ vfclean:
 vre:
 	@make -C Visualizer re
 
-ltest:
+etest:
 	./maps/lemin_error.sh 
+
+vtest:
+	./maps/lemin_valid.sh 

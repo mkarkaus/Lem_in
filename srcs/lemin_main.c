@@ -6,11 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/10/30 15:23:16 by mkarkaus         ###   ########.fr       */
-=======
-/*   Updated: 2020/10/30 13:15:45 by sreijola         ###   ########.fr       */
->>>>>>> 654bb4ee6881e0dfd18206255cf6aff7f298b2f0
+/*   Updated: 2020/10/30 13:38:48 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +64,8 @@ void	free_struct_elements(t_hill *ah) //lista pitää vapauttaa get_datassa
 		ft_tabarr_free(ah->link, ah->links);
 	if (ah->maze->array != NULL)
 	{
-		while (++i < graph->ver)
-			free(graph->array[i].antnb);
+		while (++i < ah->maze->ver)
+			free(ah->maze->array[i].antnb);
 		ft_graph_free(ah->maze);
 	}	
 }
