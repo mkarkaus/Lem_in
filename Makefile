@@ -6,7 +6,7 @@
 #    By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2020/10/30 19:39:27 by sreijola         ###   ########.fr        #
+#    Updated: 2020/11/02 14:19:23 by sreijola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS_C = lemin_main.c \
 	lemin_graph_maze.c \
 	lemin_move_ants.c \
 	ft_lstfree.c \
+	ft_tabnequ.c \
 	ft_tabarr_free.c \
 	ft_tabint_find.c \
 	ft_strarr_size.c \

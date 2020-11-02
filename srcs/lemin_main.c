@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/30 13:38:48 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/11/02 19:00:37 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int		handle_errors(int error)
 		ft_printf("{fd}ERROR: Empty map!\n", 2);
 	else if (error == -5)
 		ft_printf("{fd}ERROR: Routing error!\n", 2);
+	else if (error == -6)
+		ft_printf("{fd}ERROR: Rooms are invalid!\n", 2);
 	//free_struct_elements(&ah);
 	return (error);
 }

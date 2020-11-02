@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_get_rooms.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:59:14 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/29 15:57:46 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/11/02 19:16:50 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,27 @@ void	save_room_info(t_hill *ah, t_list **lst, int i)
 	ft_strarr_free(temp);
 }
 
-void	get_rooms(t_hill *ah, t_list *lst)
+int		check_doubles(t_hill *ah)
+{
+	int 	i;
+	int		j;
+	
+	i = -1;
+	while (++i < ah->rooms)
+	{
+		j = i;
+		while (++j < ah->rooms)
+		{	
+			if (ft_strequ(ah->name[i], ah->name[j])
+			|| ft_tabnequ(ah->coor[i], ah->coor[j], 2))
+				return (1);
+		}
+	}
+	return (0);
+}
+
+
+int		get_rooms(t_hill *ah, t_list *lst)
 {
 	int		i;
 	int		j;
@@ -41,9 +61,12 @@ void	get_rooms(t_hill *ah, t_list *lst)
 			save_room_info(ah, &lst, 0);
 		else if (ft_strequ(lst->content, "##end"))
 			save_room_info(ah, &lst, 1);
-		else
+		else //if (check_unique(ah->name, ))
 			save_room_info(ah, &lst, i++);
 		lst = lst->next;
 	}
 	ah->name[ah->rooms] = NULL;
+	if (check_doubles(ah))
+		return (-1);
+	return (0);
 }
