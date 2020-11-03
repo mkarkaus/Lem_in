@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:29:30 by sreijola          #+#    #+#             */
-/*   Updated: 2020/10/30 16:25:12 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/11/03 15:19:10 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		check_routes(t_hill *ah, int ant)
 		// ft_printf("\n[!!   tmp.dd:%d   nxt_rm.dd:%d   nxt_rm:%d   tmp:%d   temp.antnb[ant]:%d    !!]\n", ptr[tmp].dd, ptr[nxt_rm].dd, nxt_rm, tmp, ptr[tmp].antnb[ant]);
 		// ft_printf("\ntmp.dd:[%d]     tmp.q:[%d]\n", ptr[tmp].dd,  ptr[tmp].q);
 		// ft_printf("\nnxt_rm:[%d]     tmp:[%d]\n", nxt_rm, tmp);
-		if (ptr[tmp].dd != -1 && ptr[tmp].antnb[ant] != -1 && \
+		if (ptr[tmp].dd > -1 && ptr[tmp].antnb[ant] != -1 && \
 			(nxt_rm == -1 || ((ptr[tmp].dd + ptr[tmp].q) < (ptr[nxt_rm].dd + ptr[nxt_rm].q)) || \
 			(((ptr[tmp].dd + ptr[tmp].q) == (ptr[nxt_rm].dd + ptr[nxt_rm].q)) && ptr[tmp].q < ptr[nxt_rm].q)))
 			nxt_rm = tmp;
