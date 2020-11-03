@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:59:14 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/11/02 19:16:50 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/11/02 20:16:04 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		get_rooms(t_hill *ah, t_list *lst)
 			save_room_info(ah, &lst, 0);
 		else if (ft_strequ(lst->content, "##end"))
 			save_room_info(ah, &lst, 1);
-		else //if (check_unique(ah->name, ))
+		else
 			save_room_info(ah, &lst, i++);
 		lst = lst->next;
 	}
