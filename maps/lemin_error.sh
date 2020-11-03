@@ -60,6 +60,18 @@ echo " "
 echo "?. Too many co-ors:" #should not print the contents of farm?
 ./lem-in < maps/e_too_many_coors.map
 echo " "
+echo "?. Start is same as end:" #should not print the contents of farm? Special case
+./lem-in < maps/e_start_is_end.map
+echo " "
+echo "?. Giving same coors to two separate rooms:" #should not print the contents of farm? FINE
+./lem-in < maps/p_giving_same_coor.map
+echo " "
+echo "?. Same name, different co-ors:" #should not print the contents of farm? //ERROR
+./lem-in < maps/p_same_room_diff_coors.map
+echo " "
+echo "?. Listing the same room and co-ors twice:" #should not print the contents of farm? FINE
+./lem-in < maps/p_listing_same_rm_twice.map
+echo " "
 
 # negatiiviset coordinaatit
 # seg fault if max int of ants NOT OK

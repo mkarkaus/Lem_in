@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 12:38:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/30 12:42:31 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/11/02 14:18:28 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct	s_hill
 
 int				get_data(t_hill *ah, t_list **input);
 void			init_struct(t_hill *ah);
-void			get_rooms(t_hill *ah, t_list *lst);
+int				get_rooms(t_hill *ah, t_list *lst);
 int				get_links(t_list *lst, t_hill *ah);
 int				valid_content(t_hill *ah, t_list *lst);
 int				graph_maze(t_hill *ah);
@@ -61,6 +61,8 @@ void			ft_lstfree(t_list *lst);
 
 void			ft_tabarr_free(int **tab, int max_rows);
 int				ft_tabint_find(int *tab, int to_find, int tab_len);
+
+int				ft_tabnequ(int *t1, int *t2, int n);
 
 int				ft_strarr_size(char **arr);
 void			ft_strarr_free(char **arr);
