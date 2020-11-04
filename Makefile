@@ -6,7 +6,7 @@
 #    By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2020/11/02 14:19:23 by sreijola         ###   ########.fr        #
+#    Updated: 2020/11/04 13:12:38 by sreijola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,10 @@ SRCS_C = lemin_main.c \
 	lemin_get_links.c \
 	lemin_validate_input.c \
 	lemin_graph_maze.c \
-	lemin_move_ants.c \
+	lemin_routes.c \
 	ft_lstfree.c \
 	ft_tabnequ.c \
+	ft_tabarr_malloc.c \
 	ft_tabarr_free.c \
 	ft_tabint_find.c \
 	ft_strarr_size.c \
@@ -35,6 +36,8 @@ SRCS_C = lemin_main.c \
 	ft_graph_nodenew.c \
 	ft_graph_free.c \
 	ft_graph_print.c
+
+#	lemin_move_ants.c
 
 SRCS_PATH = ./srcs/
 
