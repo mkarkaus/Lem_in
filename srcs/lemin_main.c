@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/11/03 15:42:48 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/11/05 14:03:56 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,10 @@ int		main()
 		return (handle_errors(ret));
 	// ft_strarr_print(ah.name);
 	// ft_pr_intarr(ah.coor, ah.rooms, 2, 1);
-	// ft_graph_print(ah.maze);
 	ft_lstprint(input);
+	// ft_printf("%d\n", ft_lstlen(input));
 	write(1, "\n", 1);
+	ft_graph_print(ah.maze);
 	if ((ret = route_ants(&ah)) < 0) //remove error returns
 		return (handle_errors(ret));
 	ft_lstfree(input);

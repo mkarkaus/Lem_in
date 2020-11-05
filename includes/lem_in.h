@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 12:38:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/11/04 10:49:51 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/11/05 13:05:58 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int				route_ants(t_hill *ah);
 
 
 void			ft_lstfree(t_list *lst);
-
+int				ft_lstlen(t_list *lst);
 void			ft_tabarr_free(int **tab, int max_rows);
 int				**ft_tabarr_malloc(int max_rows, int max_cols);
 int				ft_tabint_find(int *tab, int to_find, int tab_len);
