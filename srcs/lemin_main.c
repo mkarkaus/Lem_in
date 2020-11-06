@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/11/06 12:35:17 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/11/06 13:54:58 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,9 @@
 **			L1-4 L2-1	<--- move ant "1" to room "4" and ant "2" to room "1"
 **			L2-4		<--- move ant "2" to room "4"
 **
-**	- We'll search for all possible routes
-**	- (and arrange them in order based on smallest cost (least moves))
-**	- "linked tree(general tree?)" 
-**	- how many moves away route is from "end"-room
-**	- Ant moves through shortest AVAILABLE route
+**	- v_anamy1.map endless loop (probably ant going backwards, shouldn't be able to do that)
+**	- case where ants go straight from start to end (route_ants print)
+**	- change algorithm to pick route based on amount of moves instead of just dd
 **
 */
 
