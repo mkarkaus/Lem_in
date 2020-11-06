@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 10:45:15 by sreijola          #+#    #+#             */
-/*   Updated: 2020/11/05 17:03:18 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/11/06 12:38:09 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	add_turns(int turns, t_graph *maze, int ***res, int prev)
 			ft_memcpy(tmp[k], (*res)[k], sizeof(int) * maze->ver);
 			k++;
 		}
-		ft_printf("SÄÄLLÄ\n");
 		ft_tabarr_free(*res, prev);
 	}
 	while (k < turns)
@@ -50,7 +49,6 @@ void	next_steps(t_graph *maze, int ***res, t_list **route, int turns)
 	rm = 0;
 	move = 0;
 	score = maze->array[0].dd;
-	ft_printf("TÄÄLLÄ\n");
 	while (rm != 1)
 	{	
 		ptr = maze->array[rm].head;
@@ -68,13 +66,11 @@ void	next_steps(t_graph *maze, int ***res, t_list **route, int turns)
 		(*route)->next = ft_lstnew(&rm, sizeof(int));
 		*route = (*route)->next;
 		move++;
-		// ft_printf("%d\n", *(int *)(*route)->next->content);
 	}
 	
 }
 void	find_route(t_list **route, t_graph *maze, int ***res, int turns)
 {
-	t_node	*ptr;
 	t_list	*tmp;
 	int		help;
 
@@ -85,26 +81,20 @@ void	find_route(t_list **route, t_graph *maze, int ***res, int turns)
 	tmp = (*route)->next;
 	free((*route)->content);
 	free(*route);
-	// temp = route;
-	// while (temp != NULL)
-	// {
-	// 	ft_printf("%d->", *(int *)temp->content);
-	// 	temp = temp->next;
-	// }
 	*route = tmp;
 }
 
 int		save_route(int ant, int *turns, int ***res, t_graph *maze)
 {
 	t_list	*route;
-	t_list	*temp;
+	// t_list	*temp;
 	int		move;
 	int		tmp;
 	
-	ft_printf("ant [%d] turns[%d]\n", ant, *turns);
+	// ft_printf("ant [%d] turns[%d]\n", ant, *turns);
 	find_route(&route, maze, res, *turns);
 	move = ft_lstlen(route);
-	ft_printf("move [%d] turns[%d]\n", move, *turns);
+	// ft_printf("move [%d] turns[%d]\n", move, *turns);
 	// temp = route;
 	// while (temp != NULL)
 	// {
@@ -117,12 +107,11 @@ int		save_route(int ant, int *turns, int ***res, t_graph *maze)
 		add_turns(move, maze, res, *turns);
 		*turns = move;
 	}
-	ft_printf("EIKUN TÄÄLLÄ\n");
 	move = 0;
 	while (route)
 	{
 		tmp = *((int *)(route->content));
-		ft_printf("ant [%d] move:[%d] turns[%d] tmp [%d]\n", ant, move, *turns, tmp);
+		//ft_printf("ant [%d] move:[%d] turns[%d] tmp [%d]\n", ant, move, *turns, tmp);
 		if (tmp == 1)
 		{
 			while (move < *turns)
@@ -132,8 +121,9 @@ int		save_route(int ant, int *turns, int ***res, t_graph *maze)
 			(*res)[move][tmp] = ant;
 		move++;
 		route = route->next;
-		ft_pr_intarr(*res, *turns, maze->ver, 1);
+		// ft_pr_intarr(*res, *turns, maze->ver, 1);
 	}
+	return (0);
 }
 
 int		route_ants(t_hill *ah)
@@ -147,5 +137,6 @@ int		route_ants(t_hill *ah)
 	turns = 0;
 	while(++ant <= ah->ants)
 		save_route(ant, &turns, &res, ah->maze);
-//	print_moves();
+	print_moves(res, turns, ah);
+	return (0);
 }

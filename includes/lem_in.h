@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 12:38:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/11/05 13:05:58 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/11/06 12:39:06 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int				valid_content(t_hill *ah, t_list *lst);
 int				graph_maze(t_hill *ah);
 void			fill_distances(t_hill *ah);
 int				route_ants(t_hill *ah);
-
+void			print_moves(int **res, int turns, t_hill *ah);
 
 void			ft_lstfree(t_list *lst);
 int				ft_lstlen(t_list *lst);
