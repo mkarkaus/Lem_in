@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 12:38:29 by sreijola          #+#    #+#             */
-/*   Updated: 2020/12/02 12:43:56 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/12/03 11:56:53 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	print_moves(int **res, int turns, t_hill *ah)
 		ant = 0;
 		while (++ant <= ah->ants)
 		{
-			ft_printf("rm: [%d], ant [%d], i: [%d], turns: [%d]\n", rm, ant, i, turns);
+			// ft_printf("rm: [%d], ant [%d], i: [%d], turns: [%d]\n", rm, ant, i, turns);
 			if ((rm = find_ant_move(ant, res, i, ah->rooms)) > 0)
 			{
 				if (first == 0)
