@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/11/06 13:54:58 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/12/02 12:08:52 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 **			L1-4 L2-1	<--- move ant "1" to room "4" and ant "2" to room "1"
 **			L2-4		<--- move ant "2" to room "4"
 **
-**	- v_anamy1.map endless loop (probably ant going backwards, shouldn't be able to do that)
+**	- v_anamy1.map endless loop (probably ant going backwards, shouldn't be able to do that) (DONE)
 **	- case where ants go straight from start to end (route_ants print)
 **	- change algorithm to pick route based on amount of moves instead of just dd
 **

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_routes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 10:45:15 by sreijola          #+#    #+#             */
-/*   Updated: 2020/11/06 12:38:09 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/12/03 11:02:30 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,30 +45,36 @@ void	next_steps(t_graph *maze, int ***res, t_list **route, int turns)
 	t_node	*ptr;
 	int		rm;
 	int		move;
-	
+	int		*been;
+
+	been = (int *)ft_memalloc(sizeof(int) * maze->ver);
 	rm = 0;
 	move = 0;
 	score = maze->array[0].dd;
 	while (rm != 1)
-	{	
+	{
 		ptr = maze->array[rm].head;
 		while (ptr)
 		{
-			if (score >= maze->array[ptr->v].dd \
+			if (score >= maze->array[ptr->v].dd && maze->array[ptr->v].dd != -2\
 			&& ((move < turns && ((*res)[move][ptr->v] == 0 || ptr->v == 1))\
-			|| move >= turns))
+			|| move >= turns) && been[ptr->v] != 1)
 			{
 				score = maze->array[ptr->v].dd;
 				rm = ptr->v;
+				// ft_printf("rm: [%d]\n", ptr->v);
 			}
 			ptr = ptr->next;
 		}
+		been[rm] = 1;
+		// ft_printf("[%d]\n", been[3]);
 		(*route)->next = ft_lstnew(&rm, sizeof(int));
 		*route = (*route)->next;
 		move++;
 	}
-	
+	free(been);
 }
+
 void	find_route(t_list **route, t_graph *maze, int ***res, int turns)
 {
 	t_list	*tmp;
@@ -87,21 +93,11 @@ void	find_route(t_list **route, t_graph *maze, int ***res, int turns)
 int		save_route(int ant, int *turns, int ***res, t_graph *maze)
 {
 	t_list	*route;
-	// t_list	*temp;
 	int		move;
 	int		tmp;
 	
-	// ft_printf("ant [%d] turns[%d]\n", ant, *turns);
 	find_route(&route, maze, res, *turns);
 	move = ft_lstlen(route);
-	// ft_printf("move [%d] turns[%d]\n", move, *turns);
-	// temp = route;
-	// while (temp != NULL)
-	// {
-	// 	ft_printf("%d->", *(int *)temp->content);
-	// 	temp = temp->next;
-	// }
-	// ft_printf("\nTÄÄLLÄ");
 	if (move > *turns)
 	{
 		add_turns(move, maze, res, *turns);

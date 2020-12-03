@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_print.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 12:38:29 by sreijola          #+#    #+#             */
-/*   Updated: 2020/11/06 12:38:42 by sreijola         ###   ########.fr       */
+/*   Updated: 2020/12/02 12:43:56 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		find_ant_move(int ant, int **res, int i, int rooms)
 {
 	int		rm;
 	int		nxt_rm;
-	
+
 	rm = 1;
 	nxt_rm = 2;
 	while (nxt_rm < rooms && res[i + 1][nxt_rm] != ant)
@@ -26,6 +26,9 @@ int		find_ant_move(int ant, int **res, int i, int rooms)
 	else if (i > -1)
 	{
 		while (++rm < rooms && res[i][rm] != ant);
+		// ft_printf("rm: [%d], ant [%d]\n", rm, ant);
+		if (rm == rooms)
+			return (1);
 	}
 	if (nxt_rm == rm) //ant = ei liiku, entäs suoraan startista endiin, 
 		return (0);
@@ -40,7 +43,9 @@ void	print_moves(int **res, int turns, t_hill *ah)
 	int		ant;
 	int		first;
 	int		rm;
-	
+	int		*in_end;
+
+	in_end = (int *)ft_memalloc(ah->ants * sizeof(int));
 	i = -1;
 	while (i + 1 < turns)
 	{
@@ -48,12 +53,18 @@ void	print_moves(int **res, int turns, t_hill *ah)
 		ant = 0;
 		while (++ant <= ah->ants)
 		{
+			ft_printf("rm: [%d], ant [%d], i: [%d], turns: [%d]\n", rm, ant, i, turns);
 			if ((rm = find_ant_move(ant, res, i, ah->rooms)) > 0)
 			{
 				if (first == 0)
 					write(1, " ", 1);
-				ft_printf("L%d-%s", ant, ah->name[rm]);
-				first = 0;
+				if (in_end[ant] != 1)
+				{
+					if (rm == 1)
+						in_end[ant] = 1;
+					ft_printf("L%d-%s", ant, ah->name[rm]);
+					first = 0;
+				}
 			}
 		}
 		i++;
