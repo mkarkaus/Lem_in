@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 10:45:15 by sreijola          #+#    #+#             */
-/*   Updated: 2020/12/03 17:35:19 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/12/04 12:50:15 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,11 @@ int		sneaky_ant(int **res, int move, int turns, int rooms)
 	int		ant;
 	int		*tmp;
 
-	// ft_printf("HALOJAAHAA AA\n");
 	if (move + 1 < turns && res[move][1] < res[move + 1][1])
 	{
 		tmp = (int *)ft_memalloc(sizeof(int) * rooms);
 		ft_memcpy(tmp, res[move], sizeof(int) * rooms);
 		diff = res[move + 1][1] - tmp[1];
-		// ft_printf("diff:[%d]\n", diff);
 		while (diff > 0)
 		{
 			i = 2;
@@ -77,9 +75,14 @@ int		sneaky_ant(int **res, int move, int turns, int rooms)
 				k++;
 			if (k == rooms)
 			{
-				tmp[i] = 0;
 				diff--;
 			}
+			tmp[i] = 0;
+			// ft_printf("diff:[%d]  ant:[%d]  i:[%d]  k:[%d]\n", diff, ant, i, k);
+			// ft_pr_intarr(&tmp, 1, rooms, 1);
+			// write(1, "\n", 1);
+			// ft_pr_intarr(&res[move + 1], 1, rooms, 1);
+			// write(1, "\n", 1);
 		}
 	}
 	return (1);
@@ -104,7 +107,7 @@ void	next_steps(t_graph *maze, int ***res, t_list **route, int turns)
 		{
 			// ft_pr_intarr(*res, turns, maze->ver, 1);
 			// write(1, "HASAMAJA\n", 9);
-			ft_printf("next[%d] move:[%d], turns:[%d]\n", ptr->v, move, turns);
+			// ft_printf("next[%d] move:[%d], turns:[%d]\n", ptr->v, move, turns);
 			if (score >= maze->array[ptr->v].dd \
 				&& maze->array[ptr->v].dd != -2 \
 				&& ((move < turns && ((*res)[move][ptr->v] == 0 || ptr->v == 1)) || move >= turns) \
@@ -120,7 +123,7 @@ void	next_steps(t_graph *maze, int ***res, t_list **route, int turns)
 			ptr = ptr->next;
 		}
 		been[rm] = 1;
-		ft_printf("room:[%d]\n", rm);
+		// ft_printf("room:[%d]\n", rm);
 		// ft_printf("[%d]\n", been[3]);
 		(*route)->next = ft_lstnew(&rm, sizeof(int));
 		*route = (*route)->next;
@@ -167,9 +170,9 @@ int		save_route(int ant, int *turns, int ***res, t_graph *maze)
 		{
 			while (move < *turns)
 			{
-				ft_printf("PLUS[%d]\n", (*res)[move][1]);
+				// ft_printf("PLUS[%d]\n", (*res)[move][1]);
 				(*res)[move][1]++;
-				ft_printf("PLUS[%d]\n", (*res)[move][1]);
+				// ft_printf("PLUS[%d]\n", (*res)[move][1]);
 				move++;
 				// ft_printf("muuv[%d]\n", move);
 			}
@@ -178,8 +181,8 @@ int		save_route(int ant, int *turns, int ***res, t_graph *maze)
 			(*res)[move][tmp] = ant;
 		move++;
 		route = route->next;
-		ft_pr_intarr(*res, *turns, maze->ver, 1);
-		write(1, "\n", 1);
+		// ft_pr_intarr(*res, *turns, maze->ver, 1);
+		// write(1, "\n", 1);
 	}
 	return (0);
 }

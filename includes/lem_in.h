@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 12:38:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/12/02 10:18:46 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/12/03 18:09:20 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int				graph_maze(t_hill *ah);
 void			fill_distances(t_hill *ah);
 int				route_ants(t_hill *ah);
 void			print_moves(int **res, int turns, t_hill *ah);
+int				sneaky_ant(int **res, int move, int turns, int rooms);
 
 void			ft_lstfree(t_list *lst);
 int				ft_lstlen(t_list *lst);
