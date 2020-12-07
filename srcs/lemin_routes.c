@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 10:45:15 by sreijola          #+#    #+#             */
-/*   Updated: 2020/12/04 12:50:15 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/12/07 11:59:05 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,10 @@ int		sneaky_ant(int **res, int move, int turns, int rooms)
 			while (i < rooms && tmp[i] == 0)
 				i++;
 			if (i == rooms)
+			{
+				free(tmp);
 				return (0);
+			}
 			ant = tmp[i];
 			k = 2;
 			while (k < rooms && res[move + 1][k] != ant)
@@ -84,6 +87,7 @@ int		sneaky_ant(int **res, int move, int turns, int rooms)
 			// ft_pr_intarr(&res[move + 1], 1, rooms, 1);
 			// write(1, "\n", 1);
 		}
+		free(tmp);
 	}
 	return (1);
 }
@@ -151,10 +155,12 @@ void	find_route(t_list **route, t_graph *maze, int ***res, int turns)
 int		save_route(int ant, int *turns, int ***res, t_graph *maze)
 {
 	t_list	*route;
+	t_list	*free_route;
 	int		move;
 	int		tmp;
 
 	find_route(&route, maze, res, *turns);
+	free_route = route;
 	move = ft_lstlen(route) + 1;
 	if (move > *turns)
 	{
@@ -184,6 +190,7 @@ int		save_route(int ant, int *turns, int ***res, t_graph *maze)
 		// ft_pr_intarr(*res, *turns, maze->ver, 1);
 		// write(1, "\n", 1);
 	}
+	ft_lstfree(free_route);
 	return (0);
 }
 
@@ -199,5 +206,6 @@ int		route_ants(t_hill *ah)
 	while(++ant <= ah->ants)
 		save_route(ant, &turns, &res, ah->maze);
 	print_moves(res, turns, ah);
+	ft_tabarr_free(res, turns);
 	return (0);
 }

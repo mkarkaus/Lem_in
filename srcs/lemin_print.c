@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 12:38:29 by sreijola          #+#    #+#             */
-/*   Updated: 2020/12/04 15:24:16 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/12/07 12:00:45 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,5 @@ void	print_moves(int **res, int turns, t_hill *ah)
 		i++;
 		write(1, "\n", 1);
 	}
+	free(in_end);
 }

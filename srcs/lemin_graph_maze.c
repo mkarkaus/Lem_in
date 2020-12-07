@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:28:46 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/11/03 14:48:18 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/12/07 15:31:18 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	remake_queue(t_hill *ah, int **queue, int only_clear, int *been)
 	t_alhead	*ptr;
 
 	i = -1;
-	// if (been){};
 	temp = ft_memalloc(ah->rooms * sizeof(int));
 	ft_memcpy(temp, *queue, ah->rooms * sizeof(int));
 	while (++i < ah->rooms)
@@ -63,17 +62,10 @@ void	remake_queue(t_hill *ah, int **queue, int only_clear, int *been)
 			node = ptr[temp[k]].head;
 			while (node != NULL)
 			{
-				// ft_printf("[%d] [temp[k]: %d]\n", ptr[temp[k]].dd, temp[k]);
-				// ft_printf("[%d] [temp[k]: %d]\n", ptr[temp[k]].head->v, temp[k]);
-				// ft_printf("node->v:[%d], ptr[node->v].dd:[%d], been != NULL:[%d]\n", node->v, ptr[node->v].dd, (been != NULL));
 				if ((ptr[node->v].dd == -1 && !ft_tabint_find(*queue, node->v, ah->rooms) && been == NULL) \
 					|| (been != NULL && !ft_tabint_find(been, node->v, ah->rooms) && ptr[node->v].dd != -3))
 					(*queue)[i++] = node->v;
-				// if (been != NULL && ft_tabint_find(been, node->v, ah->rooms))
-				// 	(*queue)[--i] = -1;
 				node = node->next;
-				// ft_printf("[%d], [%d], [%d], [%d], [%d]\n", (*queue)[0], (*queue)[1], (*queue)[2], (*queue)[3], (*queue)[4]);
-				// i++;
 			}
 			k++;
 		}
@@ -103,9 +95,12 @@ int		check_deadend(t_hill *ah, int room)
 
 	k = -1;
 	i = -1;
-	queue = ft_memalloc(ah->rooms * sizeof(int));//     queue of 'to-be-checked' rooms
-	been = ft_memalloc(ah->rooms * sizeof(int));//      queue of rooms we have checked in this branch
-	temp = ft_memalloc(ah->rooms * sizeof(int));//      temporary container of rooms' dds
+	queue = (int *)ft_memalloc(ah->rooms * sizeof(int));//     queue of 'to-be-checked' rooms
+	been = (int *)ft_memalloc(ah->rooms * sizeof(int));//      queue of rooms we have checked in this branch
+	temp = (int *)ft_memalloc(ah->rooms * sizeof(int));//      temporary container of rooms' dds
+	// ft_printf("queue: %p     %d\n", queue, ah->rooms * sizeof(int));
+	// ft_printf("been:  %p\n", been);
+	// ft_printf("temp:  %p\n\n", temp);
 	while (++i < ah->rooms)
 	{
 		queue[i] = -1;
@@ -114,8 +109,14 @@ int		check_deadend(t_hill *ah, int room)
 	}
 	queue[0] = room;
 	node = ah->maze->array[room].head;
-	while (ah->maze->array[node->v].dd < 0 && room != 1 && node->v != 0)
+	while (node->next && ah->maze->array[node->v].dd < 0 && room != 1 && node->v != 0)
+	{
+		// ft_printf(" wroom: [%d] node->v: [%d] \n", room, node->v);
 		node = node->next;
+		// ft_printf(" wroom: [%d] node->v: [%d] \n\n", room, node->v);
+	}
+	// ft_printf("OKAY\n");
+	// ft_pr_intarr(&queue, 1, ah->rooms, 1);
 	if (room != 1 && node->v != 0)
 	{
 		been[++k] = node->v;
@@ -124,8 +125,6 @@ int		check_deadend(t_hill *ah, int room)
 	}
 	while (!ft_tabint_find(queue, 0, ah->rooms) && queue[0] != -1)
 	{
-		// ft_printf("SORASORSA\n");
-		// ft_printf("\n[%d, %d, %d]\n", been[0], been[1], been[2]);
 		i = -1;
 		while (queue[++i] != -1)
 			if (!ft_tabint_find(been, queue[i], ah->rooms))
@@ -134,10 +133,8 @@ int		check_deadend(t_hill *ah, int room)
 				temp[k] = ah->maze->array[been[k]].dd;
 				ah->maze->array[been[k]].dd = -3;
 			}
-		// ft_printf("tabint_find:[%d] , queue: [%d %d %d %d], room:[%d]\n", !ft_tabint_find(queue, 0, ah->rooms), queue[0], queue[1], queue[2], queue[3], room);
 		remake_queue(ah, &queue, 0, been);
 	}
-	// ft_printf("\n");
 	i = -1;
 	if (queue[0] == -1)
 	{
@@ -148,16 +145,16 @@ int		check_deadend(t_hill *ah, int room)
 			else
 				ah->maze->array[been[i]].dd = temp[i];
 		}
-		free(been);
-		free(queue);
-		return (1);
 	}
 	else
 		while (++i < ah->rooms && been[i] != -1)
 			ah->maze->array[been[i]].dd = temp[i];
-	free(been);
+	// ft_printf("1\n");
+	// ft_printf("2\n");
 	free(queue);
-	return (0);
+	free(been);
+	free(temp);
+	return (queue[0] == -1);
 }
 
 void	fill_distances(t_hill *ah)
