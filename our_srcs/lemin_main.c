@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/12/10 17:01:10 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/12/07 13:27:21 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@
 
 void	free_struct_elements(t_hill *ah) //lista pitää vapauttaa get_datassa
 {
-	// int		i;
+	int		i;
 
-	// i = -1;
+	i = -1;
 	if (ah->name[0] != NULL)
 		ft_strarr_free(ah->name);
 	if (ah->rooms > 0)
@@ -63,8 +63,8 @@ void	free_struct_elements(t_hill *ah) //lista pitää vapauttaa get_datassa
 		ft_tabarr_free(ah->link, ah->links);
 	if (ah->maze->array != NULL)
 	{
-		// while (++i < ah->maze->ver)
-		// 	free(ah->maze->array[i].antnb);
+		while (++i < ah->maze->ver)
+			free(ah->maze->array[i].antnb);
 		ft_graph_free(ah->maze);
 	}	
 }
@@ -102,7 +102,7 @@ int		main()
 	// ft_printf("%d\n", ft_lstlen(input));
 	write(1, "\n", 1);
 	// ft_graph_print(ah.maze);
-	if ((ret = lem_in(&ah)) < 0) //remove error returns
+	if ((ret = route_ants(&ah)) < 0) //remove error returns
 		return (handle_errors(ret));
 	ft_lstfree(input);
 	free_struct_elements(&ah);

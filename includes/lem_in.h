@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 12:38:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/12/03 18:09:20 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/12/10 17:06:03 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LEM_IN_H
 
 # include "../libft/includes/libft.h"
+# include <limits.h>
 
 typedef struct	s_node
 {
@@ -24,8 +25,11 @@ typedef struct	s_node
 typedef struct	s_alhead
 {
 	int				dd;
-	int				*antnb;
-	int				q;
+	int				bfs_level;
+	int				prev;
+	int				next;
+	int				in;
+	int				out;
 	t_node			*head;
 }				t_alhead;
 
@@ -53,7 +57,7 @@ int				get_links(t_list *lst, t_hill *ah);
 int				valid_content(t_hill *ah, t_list *lst);
 int				graph_maze(t_hill *ah);
 void			fill_distances(t_hill *ah);
-int				route_ants(t_hill *ah);
+int				lem_in(t_hill *ah);
 void			print_moves(int **res, int turns, t_hill *ah);
 int				sneaky_ant(int **res, int move, int turns, int rooms);
 
@@ -69,7 +73,7 @@ void			ft_strarr_free(char **arr);
 void			ft_strarr_print(char **arr);
 
 void			ft_graph_free(t_graph *graph);
-void			ft_graph_print(t_graph *graph);
+void			ft_graph_print(t_graph *graph, char **name);
 t_node			*ft_graph_nodenew(int dest_ver);
 t_graph			*ft_graph_new(int vertices);
 void			ft_graph_edgeadd(t_graph *graph, int a, int b, int dir);

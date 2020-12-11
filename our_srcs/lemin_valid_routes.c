@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lemin_routes.c                                     :+:      :+:    :+:   */
+/*   lemin_valid_routes.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/04 10:45:15 by sreijola          #+#    #+#             */
-/*   Updated: 2020/12/09 15:15:35 by mkarkaus         ###   ########.fr       */
+/*   Created: 2020/12/04 15:49:04 by mkarkaus          #+#    #+#             */
+/*   Updated: 2020/12/04 16:01:17 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,7 @@ int		sneaky_ant(int **res, int move, int turns, int rooms)
 			while (i < rooms && tmp[i] == 0)
 				i++;
 			if (i == rooms)
-			{
-				free(tmp);
 				return (0);
-			}
 			ant = tmp[i];
 			k = 2;
 			while (k < rooms && res[move + 1][k] != ant)
@@ -81,8 +78,12 @@ int		sneaky_ant(int **res, int move, int turns, int rooms)
 				diff--;
 			}
 			tmp[i] = 0;
+			// ft_printf("diff:[%d]  ant:[%d]  i:[%d]  k:[%d]\n", diff, ant, i, k);
+			// ft_pr_intarr(&tmp, 1, rooms, 1);
+			// write(1, "\n", 1);
+			// ft_pr_intarr(&res[move + 1], 1, rooms, 1);
+			// write(1, "\n", 1);
 		}
-		free(tmp);
 	}
 	return (1);
 }
@@ -104,18 +105,26 @@ void	next_steps(t_graph *maze, int ***res, t_list **route, int turns)
 		ptr = maze->array[rm].head;
 		while (ptr)
 		{
+			// ft_pr_intarr(*res, turns, maze->ver, 1);
+			// write(1, "HASAMAJA\n", 9);
+			// ft_printf("next[%d] move:[%d], turns:[%d]\n", ptr->v, move, turns);
 			if (score >= maze->array[ptr->v].dd \
 				&& maze->array[ptr->v].dd != -2 \
 				&& ((move < turns && ((*res)[move][ptr->v] == 0 || ptr->v == 1)) || move >= turns) \
 				&& been[ptr->v] != 1 \
 				&& (ptr->v != 1 || sneaky_ant(*res, move - 1, turns, maze->ver)))
 			{
+				// ft_pr_intarr(*res, turns, maze->ver, 1);
+				// write(1, "\n", 1);
+				// ft_printf("[%d]\n", (*res)[move][ptr->v]);
 				score = maze->array[ptr->v].dd;
 				rm = ptr->v;
 			}
 			ptr = ptr->next;
 		}
 		been[rm] = 1;
+		// ft_printf("room:[%d]\n", rm);
+		// ft_printf("[%d]\n", been[3]);
 		(*route)->next = ft_lstnew(&rm, sizeof(int));
 		*route = (*route)->next;
 		move++;
@@ -142,12 +151,10 @@ void	find_route(t_list **route, t_graph *maze, int ***res, int turns)
 int		save_route(int ant, int *turns, int ***res, t_graph *maze)
 {
 	t_list	*route;
-	t_list	*free_route;
 	int		move;
 	int		tmp;
 
 	find_route(&route, maze, res, *turns);
-	free_route = route;
 	move = ft_lstlen(route) + 1;
 	if (move > *turns)
 	{
@@ -158,29 +165,29 @@ int		save_route(int ant, int *turns, int ***res, t_graph *maze)
 	while (route)
 	{
 		tmp = *((int *)(route->content));
+		// ft_printf("ant [%d] move:[%d] turns[%d] tmp[%d] ant in room:[%d]\n", ant, move, *turns, tmp, (*res)[move][tmp]);
 		if (tmp == 1)
 		{
 			while (move < *turns)
 			{
+				// ft_printf("PLUS[%d]\n", (*res)[move][1]);
 				(*res)[move][1]++;
+				// ft_printf("PLUS[%d]\n", (*res)[move][1]);
 				move++;
+				// ft_printf("muuv[%d]\n", move);
 			}
 		}
 		else
 			(*res)[move][tmp] = ant;
 		move++;
 		route = route->next;
+		// ft_pr_intarr(*res, *turns, maze->ver, 1);
+		// write(1, "\n", 1);
 	}
-	ft_lstfree(free_route);
 	return (0);
 }
 
-// void	find_paths()
-// {
-
-// }
-
-int		lem_in(t_hill *ah)
+int		valid_routes(t_hill *ah)
 {
 	int		**res;
 	int		ant;
@@ -189,10 +196,8 @@ int		lem_in(t_hill *ah)
 	ant = 0;
 	res = NULL;
 	turns = 0;
-	// find_paths();
-	while(++ant <= ah->ants)
-		save_route(ant, &turns, &res, ah->maze);
+	// while(++ant <= ah->ants)
+	save_route(ant, &turns, &res, ah->maze);
 	print_moves(res, turns, ah);
-	ft_tabarr_free(res, turns);
 	return (0);
 }
