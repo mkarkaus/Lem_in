@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/12/10 17:01:10 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/12/18 11:53:09 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	free_struct_elements(t_hill *ah) //lista pitää vapauttaa get_datassa
 		ft_tabarr_free(ah->link, ah->links);
 	if (ah->maze->array != NULL)
 	{
+		free(ah->maze->shortest);
 		// while (++i < ah->maze->ver)
 		// 	free(ah->maze->array[i].antnb);
 		ft_graph_free(ah->maze);
@@ -102,6 +103,8 @@ int		main()
 	// ft_printf("%d\n", ft_lstlen(input));
 	write(1, "\n", 1);
 	// ft_graph_print(ah.maze);
+	// ft_printf("123\n");
+	// ft_printf("456\n");
 	if ((ret = lem_in(&ah)) < 0) //remove error returns
 		return (handle_errors(ret));
 	ft_lstfree(input);

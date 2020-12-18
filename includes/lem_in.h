@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 12:38:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/12/10 17:06:03 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/12/17 15:55:45 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ typedef struct	s_alhead
 {
 	int				dd;
 	int				bfs_level;
-	int				prev;
-	int				next;
 	int				in;
 	int				out;
 	t_node			*head;
@@ -35,6 +33,10 @@ typedef struct	s_alhead
 
 typedef struct	s_graph
 {
+	int				*shortest;
+	int				*been;
+	int				paths;
+	int				max_level;
 	int				ver;
 	t_alhead		*array;
 }				t_graph;

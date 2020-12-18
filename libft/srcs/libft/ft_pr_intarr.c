@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 11:34:06 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/09/02 11:34:33 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/12/15 13:19:30 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_pr_intarr(int **arr, int maxr, int maxc, int fd)
 		j = 0;
 		while (j < maxc)
 		{
-			ft_printf("{fd}%3i", fd, arr[i][j]);
+			ft_printf("{fd}%i ", fd, arr[i][j]);
 			j++;
 		}
 		ft_printf("{fd}\n", fd);

@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 12:42:03 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/12/07 10:55:14 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/12/18 11:53:33 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int		get_data(t_hill *ah, t_list **input)
 		return (-6);
 	if (get_links(data, ah) == -1)
 		return (-2);
+	// ft_lstprint(data);
 	if (graph_maze(ah) == -1)
 		return (-3);
 	ft_lstfree(data);

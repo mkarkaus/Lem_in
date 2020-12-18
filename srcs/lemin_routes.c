@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 10:45:15 by sreijola          #+#    #+#             */
-/*   Updated: 2020/12/09 15:15:35 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/12/18 10:28:55 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	add_turns(int turns, t_graph *maze, int ***res, int prev)
 	int		i;
 	
 	k = 0;
+	// ft_printf("123    turns:%d    maze->ver:%d\n", turns, maze->ver);
+	// ft_printf("456\n");
 	tmp = ft_tabarr_malloc(turns, maze->ver);
 	if (*res != NULL)
 	{
@@ -175,11 +177,6 @@ int		save_route(int ant, int *turns, int ***res, t_graph *maze)
 	return (0);
 }
 
-// void	find_paths()
-// {
-
-// }
-
 int		lem_in(t_hill *ah)
 {
 	int		**res;
@@ -193,6 +190,6 @@ int		lem_in(t_hill *ah)
 	while(++ant <= ah->ants)
 		save_route(ant, &turns, &res, ah->maze);
 	print_moves(res, turns, ah);
-	ft_tabarr_free(res, turns);
+	// ft_tabarr_free(res, turns);
 	return (0);
 }
