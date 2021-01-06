@@ -27,12 +27,12 @@ echo " "
 echo "*Valid: Subject example map:"
 ./lem-in < maps/v_subject_example.map
 echo " "
-echo "*Valid: Anamy's map with 1 ant:"
-./lem-in < maps/v_anamy1.map
-echo " "
-# echo "*Valid: Anamy's that-map:"
-# ./lem-in < maps/v_anamy_that.map
+# echo "*Valid: Anamy's map with 1 ant:"
+# ./lem-in < maps/v_anamy1.map
 # echo " "
+echo "*Valid: Anamy's that-map:"
+./lem-in < maps/v_anamy_that.map
+echo " "
 # echo "*Valid: Test map:" #says invalid because of spaces in room name
 # ./lem-in < maps/v_test_map.map
 # echo " "

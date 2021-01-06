@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/12/18 11:53:09 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/01/06 11:34:46 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,11 @@ void	free_struct_elements(t_hill *ah) //lista pitää vapauttaa get_datassa
 	if (ah->maze->array != NULL)
 	{
 		free(ah->maze->shortest);
+		ft_tabarr_free(ah->maze->route, ah->maze->array[0].out);
 		// while (++i < ah->maze->ver)
 		// 	free(ah->maze->array[i].antnb);
 		ft_graph_free(ah->maze);
-	}	
+	}
 }
 
 int		handle_errors(int error)
