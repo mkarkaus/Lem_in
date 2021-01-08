@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 12:38:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/01/06 11:22:50 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/01/08 11:46:20 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct	s_alhead
 
 typedef struct	s_graph
 {
-	int				*shortest;
+	int				*shrt;
 	int				*been;
 	int				paths;
 	int				max_level;

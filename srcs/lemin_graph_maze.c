@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:28:46 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/01/06 18:06:34 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/01/08 12:01:45 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -412,12 +412,11 @@ void	pick_route(t_graph **maze, int *path, int infork)
 			k++;
 		while (++m < (*maze)->max_level)
 		{
-			ft_printf("1\n");
-			ft_pr_intarr((*maze)->route, (*maze)->paths, (*maze)->max_level, 1);
-			ft_printf("infork:%d, path:%d, k:%d, m:%d\n", infork, *path, k, m);
+			// ft_printf("1\n");
+			// ft_pr_intarr((*maze)->route, (*maze)->paths, (*maze)->max_level, 1);
+			// ft_printf("infork:%d, path:%d, k:%d, m:%d\n", infork, *path, k, m);
 			if (((*maze)->route)[k][m] == infork)
 			{
-				ft_printf("3\n");
 				m = 0;
 				i = 0;
 				while (((*maze)->route)[*path][++i] != infork)// laskee output-forkkien määrän annetulta (*path) reitiltä
@@ -445,7 +444,6 @@ void	pick_route(t_graph **maze, int *path, int infork)
 				// ft_pr_intarr((*maze)->route, (*maze)->paths, (*maze)->max_level, 1);
 				return ;
 			}
-			ft_printf("2\n");
 		}
 		k++;
 	}
@@ -487,23 +485,17 @@ void	fill_new_paths(t_graph **maze, int fork)
 	ptr = (*maze)->array[((*maze)->route)[fork][i]].head;
 	while (k < (*maze)->paths && ptr->next != NULL)
 	{
-		// ft_printf("((*maze)->route)[fork][i]:%d\n", ((*maze)->route)[fork][i]);
 		m = i;
 		ft_memcpy(((*maze)->route)[k], ((*maze)->route)[fork], (*maze)->max_level * sizeof(int));
 		((*maze)->route)[k][i + 1] = ptr->v;
-		while (m <= (*maze)->max_level && ptr->v == 1)
-		{
+		while (++m <= (*maze)->max_level && ptr->v == 1)
 			((*maze)->route)[k][m] = 1;
-			m++;
-		}
-		// ft_printf("ptr->v:%d\n", ptr->v);
 		if (((*maze)->been)[ptr->v] == 1)
 		{
 			temp = ptr->next;
 			pick_route(maze, &k, ptr->v);
 			ptr = temp;
-			// ft_printf("ptr->v:%d, kukakuka:%d\n", ptr->v, ((*maze)->route)[fork][i]);
-			// ft_printf("ollakko vai eiko olla\n");
+			// k++;
 		}
 		else
 		{
@@ -512,17 +504,14 @@ void	fill_new_paths(t_graph **maze, int fork)
 				((*maze)->been)[ptr->v] = 1;
 			ptr = ptr->next;
 		}
-		// ft_grapher(*maze);
 	}
 	((*maze)->route)[fork][i + 1] = ptr->v;
-	// ft_printf("2\n");
 	if (((*maze)->been)[ptr->v] == 1)
 	{
 		temp = ptr->next;
 		pick_route(maze, &k, ptr->v);
 		ptr = temp;
 	}
-	// ft_printf("ONKO TAALA\n");
 	if (ptr != NULL && ptr->v != 1)
 		((*maze)->been)[ptr->v] = 1;
 	// ft_grapher(*maze);
@@ -560,9 +549,9 @@ void	handle_input_forks(t_graph **maze)
 				else if (ptr->v != 1)
 					(*maze)->been[ptr->v] = 1;
 			}
-			ft_pr_intarr((*maze)->route, (*maze)->paths, (*maze)->max_level, 1);
-			ft_grapher(*maze);
-			ft_printf("\n\n");
+			// ft_pr_intarr((*maze)->route, (*maze)->paths, (*maze)->max_level, 1);
+			// ft_grapher(*maze);
+			// ft_printf("\n\n");
 		}
 	}
 	// ft_pr_intarr(*route, (*maze)->paths, (*maze)->max_level, 1);
@@ -611,13 +600,11 @@ void	handle_output_forks(t_graph **maze)
 void	create_routes(t_graph **maze)
 {
 	t_node		*ptr;
-	// int			**route;
 	int			len;
 	int			i;
 
 	(*maze)->route = ft_tabarr_malloc((*maze)->array[0].out, (*maze)->max_level + 1);
 	(*maze)->been = (int *)ft_memalloc((*maze)->ver * sizeof(int));
-	// (*maze)->paths = 0;
 	ptr = (*maze)->array[0].head;
 	i = 0;
 	while (ptr)
@@ -652,7 +639,7 @@ int		graph_maze(t_hill *ah)
 	del_twoway(&ah->maze);
 	del_zero_inputs(&ah->maze);// Not sure if works yet, check later
 	del_zero_outputs(&ah->maze);
-	ah->maze->shortest = find_shortest_route(ah->maze);
+	ah->maze->shrt = find_shortest_route(ah->maze);
 	// ft_pr_intarr(&ah->maze->shortest, 1, ah->maze->max_level, 1);
 	// ft_pr_intarr(&ah->maze->shortest, 1, ah->maze->max_level, 1);
 	// ft_printf("\n");
