@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 10:45:15 by sreijola          #+#    #+#             */
-/*   Updated: 2021/01/08 17:24:29 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/01/11 12:32:27 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,28 +218,7 @@ void	route_lengths(int ***route, int max_paths, int **shrt)
 	(*shrt)[0] = i;
 }
 
-void	first_ants(int ***res, int *shrt, int nbr_ants, int *turns)
-{
-	int		start_turn;
-	int		turn;
-	int		ant;
-
-	start_turn = 1;
-	ant = 1;
-	while (ant <= nbr_ants)
-	{
-		turn = start_turn;
-		while (turn <= shrt[0] + start_turn && turn < *turns)
-		{
-			(*res)[turn][shrt[turn]] = ant;
-			turn++;
-		}
-		start_turn++;
-		ant++;
-	}
-}
-
-void	apply_route(int ***res, int *route, int start, int ant)
+void	apply_route(int ***res, int *route, int start, int ant, int turns)
 {
 	int		i;
 
@@ -247,12 +226,28 @@ void	apply_route(int ***res, int *route, int start, int ant)
 	while (i <= route[0])
 	{
 		if (route[i] == 1)
-			(*res)[start + i - 1][route[i]]++;
+		{
+			while (start + i - 1 < turns)
+			{
+				(*res)[start + i - 1][1]++;
+				i++;
+			}
+		}
 		else
 			(*res)[start + i - 1][route[i]] = ant;
 		i++;
-		// ft_pr_intarr(*res, 6, 22, 1);
-		// ft_printf("\n");
+	}
+}
+
+void	first_ants(int ***res, int *shrt, int nbr_ants, int *turns)
+{
+	int		ant;
+
+	ant = 1;
+	while (ant <= nbr_ants)
+	{
+		apply_route(res, shrt, 0, 1, *turns);
+		ant++;
 	}
 }
 
@@ -263,30 +258,27 @@ void	other_ants(int ***res, t_hill *ah, int cur, int *turns)
 	int		len_sum;
 	int		route_i;
 
-	cur += 1;
 	turn = 1;
 	while (cur <= ah->ants)
 	{
 		route_i = 0;
-		len_sum = 0;
-		while (route_i < ah->maze->paths)
+		while (route_i < ah->maze->paths && cur <= ah->ants)
 		{
+			len_sum = 0;
 			sum_i = -1;
 			while (++sum_i != route_i)
 				len_sum += ah->maze->route[route_i][0] - ah->maze->route[sum_i][0];
-			// ft_printf("yksi cur:%d, route_i:%d\n", cur, route_i);
-			if (ah->ants - cur + 1 > len_sum && ((*res)[turn][ah->maze->route[route_i][1]] == 0 ||
+			if (ah->ants - cur > len_sum - 1 && ((*res)[turn][ah->maze->route[route_i][1]] == 0 ||
 				ah->maze->route[route_i][1] == 1))
 			{
-				// ft_printf("kaksi\n");
 				if (*turns < turn + ah->maze->route[route_i][0])
+				{
 					add_turns(turn + ah->maze->route[route_i][0], ah->maze, res, *turns);
-				*turns = turn + ah->maze->route[route_i][0];
-				// ft_printf("turns:%d, prev:%d\n", turn + ah->maze->route[route_i][0], *turns);
-				apply_route(res, ah->maze->route[route_i], turn, cur);
+					*turns = turn + ah->maze->route[route_i][0];
+				}
+				apply_route(res, ah->maze->route[route_i], turn, cur, *turns);
 				cur++;
 			}
-			// ft_printf("neljä\n");
 			route_i++;
 		}
 		turn++;
@@ -308,7 +300,7 @@ void	reserve_moves(int ***res, t_hill *ah, int *turns)
 	if (ah->maze->shrt[0] < ah->maze->route[0][0])
 		first_ants(res, ah->maze->shrt, ah->maze->route[0][0] - \
 				ah->maze->shrt[0], turns);
-	other_ants(res, ah, ah->maze->route[0][0] - ah->maze->shrt[0], turns);
+	other_ants(res, ah, ah->maze->route[0][0] - ah->maze->shrt[0] + 1, turns);
 	// ft_pr_intarr(*res, *turns, ah->maze->ver, 1);
 	// ft_pr_intarr(ah->maze->route, ah->maze->paths, ah->maze->max_level, 1);
 }
@@ -328,7 +320,7 @@ int		lem_in(t_hill *ah)
 	// while(++ant <= ah->ants)
 	// 	save_route(ant, &turns, &res, ah->maze);
 	print_moves(res, turns, ah);
-	ft_printf("turns: %d\n", turns);
+	ft_printf("turns: %d\n", turns - 1);
 	// ft_tabarr_free(res, turns);
 	return (0);
 }

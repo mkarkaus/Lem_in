@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_graph_maze.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:28:46 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/01/08 12:01:45 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/01/11 14:11:427 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -412,13 +412,14 @@ void	pick_route(t_graph **maze, int *path, int infork)
 			k++;
 		while (++m < (*maze)->max_level)
 		{
-			// ft_printf("1\n");
 			// ft_pr_intarr((*maze)->route, (*maze)->paths, (*maze)->max_level, 1);
 			// ft_printf("infork:%d, path:%d, k:%d, m:%d\n", infork, *path, k, m);
-			if (((*maze)->route)[k][m] == infork)
+			// ft_printf("1\n");
+			if (((*maze)->route)[k][m] == infork)// valitsee kahdesta reitistä paremman
 			{
 				m = 0;
 				i = 0;
+				// ft_printf("2\n");
 				while (((*maze)->route)[*path][++i] != infork)// laskee output-forkkien määrän annetulta (*path) reitiltä
 				{
 					// ft_printf("infork:%d, path:%d, i:%d, k:%d, %d\n", infork, *path, i, k, ((*maze)->route)[*path][i]);
@@ -444,6 +445,13 @@ void	pick_route(t_graph **maze, int *path, int infork)
 				// ft_pr_intarr((*maze)->route, (*maze)->paths, (*maze)->max_level, 1);
 				return ;
 			}
+			// else if (k == (*maze)->paths)
+			// {
+			// 	ft_pr_intarr((*maze)->route, (*maze)->paths, (*maze)->max_level, 1);
+			// 	return;
+			// }
+			// ft_printf("3\n");
+
 		}
 		k++;
 	}
@@ -533,6 +541,7 @@ void	handle_input_forks(t_graph **maze)
 		{
 			prev_room = ((*maze)->route)[i][len - 1];
 			ptr = (*maze)->array[prev_room].head;
+			// ft_printf("1\n");
 			if (((*maze)->route)[i][len] == -1 && (*maze)->array[prev_room].out > 1)
 			{
 				(*maze)->paths += ((*maze)->array[prev_room].out - 1);
@@ -549,6 +558,7 @@ void	handle_input_forks(t_graph **maze)
 				else if (ptr->v != 1)
 					(*maze)->been[ptr->v] = 1;
 			}
+			// ft_printf("2\n");
 			// ft_pr_intarr((*maze)->route, (*maze)->paths, (*maze)->max_level, 1);
 			// ft_grapher(*maze);
 			// ft_printf("\n\n");
@@ -639,12 +649,11 @@ int		graph_maze(t_hill *ah)
 	del_twoway(&ah->maze);
 	del_zero_inputs(&ah->maze);// Not sure if works yet, check later
 	del_zero_outputs(&ah->maze);
+	// ft_graph_print(ah->maze, ah->name);
 	ah->maze->shrt = find_shortest_route(ah->maze);
-	// ft_pr_intarr(&ah->maze->shortest, 1, ah->maze->max_level, 1);
 	// ft_pr_intarr(&ah->maze->shortest, 1, ah->maze->max_level, 1);
 	// ft_printf("\n");
 	create_routes(&ah->maze);
-	// ft_graph_print(ah->maze, ah->name);
 	if (ah->maze->array[0].dd == -1)
 		return (-1);
 	return (0);
