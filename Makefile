@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+         #
+#    By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2020/11/06 12:40:05 by sreijola         ###   ########.fr        #
+#    Updated: 2021/01/18 14:48:26 by mkarkaus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS_C = lemin_main.c \
 	lemin_get_links.c \
 	lemin_validate_input.c \
 	lemin_graph_maze.c \
+	lemin_inputfork.c \
 	lemin_routes.c \
 	lemin_print.c \
 	ft_lstfree.c \

@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 10:45:15 by sreijola          #+#    #+#             */
-/*   Updated: 2021/01/11 12:32:27 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/01/13 11:54:27 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,7 +302,7 @@ void	reserve_moves(int ***res, t_hill *ah, int *turns)
 				ah->maze->shrt[0], turns);
 	other_ants(res, ah, ah->maze->route[0][0] - ah->maze->shrt[0] + 1, turns);
 	// ft_pr_intarr(*res, *turns, ah->maze->ver, 1);
-	// ft_pr_intarr(ah->maze->route, ah->maze->paths, ah->maze->max_level, 1);
+	ft_pr_intarr(ah->maze->route, ah->maze->paths, ah->maze->max_level, 1);
 }
 
 int		lem_in(t_hill *ah)
