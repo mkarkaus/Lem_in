@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:36:48 by sreijola          #+#    #+#             */
-/*   Updated: 2021/01/18 18:33:14 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/01/18 19:15:27 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,9 +152,9 @@ int		del_allbutone(t_graph **maze, int rem, int infork, int index)
 		ptr = (*maze)->array[i].head;
 		while (ptr)
 		{
-			ft_printf("huone josta lähtee:%d, linkki joka poistuu:%d\n", i, ptr->v);
 			if (ptr->v == infork && i != rem)
 			{
+				ft_printf("huone josta lähtee:%d, linkki joka poistuu:%d\n", i, ptr->v);
 				(*maze)->array[infork].in--;
 				(*maze)->array[i].out--;
 				del_edge(&(*maze)->array[i].head, &ptr);
@@ -219,7 +219,7 @@ int		pick_route(t_graph **maze, int *path, int infork, int index)
 				if (path_out_forks > k_out_forks || \
 					(k_out_forks == path_out_forks && i >= m))
 				{
-					// del_route(maze, *path);
+					del_route(maze, *path);
 					ret = del_allbutone(maze, (*maze)->route[k][m - 1], infork, index);
 					// if (k < *path)
 					// 	k--;
@@ -307,7 +307,7 @@ void	fill_new_paths(t_graph **maze, int fork)
 	}
 	// if (!ft_tabnequ(change_check, ((*maze)->route)[fork], (*maze)->max_level))
 	// {
-	ft_printf("\n");
+	// ft_printf("\n");
 	// ft_pr_intarr(&((*maze)->route)[fork], 1, (*maze)->max_level, 1);
 		// ft_pr_intarr((*maze)->route, (*maze)->paths, (*maze)->max_level, 1);
 	// 	fork--;
