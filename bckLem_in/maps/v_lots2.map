@@ -1,0 +1,37 @@
+10
+##start
+start 3 0
+T1 0 3
+T2 2 3
+T3 4 3
+T4 6 3
+T5 0 6
+T6 2 6
+T7 4 6
+T8 6 6
+##end
+end 3 9
+start-T1
+start-T2
+start-T3
+start-T4
+T1-T5
+T1-T6
+T1-T7
+T1-T8
+T2-T5
+T2-T6
+T2-T7
+T2-T8
+T3-T5
+T3-T6
+T3-T7
+T3-T8
+T4-T5
+T4-T6
+T4-T7
+T4-T8
+end-T5
+end-T6
+end-T7
+end-T8

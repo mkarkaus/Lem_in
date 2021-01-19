@@ -1,0 +1,15 @@
+10
+##start
+start 0 0
+A 2 0
+B 2 2
+C 4 2
+D 4 4
+##end
+end 6 0
+start-A
+A-D
+D-end
+A-B
+B-C
+C-A

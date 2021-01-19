@@ -1,0 +1,22 @@
+10
+##start
+start 0 0
+##end
+end 7 3
+A 1 2
+B 3 3
+C 3 5
+D 5 3
+E 5 6
+F 7 5
+Y 3 2
+start-A
+A-B
+B-C
+C-E
+E-F
+F-B
+B-D
+start-Y
+Y-D
+D-end
