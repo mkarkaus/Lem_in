@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 12:38:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/01/18 14:57:20 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/01/18 15:37:07 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,18 @@ void			ft_graph_print(t_graph *graph, char **name);
 t_node			*ft_graph_nodenew(int dest_ver);
 t_graph			*ft_graph_new(int vertices);
 void			ft_graph_edgeadd(t_graph *graph, int a, int b, int dir);
-void	del_edge(t_node **head, t_node **del);
+
 void	handle_input_forks(t_graph **maze);
 int		del_allbutone(t_graph **maze, int rem, int infork, int index);
 void	ft_grapher(t_graph *graph); //poista
 void	del_route(t_graph **maze, int del);
+void	create_routes(t_graph **maze);
+
+void	del_edge(t_node **head, t_node **del);
+void	del_twoway(t_graph **maze);
+void	del_zero_inputs(t_graph **maze);
+void	del_zero_outputs(t_graph **maze);
+
 /*
 	name = names of the rooms
 	res  = is room reserved by an ant (and by which ant)
