@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 12:38:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/01/18 15:37:07 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/01/27 10:14:58 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,16 @@ typedef struct	s_graph
 	int				paths;
 	int				max_level;
 	int				ver;
+	int				***routes;
 	int				**route;
 	t_alhead		*array;
 }				t_graph;
 
 typedef struct	s_hill
 {
+	int			**best_res;
+	int			best_turns;
+	int			start_i;
 	t_graph		*maze;
 	int			ants;
 	int			rooms;
@@ -61,7 +65,7 @@ int				valid_content(t_hill *ah, t_list *lst);
 int				graph_maze(t_hill *ah);
 void			fill_distances(t_hill *ah);
 int				lem_in(t_hill *ah);
-void			print_moves(int **res, int turns, t_hill *ah);
+void			print_moves(t_hill *ah);
 int				sneaky_ant(int **res, int move, int turns, int rooms);
 
 void			ft_lstfree(t_list *lst);
@@ -81,16 +85,17 @@ t_node			*ft_graph_nodenew(int dest_ver);
 t_graph			*ft_graph_new(int vertices);
 void			ft_graph_edgeadd(t_graph *graph, int a, int b, int dir);
 
-void	handle_input_forks(t_graph **maze);
-int		del_allbutone(t_graph **maze, int rem, int infork, int index);
+void	handle_input_forks(t_graph *maze);
+void	handle_output_forks(t_graph *maze);
+void	del_allbutone(t_graph *maze, int rem, int infork, int index);
 void	ft_grapher(t_graph *graph); //poista
-void	del_route(t_graph **maze, int del);
-void	create_routes(t_graph **maze);
+void	del_route(t_graph *maze, int del);
+void	create_routes(t_graph *maze);
 
 void	del_edge(t_node **head, t_node **del);
-void	del_twoway(t_graph **maze);
-void	del_zero_inputs(t_graph **maze);
-void	del_zero_outputs(t_graph **maze);
+void	del_twoway(t_graph *maze);
+void	del_zero_inputs(t_graph *maze);
+void	del_zero_outputs(t_graph *maze);
 
 /*
 	name = names of the rooms

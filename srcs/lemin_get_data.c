@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_get_data.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 12:42:03 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/01/11 13:52:07 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/01/21 13:18:27 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int		get_data(t_hill *ah, t_list **input)
 		return (-2);
 	if (graph_maze(ah) == -1)
 		return (-3);
-	ft_lstprint(data);
+	// ft_lstprint(data);
 	ft_lstfree(data);
 	return (0);
 }

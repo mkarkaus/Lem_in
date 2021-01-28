@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+         #
+#    By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2021/01/18 15:35:19 by sreijola         ###   ########.fr        #
+#    Updated: 2021/01/22 10:23:58 by mkarkaus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ SRCS_C = lemin_main.c \
 	ft_graph_new.c \
 	ft_graph_nodenew.c \
 	ft_graph_free.c \
-	ft_graph_print.c
+	ft_graph_print.c \
+	output_forks.c
 
 #	lemin_move_ants.c
 

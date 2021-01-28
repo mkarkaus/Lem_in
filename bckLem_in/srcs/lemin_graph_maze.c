@@ -12,6 +12,29 @@
 
 #include "../includes/lem_in.h"
 
+void	print_graph_zeros(t_graph *graph)
+{
+	t_node	*ptr;
+	int		i;
+
+	i = -1;
+	while (++i < graph->ver)
+	{
+		ptr = graph->array[i].head;
+		if (graph->array[i].in == 0 || graph->array[i].out == 0)
+		{
+			ft_printf("[ %d ] (dd:%d, level:%d, in:%d, out:%d)", i, graph->array[i].dd, graph->array[i].bfs_level, graph->array[i].in, graph->array[i].out);
+			while (ptr != NULL)
+			{
+				ft_printf(" -> %d", ptr->v);
+				ptr = ptr->next;
+			}
+			ft_printf("\n");
+		}
+	}
+	ft_printf("\n");
+}
+
 void	remake_queue(t_graph *maze, int **queue, int only_clear, int *been)
 {
 	int			i;
@@ -211,9 +234,9 @@ void	del_twoway(t_graph **maze)
 		node = (*maze)->array[i].head;
 		while (node != NULL)
 		{
-			if ((*maze)->array[i].bfs_level >= (*maze)->array[node->v].bfs_level)
-				// || ((*maze)->array[i].bfs_level == (*maze)->array[node->v].bfs_level) && \
-				// (*maze)->array[i].dd < (*maze)->array[node->v].dd)
+			if ((*maze)->array[i].bfs_level > (*maze)->array[node->v].bfs_level \
+				|| ((*maze)->array[i].bfs_level == (*maze)->array[node->v].bfs_level && \
+				(*maze)->array[i].dd < (*maze)->array[node->v].dd))
 				del_edge(&(*maze)->array[i].head, &node);
 			else
 			{
@@ -286,26 +309,6 @@ void	del_zero_outputs(t_graph **maze)
 	}
 }
 
-void	add_paths(int paths, int ***route, int prev, int max_level)
-{
-	int		**tmp;
-	int		k;
-	int		i;
-	
-	k = -1;
-	tmp = ft_tabarr_malloc(paths, max_level + 1);
-	while (++k < prev)
-		ft_memcpy(tmp[k], (*route)[k], sizeof(int) * max_level);
-	while (k < paths)
-	{
-		i = -1;
-		while (++i < max_level)
-			tmp[k][i] = -1;
-		k++;
-	}
-	ft_tabarr_free(*route, prev);
-	*route = tmp;
-}
 
 void	update_links(t_graph **maze, int del)
 {
@@ -471,6 +474,67 @@ void	ft_grapher(t_graph *graph)
 	}
 }
 
+
+int		check_loop(int v, int *path, int max)
+{
+	int i;
+	
+	i = 0;
+	while (path[i] != v && i < max)
+		i++;
+	if (path[i] == v)
+		return (0);
+	return (1);
+}
+
+int		find_valid(t_node *ptr, int *path, int max)
+{
+	int i;
+	int ret;
+	
+	i = 0;
+	while (ptr != NULL)
+	{
+		if (check_loop(ptr->v, path, max)) // vai <=
+			return (ptr->v);
+		ptr = ptr->next;
+	}
+}
+
+int		count_valid_links(t_node *ptr, int *tab, int max)
+{
+	int ret;
+	
+	ret = 0;
+	while (ptr != NULL)
+	{
+		ret += check_loop(ptr->v, tab, max);
+		ptr = ptr->next;
+	}
+	return (ret);
+}
+
+void	add_paths(int paths, int ***route, int prev, int max_level)
+{
+	int		**tmp;
+	int		k;
+	int		i;
+	
+	k = -1;
+	tmp = ft_tabarr_malloc(paths, max_level + 1);
+	while (++k < prev)
+		ft_memcpy(tmp[k], (*route)[k], sizeof(int) * max_level);
+	while (k < paths)
+	{
+		i = -1;
+		while (++i < max_level)
+			tmp[k][i] = -1;
+		k++;
+	}
+	ft_tabarr_free(*route, prev);
+	*route = tmp;
+}
+
 void	fill_new_paths(t_graph **maze, int fork)
 {
 	t_node	*ptr;
@@ -488,38 +552,18 @@ void	fill_new_paths(t_graph **maze, int fork)
 	ptr = (*maze)->array[((*maze)->route)[fork][i]].head;
 	while (k < (*maze)->paths && ptr->next != NULL)
 	{
-		m = i;
-		ft_memcpy(((*maze)->route)[k], ((*maze)->route)[fork], (*maze)->max_level * sizeof(int));
-		((*maze)->route)[k][i + 1] = ptr->v;
-		while (++m <= (*maze)->max_level && ptr->v == 1)
-			((*maze)->route)[k][m] = 1;
-		// if (((*maze)->been)[ptr->v] == 1)
-		// {
-		// 	temp = ptr->next;
-		// 	pick_route(maze, &k, ptr->v);
-		// 	ptr = temp;
-		// 	k++;
-		// }
-		// else
-		// {
+		if (check_loop(ptr->v, (*maze)->route[fork], (*maze)->max_level))
+		{
+			m = i;
+			ft_memcpy(((*maze)->route)[k], ((*maze)->route)[fork], (*maze)->max_level * sizeof(int));
+			((*maze)->route)[k][i + 1] = ptr->v;
+			while (++m <= (*maze)->max_level && ptr->v == 1)
+				((*maze)->route)[k][m] = 1;
 			k++;
-			if (ptr->v != 1)
-				((*maze)->been)[ptr->v] = 1;
+		}
 			ptr = ptr->next;
-		// }
 	}
 	((*maze)->route)[fork][i + 1] = ptr->v;
-	// if (((*maze)->been)[ptr->v] == 1)
-	// {
-	// 	temp = ptr->next;
-	// 	pick_route(maze, &k, ptr->v);
-	// 	ptr = temp;
-	// }
-	if (ptr != NULL && ptr->v != 1)
-		((*maze)->been)[ptr->v] = 1;
-	// ft_grapher(*maze);
-	// ft_pr_intarr((*maze)->route, (*maze)->paths, (*maze)->max_level, 1);
-	// ft_printf("max_lvl:%d\n", (*maze)->max_level);
 }
 
 void	handle_input_forks(t_graph **maze)
@@ -528,38 +572,44 @@ void	handle_input_forks(t_graph **maze)
 	int			prev_room;
 	int			len;
 	int			i;
+	int			ret;
+	int x = 0;
 
 	len = 1;
+	ret = 0;
 	while (++len <= (*maze)->max_level)
 	{
 		i = -1;
 		while (++i < (*maze)->paths)
 		{
-			// ft_pr_intarr((*maze)->route, (*maze)->paths, (*maze)->max_level, 1);
-			// ft_printf("\n\n");
 			prev_room = ((*maze)->route)[i][len - 1];
 			ptr = (*maze)->array[prev_room].head;
-			// ft_printf("1\n");
-			if (((*maze)->route)[i][len] == -1 && (*maze)->array[prev_room].out > 1)
+			// ft_pr_intarr(&(*maze)->route[i], 1, (*maze)->max_level, 1);
+				ft_pr_intarr((*maze)->route, (*maze)->paths, (*maze)->max_level, 1);
+			// ft_printf("\n%d\n", x++);
+			if (ret = count_valid_links(ptr, (*maze)->route[i], (*maze)->max_level > 0))
 			{
-				(*maze)->paths += ((*maze)->array[prev_room].out - 1);
-				add_paths((*maze)->paths, &(*maze)->route, (*maze)->paths - ((*maze)->array[prev_room].out - 1), (*maze)->max_level);
-				fill_new_paths(maze, i);
+				if (((*maze)->route)[i][len] == -1 && ret > 0)
+				{
+					ft_printf("%d\n", ret);
+					if (((*maze)->route)[i][len - 1] == 1)
+						((*maze)->route)[i][len] = 1;
+					if (ret == 1)
+						((*maze)->route)[i][len] = find_valid(ptr, (*maze)->route[i], (*maze)->max_level);
+					else
+					{
+						(*maze)->paths += ret;
+						add_paths((*maze)->paths, &(*maze)->route, (*maze)->paths - ret, (*maze)->max_level);
+						fill_new_paths(maze, i);
+					}
+				}
 			}
 			else if (((*maze)->route)[i][len - 1] == 1)
-				((*maze)->route)[i][len] = 1;
-			else if (((*maze)->route)[i][len] == -1)
-			{
-				((*maze)->route)[i][len] = ptr->v;
-				// if ((*maze)->been[ptr->v] == 1)
-				// 	pick_route(maze, &i, ptr->v);
-				// else if (ptr->v != 1)
-				// 	(*maze)->been[ptr->v] = 1;
-			}
-			// ft_printf("2\n");
-			// ft_grapher(*maze);
+					((*maze)->route)[i][len] = 1;
 		}
 	}
+	ft_pr_intarr((*maze)->route, (*maze)->paths, (*maze)->max_level, 1);
+	ft_printf("\n\n");
 }
 
 void	del_bad_links(t_graph **maze, int fork, int best_out)
@@ -609,24 +659,12 @@ void	del_invalid_routes(t_graph **maze)
 	i = 0;
 	while (i < (*maze)->paths)
 	{
-		// ft_pr_intarr((*maze)->route, (*maze)->paths, (*maze)->max_level, 1);
-		// ft_printf("i:%d, max_level:%d, paths:%d\n", i, (*maze)->max_level, (*maze)->paths);
 		if ((*maze)->route[i][(*maze)->max_level - 1] != 1)
-		{
-			// ft_pr_intarr(&(*maze)->route[i], 1, (*maze)->max_level, 1);
-			// ft_printf("i:%d paths:%d\n", i, (*maze)->paths);
-			// ft_printf("\n");
 			del_route(maze, &i);
-			// ft_printf("2\n");
-		}
 		else
-		{
-			// ft_pr_intarr(&(*maze)->route[i], 1, (*maze)->max_level, 1);
-			// ft_printf("NOT i:%d\n", i);
-			// ft_printf("\n");
 			i++;
-		}
 	}
+	ft_pr_intarr((*maze)->route, (*maze)->paths, (*maze)->max_level, 1);
 }
 
 void	create_routes(t_graph **maze)
@@ -653,9 +691,10 @@ void	create_routes(t_graph **maze)
 	// ft_grapher(*maze);
 	// ft_pr_intarr((*maze)->route, (*maze)->paths, (*maze)->max_level, 1);
 	handle_input_forks(maze);
+	// ft_pr_intarr((*maze)->route, (*maze)->paths, (*maze)->max_level, 1);
 	del_invalid_routes(maze);
 	sort_routes(&(*maze)->route, (*maze)->paths);
-	handle_output_forks(maze);
+	// handle_output_forks(maze);
 	// ft_printf("\n");
 	// ft_tabarr_free(route, (*maze)->array[0].out);
 }
@@ -670,19 +709,20 @@ int		graph_maze(t_hill *ah)
 		ft_graph_edgeadd(ah->maze, ah->link[i][0], ah->link[i][1], 0);
 	fill_distances(ah);
 	bfs_levels(&ah->maze);
-	del_twoway(&ah->maze);
+	// print_graph_zeros(ah->maze);
+	// print_graph_zeros(ah->maze);
 	ft_grapher(ah->maze);
-	ft_pr_intarr(ah->link, ah->links, 2, 1);
-	ft_printf("links: %d\n", ah->links);
+	del_twoway(&ah->maze);
+	print_graph_zeros(ah->maze);
+	// ft_pr_intarr(ah->link, ah->links, 2, 1);
+	// ft_printf("links: %d\n", ah->links);
 	del_zero_inputs(&ah->maze);// Not sure if works yet, check later
+	print_graph_zeros(ah->maze);
 	del_zero_outputs(&ah->maze);
 	ah->maze->shrt = find_shortest_route(ah->maze);
 	// ft_pr_intarr(&ah->maze->shortest, 1, ah->maze->max_level, 1);
 	// ft_printf("\n");
-	// ft_pr_intarr(ah->maze->route, ah->maze->paths, ah->maze->max_level, 1);
 	create_routes(&ah->maze);
+	// ft_pr_intarr(ah->maze->route, ah->maze->paths, ah->maze->max_level, 1);
 	// ft_graph_print(ah->maze, ah->name);
-	if (ah->maze->array[0].dd == -1)
-		return (-1);
-	return (0);
 }

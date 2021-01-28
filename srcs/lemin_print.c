@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 12:38:29 by sreijola          #+#    #+#             */
-/*   Updated: 2020/12/07 12:00:45 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/01/25 17:23:12 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		find_ant_move(int ant, int **res, int turn, int rooms)
 	return (nxt_rm);
 }
 
-void	print_moves(int **res, int turns, t_hill *ah)
+void	print_moves(t_hill *ah)
 {
 	int		i;
 	int		ant;
@@ -46,14 +46,15 @@ void	print_moves(int **res, int turns, t_hill *ah)
 
 	in_end = (int *)ft_memalloc(ah->ants * sizeof(int));
 	i = 0;
-	while (i + 1 < turns)
+	// ft_pr_intarr(ah->best_res, ah->best_turns, ah->maze->ver, 1);
+	while (i + 1 < ah->best_turns)
 	{
 		first = 1;
 		ant = 0;
 		sneaky = 0;
 		while (++ant <= ah->ants)
 		{
-			if (in_end[ant - 1] == 0 && ((rm = find_ant_move(ant, res, i, ah->rooms)) > 0 || (rm == -1 && sneaky == 0)))
+			if (in_end[ant - 1] == 0 && ((rm = find_ant_move(ant, ah->best_res, i, ah->rooms)) > 0 || (rm == -1 && sneaky == 0)))
 			{
 				if (rm == -1)
 				{
