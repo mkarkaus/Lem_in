@@ -56,6 +56,7 @@ typedef struct	s_hill
 	int			**coor;
 	int			links;
 	int			**link;
+	int			flags;
 }				t_hill;
 
 void			sort_routes(int ***route, int max_paths);
@@ -100,6 +101,10 @@ void	del_edge(t_node **head, t_node **del);
 void	del_twoway(t_graph *maze);
 void	del_zero_inputs(t_graph *maze);
 void	del_zero_outputs(t_graph *maze);
+
+int		save_flags(int c, char **flags, t_hill *ah);
+void	print_routes(int **routes, char **names);
+void	print_stats(int rms, int links, int ants);
 
 /*
 	name = names of the rooms

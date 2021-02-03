@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/01/27 10:14:58 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/03 22:34:55 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,6 @@
 
 void	free_struct_elements(t_hill *ah) //lista pitää vapauttaa get_datassa
 {
-	// int		i;
-
-	// i = -1;
 	if (ah->name[0] != NULL)
 		ft_strarr_free(ah->name);
 	if (ah->rooms > 0)
@@ -65,8 +62,6 @@ void	free_struct_elements(t_hill *ah) //lista pitää vapauttaa get_datassa
 	{
 		free(ah->maze->shrt);
 		ft_tabarr_free(ah->maze->route, ah->maze->array[0].out);
-		// while (++i < ah->maze->ver)
-		// 	free(ah->maze->array[i].antnb);
 		ft_graph_free(ah->maze);
 	}
 }
@@ -89,23 +84,31 @@ int		handle_errors(int error)
 	return (error);
 }
 
-int		main()
+int		main(int ac, char **av)
 {
 	t_hill	ah;
 	t_list	*input;
 	int 	ret;
 
 	input = NULL;
+	if (ac > 1 && (save_flags(ac, av, &ah) == 0))
+			return (0);
 	if ((ret = get_data(&ah, &input)) < 0)
 		return (handle_errors(ret));
+	if (ah.flags == 's')
+		print_stats(ah.rooms, ah.links, ah.ants);
 	// ft_strarr_print(ah.name);
 	// ft_pr_intarr(ah.coor, ah.rooms, 2, 1);
+	// if (ah.flags != 'q')
 	// ft_lstprint(input);
 	// ft_printf("%d\n", ft_lstlen(input));
 	write(1, "\n", 1);
-	// ft_graph_print(ah.maze);
 	if ((ret = lem_in(&ah)) < 0) //remove error returns
 		return (handle_errors(ret));
+	if (ah.flags == 'l')
+		ft_printf("Lines aka turns needed: %d\n", ah.best_turns - 1);
+	if (ah.flags == 'r')
+		print_routes(ah.maze->sets[1], ah.name);
 	ft_lstfree(input);
 	free_struct_elements(&ah);
 	return (0);
