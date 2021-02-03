@@ -112,13 +112,6 @@ void	requeue(t_graph *maze, int **queue, int only_clear)
 			node = ptr[temp[k]].head;
 			while (node != NULL)
 			{
-				// 	if ((ptr[node->v].bfs_level == -1 && !ft_tabint_find(*queue, node->v, (*maze)->ver) && been == NULL) \
-				// 	|| (been != NULL && !ft_tabint_find(been, node->v, (*maze)->ver) && ptr[node->v].bfs_level != -3))
-				// 		(*queue)[i++] = node->v;
-				// node = node->next;
-				// if ((ptr[node->v].bfs_level == -1 && !ft_tabint_find(*queue, node->v, maze->ver)) \
-				// 	|| (ptr[node->v].dd < ptr[temp[k]].dd && node->v != 0))
-				// if (ptr[node->v].bfs_level == -1 || (ptr[node->v].dd < ptr[temp[k]].dd && node->v != 0) || temp[k] == 0)
 				if (ptr[node->v].bfs_level == -1 && !ft_tabint_find(*queue, node->v, maze->ver))
 					(*queue)[i++] = node->v;
 				node = node->next;
@@ -126,7 +119,6 @@ void	requeue(t_graph *maze, int **queue, int only_clear)
 			k++;
 		}
 	}
-	ft_pr_intarr(queue, 1, maze->ver, 1);
 	free(temp);
 	// temp = NULL;
 }
@@ -159,7 +151,8 @@ void	bfs_levels(t_graph *maze)
 	}
 	free(q);
 	maze->array[1].bfs_level = INT_MAX;
-	maze->max_level = level + 1;
+	// maze->max_level = (level + 1) * 2;
+	maze->max_level = 500;
 }
 
 int		*find_shortest_route(t_graph *maze)
@@ -190,13 +183,9 @@ int		*find_shortest_route(t_graph *maze)
 	{
 		shortest[i] = room;
 		i++;
-	}	
+	}
 	return (shortest);
 }
-
-
-
-
 
 int		count_potential_paths(t_graph *maze)
 {
@@ -213,74 +202,94 @@ int		count_potential_paths(t_graph *maze)
 	return (i);
 }
 
-void	req(t_graph *maze, int **queue, int only_clear)
-{
-	int			i;
-	int			k;
-	int			*temp;
-	t_node		*node;
-	t_alhead	*ptr;
-
-	i = -1;
-	temp = (int *)ft_memalloc(maze->ver * sizeof(int));
-	ft_memcpy(temp, *queue, maze->ver * sizeof(int));
-	while (++i < maze->ver)
-		(*queue)[i] = -1;
-	i = 0;
-	k = 0;
-	ptr = maze->array;
-	if (only_clear == 0)
-	{
-		while (temp[k] != -1)
-		{
-			node = ptr[temp[k]].head;
-			while (node != NULL)
-			{
-				if (maze->been[node->v] == 0)
-					(*queue)[i++] = node->v;
-				node = node->next;
-			}
-			k++;
-		}
-	}
-	ft_pr_intarr(queue, 1, maze->ver, 1);
-	free(temp);
-	// temp = NULL;
-}
-
-int		**bfs_search_routes(t_graph *maze, int stop_at_first)
+void	set_flow(int **route, int paths, int **flow)
 {
 	int		i;
+	int		row;
 
-	i = 0;
-	
+	row = 0;
+	i = 1;
+	while (row < paths && route[row][2] == 1)
+		row++;
+	while (row != paths && route[row][i] != 1 && route[row][i + 1] != 1)
+	{
+		// ft_pr_intarr(route, paths, 3, 1);
+		(*flow)[route[row][i]] = route[row][i + 1];
+		(*flow)[route[row][i + 1]] = route[row][i];
+		i++;
+	}
+}
+
+void	bfs_search_sets(t_graph *maze, int del_all_others)
+{
+	int		i;
+	int		max_paths;
+
+	create_set(maze);
+	if (maze->paths > 0)
+	{
+		route_lengths(&maze->route, maze->paths);
+		sort_routes(&maze->route, maze->paths);
+	}
+	// ft_bzero(maze->flow, sizeof(int) * maze->ver);
+	set_flow(maze->route, maze->paths, &maze->flow);
 }
 
 void	init_sets(t_graph *maze, int path)
 {
+	int		i;
+
+	i = 0;
+	maze->flow = (int *)ft_memalloc(sizeof(int) * maze->ver);
+	ft_bzero(maze->flow, sizeof(int) * maze->ver);
 	maze->been = (int *)ft_memalloc(sizeof(int) * maze->ver);
-	maze->routes = (int ***)ft_memalloc(sizeof(int **) * 3);
-	maze->routes[0] = (int **)ft_memalloc(sizeof(int *) * 2);
-	maze->routes[0][0] = (int *)ft_memalloc(sizeof(int));
-	maze->routes[1] = (int **)ft_memalloc(sizeof(int *) * path);
-	maze->routes[1][0] = (int *)ft_memalloc(sizeof(int));
-	maze->routes[2] = (int **)ft_memalloc(sizeof(int *) * path);
-	maze->routes[2][0] = (int *)ft_memalloc(sizeof(int));
+	maze->sets = (int ***)ft_memalloc(sizeof(int **) * 30);// 3 stands for 3 sets
+	while (i < 30)
+	{
+		maze->sets[i] = (int **)ft_memalloc(sizeof(int *) * (path + 1)); //koska tallennetaan vain lyhin reitti ja sen määrä 0:teen
+		maze->sets[i][0] = (int *)ft_memalloc(sizeof(int));
+		maze->sets[i][0][0] = 0;
+		i++;
+	}
 }
 
-// void	find_route_sets(t_graph *maze)
-// {
-// 	int	set;
-// 	int path;
+int		sum_lens(int paths, int **route)
+{
+	int ret;
 	
-// 	set = 2;
-// 	path = count_potential_paths(maze);
-// 	init_sets(maze, path);
-// 	maze->routes[0] = bfs_search_routes;
-// 	tee 3 4 6 2 -1
-// 	maze->routes[1] = funktio joka etsii lyhimmät reitit kun shortest blokattu;
-// 	maze->routes[set] = eka dfs level 1 linkeistä;
-// }
+	ret = 0;
+	while (--paths >= 0)
+		ret += route[paths][0];
+	return (ret);
+}
+
+
+void	find_route_sets(t_graph *maze, int ants)
+{
+	int	set;
+	int path;
+	int	i;
+
+	set = 0;
+	path = count_potential_paths(maze);
+	ft_pr_intarr(maze->route, maze->paths, maze->max_level, 1);
+	init_sets(maze, path);
+	while (set < 30)
+	{
+		ft_bzero(maze->been, sizeof(int) * maze->ver);
+		maze->route = ft_tabarr_malloc(path, maze->max_level + 1);
+		init_routes(maze);
+		bfs_search_sets(maze, set == 0);
+		maze->sets[set][0][0] = maze->paths;
+		maze->sets[set][0][1] = ((sum_lens(maze->paths, maze->route) + ants) / maze->paths) - 1;
+		i = -1;
+		while (++i < maze->paths)
+			maze->sets[set][i + 1] = maze->route[i];
+		maze->route = NULL;
+		set++;
+		ft_printf("SET CHANGED\n");
+	}
+}
 
 int		graph_maze(t_hill *ah)
 {
@@ -292,17 +301,28 @@ int		graph_maze(t_hill *ah)
 		ft_graph_edgeadd(ah->maze, ah->link[i][0], ah->link[i][1], 0);
 	fill_distances(ah);
 	bfs_levels(ah->maze);
-	// find_route_sets(ah->maze);
 	// ft_graph_print(ah->maze, ah->name);
+	find_route_sets(ah->maze, ah->ants);
+
+
+	// i = -1;
+	// while (++i < 3)
+	// {
+	// 	ft_printf("paths: %d\n", ah->maze->sets[i][0][0]);
+	// 	ft_pr_intarr(ah->maze->sets[i] + 1, ah->maze->sets[i][0][0], ah->maze->max_level, 1);
+	// 	ft_printf("\n");
+	// }
 	// exit(1);
-	del_twoway(ah->maze);
-	del_zero_inputs(ah->maze);// Not sure if works yet, check later
-	del_zero_outputs(ah->maze);
+
+
+	// del_twoway(ah->maze);
+	// del_zero_inputs(ah->maze);// Not sure if works yet, check later
+	// del_zero_outputs(ah->maze);
 	// ft_printf("\n");
 	// ft_pr_intarr(&ah->maze->shrt, 1, ah->maze->max_level, 1);
-	ah->maze->shrt = find_shortest_route(ah->maze);
-	create_routes(ah->maze);
-	ft_pr_intarr(ah->maze->route, ah->maze->paths, ah->maze->max_level, 1);
+	// ah->maze->shrt = find_shortest_route(ah->maze);
+	// create_routes(ah->maze);
+	
 	// ft_graph_print(ah->maze, ah->name);
 	if (ah->maze->array[0].dd == -1)
 		return (-1);

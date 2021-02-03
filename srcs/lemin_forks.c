@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:19:54 by sreijola          #+#    #+#             */
-/*   Updated: 2021/01/26 10:13:43 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/01 10:04:01 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_routes(t_graph *maze)
 
 	ptr = maze->array[0].head;
 	i = 0;
+	maze->been[0] = 1;
 	while (ptr) //init routes with links from start and cross-check and del them from other rooms
 	{
 		len = -1;
@@ -27,6 +28,7 @@ void	init_routes(t_graph *maze)
 			maze->route[i][len] = -1;
 		maze->route[i][0] = 0;
 		maze->route[i][1] = ptr->v;
+		maze->been[ptr->v] = 1;
 		// del_allbutone(maze, 0, ptr->v, 0);
 		// ft_pr_intarr(maze->route, 2, maze->max_level, 1);
 		ptr = ptr->next;
@@ -37,11 +39,11 @@ void	init_routes(t_graph *maze)
 
 void	create_routes(t_graph *maze)
 {
-	maze->route = ft_tabarr_malloc(maze->array[0].out, maze->max_level + 1);
 	maze->been = (int *)ft_memalloc(maze->ver * sizeof(int));
+	maze->route = ft_tabarr_malloc(maze->array[0].out, maze->max_level + 1);
 	init_routes(maze);
 	// ft_pr_intarr(maze->route, maze->paths, maze->max_level, 1);
-	handle_input_forks(maze);
+	// handle_input_forks(maze);
 	// ft_grapher(maze);
 	// ft_pr_intarr(&maze->shrt, 1, maze->max_level, 1);
 	// ft_printf("\n");

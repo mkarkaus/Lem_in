@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 10:45:15 by sreijola          #+#    #+#             */
-/*   Updated: 2021/01/27 10:14:58 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/02 17:09:35 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ void	sort_routes(int ***route, int max_paths)
 	}
 }
 
-void	route_lengths(int ***route, int max_paths, int **shrt)
+void	route_lengths(int ***route, int max_paths)
 {
 	int		i;
 	int		row;
@@ -212,10 +212,6 @@ void	route_lengths(int ***route, int max_paths, int **shrt)
 		(*route)[row][0] = i;
 		row++;
 	}
-	i = 0;
-	while ((*shrt)[i] != 1)
-		i++;
-	(*shrt)[0] = i;
 }
 
 void	apply_route(int ***res, int *route, int start, int ant, int turns)
@@ -320,16 +316,20 @@ void	rotate_routes(t_graph *maze)
 void	reserve_moves(int ***res, t_hill *ah, int *turns)
 {
 	int		move;
+	int		set;
 
+	set = -1;
 	ah->best_turns = INT_MAX;
 	ah->start_i = -1;
-	while (++ah->start_i < ah->maze->paths)
+	while (++set < 30)
 	{
 		*res = NULL;
 		*turns = 0;
-		move = (ah->maze->route[0][0] - ah->maze->shrt[0] > 1) ? \
-			ah->maze->shrt[0] + (ah->maze->route[0][0] - ah->maze->shrt[0]) :\
-			ah->maze->shrt[0] + 1;
+		ah->maze->paths = ah->maze->sets[set][0][0];
+		ah->maze->route = ah->maze->sets[set] + 1;
+		move = (ah->maze->route[0][0] - ah->maze->sets[0][0][0] > 1) ? \
+			ah->maze->sets[0][0][0] + (ah->maze->route[0][0] - ah->maze->sets[0][0][0]) :\
+			ah->maze->sets[0][0][0] + 1;
 		// if (move > *turns)
 		// {
 		add_turns(move, ah->maze, res, *turns);
@@ -339,10 +339,8 @@ void	reserve_moves(int ***res, t_hill *ah, int *turns)
 		// if (ah->maze->shrt[0] < ah->maze->route[0][0])
 		// 	first_ants(res, ah->maze->shrt, ah->maze->route[0][0] - \
 		// 			ah->maze->shrt[0], turns);
-		// ft_pr_intarr(*res, *turns, ah->maze->ver, 1);
 		other_ants(res, ah, 1, turns);
-		// other_ants(res, ah, ah->maze->route[0][0] - ah->maze->shrt[0] + 1, turns);
-		ft_pr_intarr(ah->maze->route, ah->maze->paths, ah->maze->max_level, 1);
+		// ft_pr_intarr(ah->maze->route, ah->maze->paths, ah->maze->max_level, 1);
 		if (*turns < ah->best_turns)
 		{
 			if (ah->best_turns != INT_MAX)
@@ -352,8 +350,8 @@ void	reserve_moves(int ***res, t_hill *ah, int *turns)
 		}
 		else
 			ft_tabarr_free(*res, *turns);
-		ft_printf("turns: %d\n", *turns);
-		rotate_routes(ah->maze);
+		// ft_printf("turns: %d\n", *turns);
+		// rotate_routes(ah->maze);
 	}
 }
 
@@ -363,8 +361,8 @@ int		lem_in(t_hill *ah)
 	int		turns;
 
 	turns = 0;
-	route_lengths(&ah->maze->route, ah->maze->paths, &ah->maze->shrt);
-	sort_routes(&ah->maze->route, ah->maze->paths);
+	// route_lengths(&ah->maze->route, ah->maze->paths);
+	// sort_routes(&ah->maze->route, ah->maze->paths);
 	// ft_pr_intarr(ah->maze->route, ah->maze->paths, ah->maze->max_level, 1);
 	reserve_moves(&res, ah, &turns);
 	print_moves(ah);

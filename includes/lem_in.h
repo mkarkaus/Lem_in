@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 12:38:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/01/27 10:14:58 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/01/29 111::0001 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ typedef struct	s_graph
 	int				paths;
 	int				max_level;
 	int				ver;
-	int				***routes;
+	int				***sets;
 	int				**route;
+	int				*flow;
 	t_alhead		*array;
 }				t_graph;
 
@@ -57,6 +58,9 @@ typedef struct	s_hill
 	int			**link;
 }				t_hill;
 
+void			sort_routes(int ***route, int max_paths);
+void			route_lengths(int ***route, int max_paths);
+void			init_routes(t_graph *maze);
 int				get_data(t_hill *ah, t_list **input);
 void			init_struct(t_hill *ah);
 int				get_rooms(t_hill *ah, t_list *lst);
@@ -85,7 +89,7 @@ t_node			*ft_graph_nodenew(int dest_ver);
 t_graph			*ft_graph_new(int vertices);
 void			ft_graph_edgeadd(t_graph *graph, int a, int b, int dir);
 
-void	handle_input_forks(t_graph *maze);
+void	create_set(t_graph *maze);
 void	handle_output_forks(t_graph *maze);
 void	del_allbutone(t_graph *maze, int rem, int infork, int index);
 void	ft_grapher(t_graph *graph); //poista
