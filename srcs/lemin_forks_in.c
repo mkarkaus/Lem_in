@@ -15,7 +15,6 @@
 void	del_route(t_graph *maze, int del)
 {
 	int		*temp;
-	int		found;
 
 	while (del < maze->paths - 1)// swaps the to-be-deleted path until it's the last
 	{
@@ -31,7 +30,7 @@ void	del_route(t_graph *maze, int del)
 void	fill_new_paths(t_graph *maze, int fork, int *visited)
 {
 	t_node	*ptr;
-	t_node	*temp;
+	// t_node	*temp;
 	int		i;
 	int		k;
 
@@ -192,17 +191,17 @@ void	add_to_route(t_graph *maze, int prev_room, int *row, int len)
 	{
 		del_route(maze, *row);
 		if (*row != 0)
-			*row--;
+			(*row)--; //not used *row--
 	}
 	free(visited);
 }
 
 void	create_set(t_graph *maze)
 {
-	t_node		*ptr;
 	int			prev_room;
 	int			len;
 	int			i;
+	// t_node		*ptr;
 
 	len = 1;
 	// ft_printf("before:\n");
@@ -214,7 +213,7 @@ void	create_set(t_graph *maze)
 			if (maze->route[i][len] == -1)
 			{
 				prev_room = maze->route[i][len - 1];
-				ptr = maze->array[prev_room].head;
+				// ptr = maze->array[prev_room].head;
 				// ft_pr_intarr(maze->route, maze->paths, maze->max_level, 1);
 				// ft_printf("\n");
 				if (maze->route[i][len - 1] == 1)

@@ -220,11 +220,8 @@ void	set_flow(int **route, int paths, int **flow)
 	}
 }
 
-void	bfs_search_sets(t_graph *maze, int del_all_others)
+void	bfs_search_sets(t_graph *maze)
 {
-	int		i;
-	int		max_paths;
-
 	create_set(maze);
 	if (maze->paths > 0)
 	{
@@ -263,7 +260,6 @@ int		sum_lens(int paths, int **route)
 	return (ret);
 }
 
-
 void	find_route_sets(t_graph *maze, int ants)
 {
 	int	set;
@@ -279,9 +275,15 @@ void	find_route_sets(t_graph *maze, int ants)
 		ft_bzero(maze->been, sizeof(int) * maze->ver);
 		maze->route = ft_tabarr_malloc(path, maze->max_level + 1);
 		init_routes(maze);
-		bfs_search_sets(maze, set == 0);
+		bfs_search_sets(maze);//, set == 0);
 		maze->sets[set][0][0] = maze->paths;
-		maze->sets[set][0][1] = ((sum_lens(maze->paths, maze->route) + ants) / maze->paths) - 1;
+		ft_printf("%d\n", maze->paths);
+		ft_pr_intarr(maze->route, maze->paths, 10, 1);
+		if (maze->paths > 0)
+		{
+			maze->sets[set][0][1] = ((sum_lens(maze->paths, maze->route) + ants) / maze->paths) - 1;
+			ft_printf("sum:%d ants:%d\n", maze->sets[set][0][1], ants);
+		}
 		i = -1;
 		while (++i < maze->paths)
 			maze->sets[set][i + 1] = maze->route[i];
@@ -303,7 +305,6 @@ int		graph_maze(t_hill *ah)
 	bfs_levels(ah->maze);
 	// ft_graph_print(ah->maze, ah->name);
 	find_route_sets(ah->maze, ah->ants);
-
 
 	// i = -1;
 	// while (++i < 3)

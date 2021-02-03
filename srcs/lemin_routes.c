@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_routes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 10:45:15 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/02 17:09:35 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/03 19:34:19 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,7 +321,7 @@ void	reserve_moves(int ***res, t_hill *ah, int *turns)
 	set = -1;
 	ah->best_turns = INT_MAX;
 	ah->start_i = -1;
-	while (++set < 30)
+	while (++set < 30 && ah->maze->sets[set][0][0] != 0)
 	{
 		*res = NULL;
 		*turns = 0;
@@ -337,7 +337,7 @@ void	reserve_moves(int ***res, t_hill *ah, int *turns)
 		// }
 		// ft_pr_intarr(&ah->maze->shrt, 1, ah->maze->max_level, 1);
 		// if (ah->maze->shrt[0] < ah->maze->route[0][0])
-		// 	first_ants(res, ah->maze->shrt, ah->maze->route[0][0] - \
+		// 	first_ants(res, ah->maze->shrt, ah->maze->route[0][0] - 
 		// 			ah->maze->shrt[0], turns);
 		other_ants(res, ah, 1, turns);
 		// ft_pr_intarr(ah->maze->route, ah->maze->paths, ah->maze->max_level, 1);
