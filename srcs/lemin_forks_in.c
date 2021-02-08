@@ -43,7 +43,7 @@ void	fill_new_paths(t_graph *maze, int fork, int *visited)
 	ptr = maze->array[maze->route[fork][i]].head;
 	while (k < maze->paths && ptr)
 	{
-		if (maze->flow[maze->route[fork][i]] != ptr->v && visited[ptr->v] == 0)
+		if (!(maze->flow[maze->route[fork][i]] == 1 && maze->flow[ptr->v] == 1) && visited[ptr->v] == 0)
 		{
 			if (maze->route[fork][i + 1] == -1)
 				maze->route[fork][i + 1] = ptr->v;
@@ -95,7 +95,7 @@ int		count_new_routes(t_graph *maze, int fork, int *visited)
 		{
 			if (ptr->v == 1)
 				return (-1);
-			if (maze->been[ptr->v] != 1 && maze->flow[fork] != ptr->v)
+			if (maze->been[ptr->v] != 1 && !(maze->flow[fork] == 1 && maze->flow[ptr->v] == 1))
 				valid_routes++;
 		}
 		ptr = ptr->next;
@@ -169,10 +169,8 @@ void	add_to_route(t_graph *maze, int prev_room, int *row, int len)
 	
 	fill_visited(maze, *row, &visited);
 	ret = count_new_routes(maze, prev_room, visited);
-	// ft_printf("rm: %d, ret: %d\n", prev_room, ret);
-	// ft_pr_intarr(maze->route, maze->paths, maze->max_level, 1);
 	ptr = maze->array[prev_room].head;
-	while (ptr && (maze->been[ptr->v] == 1 || visited[ptr->v] == 1 || maze->flow[prev_room] == ptr->v))
+	while (ptr && (maze->been[ptr->v] == 1 || visited[ptr->v] == 1 || (maze->flow[prev_room] == 1 && maze->flow[ptr->v] == 1)))
 		ptr = ptr->next;
 	if (ret > 1)
 	{
@@ -201,10 +199,8 @@ void	create_set(t_graph *maze)
 	int			prev_room;
 	int			len;
 	int			i;
-	// t_node		*ptr;
 
 	len = 1;
-	// ft_printf("before:\n");
 	while (++len < maze->max_level && maze->paths != 0)
 	{
 		i = -1;
@@ -213,20 +209,12 @@ void	create_set(t_graph *maze)
 			if (maze->route[i][len] == -1)
 			{
 				prev_room = maze->route[i][len - 1];
-				// ptr = maze->array[prev_room].head;
-				// ft_pr_intarr(maze->route, maze->paths, maze->max_level, 1);
-				// ft_printf("\n");
 				if (maze->route[i][len - 1] == 1)
 					maze->route[i][len] = 1;
 				else
 					add_to_route(maze, prev_room, &i, len);
-				// ft_pr_intarr(maze->route, maze->paths, maze->max_level, 1);
-				// ft_printf("\n");
-				// ft_pr_intarr(&maze->flow, 1, maze->ver, 1);
 				i = -1;
 			}
-			// ft_printf("kalaa\n");
 		}
 	}
-	// ft_printf("after:\n");
 }

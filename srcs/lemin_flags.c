@@ -3,53 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_flags.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:16:17 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/03 22:37:32 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/08 11:30:10 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-int		save_flags(int c, char **flags, t_hill *ah)
+int		print_options()
 {
-	int i;
-	
-	i = 0;
-	ah->flags = 0;
-	while (++i < c)
-	{
-		if (flags[i][0] == '-')
-		{
-			if (ft_strchr(flags[i], 'h'))
-			{
-				ft_printf("Options:\n-h: help\n-r: print routes\n");
-				ft_printf("-l: show amount of lines used\n");
-				ft_printf("-q: quiet mode, only print moves\n");
-				ft_printf("-s: print anthill stats\n");
-				return (0);
-			}
-			if (ft_strchr(flags[i], 'r'))
-				ah->flags = 'r';
-			if (ft_strchr(flags[i], 'l'))
-				ah->flags = 'l';
-			if (ft_strchr(flags[i], 'q'))
-				ah->flags = 'q';
-			if (ft_strchr(flags[i], 's'))
-				ah->flags = 's';
-		}
-	}
+	ft_printf("Options:\n-h: help\n-l: show amount of lines used\n");
+	ft_printf("-q: quiet mode, only print moves\n-r: print routes\n");
+	ft_printf("-s: print anthill stats\n");
+	return (0);
 }
 
-void	print_routes(int **routes, char **names)
+void	print_routes(int **routes, int paths, char **names)
 {
 	int i;
 	int row;
 	
-	row = 0;
-	ft_printf("routes: %d\n", routes[0][0]);
-	while (++row <= routes[0][0])
+	row = -1;
+	while (++row < paths)
 	{
 		i = 0;
 		ft_printf("Route %d: ", row);
@@ -59,7 +36,55 @@ void	print_routes(int **routes, char **names)
 	}
 }
 
-void	print_stats(int rms, int links, int ants)
+void	print_stats(int rms, int lnks, int a)
 {
-	ft_printf("ANTHILL:\nAnts: %d\nRooms: %d\nLinks: %d\n", rms, links, ants);
+	ft_printf("\nANTHILL:\nAnts: %d\nRooms: %d\nLinks: %d\n\n", a, rms, lnks);
+}
+
+// void	parse_flags(t_hill *ah)
+// {
+// 	if (ah->flags[0] == 1)
+// 		ft_printf("\nLines/turns needed: %d\n\n", ah->maze->best_turns - 1);
+// 	if (ah->flags[2] == 1)
+// 		print_routes(ah->maze->best_set, ah->maze->best_paths, ah->name);
+// 	if (ah->flags[3] == 1)
+// 		print_stats(ah->rooms, ah->links, ah->ants);
+// }
+
+int		save_flags(int c, char **av, t_hill *ah)
+{
+	int	row;
+	int	i;
+	
+	row = 0;
+	ah->flags = (int *)ft_memalloc(sizeof(int) * 4);
+	while (av[++row])
+	{
+		i = 0;
+		if (av[row][0] == '-')
+		{
+			while (av[row][++i])
+			{
+				if (ft_strchr("hlqrs", av[row][i]))
+				{
+					ah->flags[4] = 1;
+					if (av[row][i] == 'h')
+						return (print_options());
+					if (av[row][i] == 'l')
+						ah->flags[0] = 1;
+					if (av[row][i] == 'q')
+						ah->flags[1] = 1;
+					if (av[row][i] == 'r')
+						ah->flags[2] = 1;
+					if (av[row][i] == 's')
+						ah->flags[3] = 1;
+				}
+				else
+					return (print_options());
+			}
+		}
+		else
+			return (print_options());
+	}
+	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_routes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 10:45:15 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/03 19:34:19 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/08 12:46:33 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,8 +280,6 @@ void	other_ants(int ***res, t_hill *ah, int cur, int *turns)
 			sum_i = -1;
 			while (++sum_i != route_i)
 				len_sum += ah->maze->route[route_i][0] - ah->maze->route[sum_i][0];
-			// ft_pr_intarr(*res, *turns, ah->maze->ver, 1);
-			// ft_printf("path_clear:%d, route_i:%d, turns:%d\n", path_clear(*res, ah->maze, route_i, *turns), route_i, *turns);
 			if (ah->ants - cur > len_sum - 1 && path_clear(*res + turn, ah->maze, route_i, *turns - turn))
 			{
 				if (*turns < turn + ah->maze->route[route_i][0])
@@ -330,17 +328,9 @@ void	reserve_moves(int ***res, t_hill *ah, int *turns)
 		move = (ah->maze->route[0][0] - ah->maze->sets[0][0][0] > 1) ? \
 			ah->maze->sets[0][0][0] + (ah->maze->route[0][0] - ah->maze->sets[0][0][0]) :\
 			ah->maze->sets[0][0][0] + 1;
-		// if (move > *turns)
-		// {
 		add_turns(move, ah->maze, res, *turns);
 		*turns = move;
-		// }
-		// ft_pr_intarr(&ah->maze->shrt, 1, ah->maze->max_level, 1);
-		// if (ah->maze->shrt[0] < ah->maze->route[0][0])
-		// 	first_ants(res, ah->maze->shrt, ah->maze->route[0][0] - 
-		// 			ah->maze->shrt[0], turns);
 		other_ants(res, ah, 1, turns);
-		// ft_pr_intarr(ah->maze->route, ah->maze->paths, ah->maze->max_level, 1);
 		if (*turns < ah->best_turns)
 		{
 			if (ah->best_turns != INT_MAX)
@@ -350,8 +340,6 @@ void	reserve_moves(int ***res, t_hill *ah, int *turns)
 		}
 		else
 			ft_tabarr_free(*res, *turns);
-		// ft_printf("turns: %d\n", *turns);
-		// rotate_routes(ah->maze);
 	}
 }
 
@@ -361,9 +349,7 @@ int		lem_in(t_hill *ah)
 	int		turns;
 
 	turns = 0;
-	// route_lengths(&ah->maze->route, ah->maze->paths);
-	// sort_routes(&ah->maze->route, ah->maze->paths);
-	// ft_pr_intarr(ah->maze->route, ah->maze->paths, ah->maze->max_level, 1);
+	find_route_sets(ah->maze, ah->ants);
 	reserve_moves(&res, ah, &turns);
 	print_moves(ah);
 	ft_printf("turns: %d\n", ah->best_turns - 1);
