@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_routes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 10:45:15 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/08 12:46:33 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/08 14:08:44 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

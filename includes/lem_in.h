@@ -109,7 +109,8 @@ void	create_routes(t_graph *maze);
 // void	del_zero_inputs(t_graph *maze);
 // void	del_zero_outputs(t_graph *maze);
 
-int		save_flags(int c, char **flags, t_hill *ah);
+int		save_flags(int c, char **av, t_hill *ah);
+void	parse_flags(t_hill *ah);
 void	print_routes(int **routes, int paths, char **names);
 void	print_stats(int rms, int links, int ants);
 

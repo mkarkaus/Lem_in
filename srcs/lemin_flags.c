@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_flags.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:16:17 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/08 11:30:10 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/08 13:47:37 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ void	print_stats(int rms, int lnks, int a)
 	ft_printf("\nANTHILL:\nAnts: %d\nRooms: %d\nLinks: %d\n\n", a, rms, lnks);
 }
 
-// void	parse_flags(t_hill *ah)
-// {
-// 	if (ah->flags[0] == 1)
-// 		ft_printf("\nLines/turns needed: %d\n\n", ah->maze->best_turns - 1);
-// 	if (ah->flags[2] == 1)
-// 		print_routes(ah->maze->best_set, ah->maze->best_paths, ah->name);
-// 	if (ah->flags[3] == 1)
-// 		print_stats(ah->rooms, ah->links, ah->ants);
-// }
+void	parse_flags(t_hill *ah)
+{
+	if (ah->flags[0] == 1)
+		ft_printf("\nLines/turns needed: %d\n\n", ah->best_turns - 1);
+	// if (ah->flags[2] == 1)
+	// 	print_routes(ah->maze->best_set, ah->maze->best_paths, ah->name);
+	if (ah->flags[3] == 1)
+		print_stats(ah->rooms, ah->links, ah->ants);
+}
 
 int		save_flags(int c, char **av, t_hill *ah)
 {

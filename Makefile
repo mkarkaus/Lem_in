@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+         #
+#    By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2021/02/08 12:26:34 by mkarkaus         ###   ########.fr        #
+#    Updated: 2021/02/08 13:40:24 by sreijola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ VIS = exe
 	# lemin_routesB.c \
 	# lemin_bfsB.c 
 SRCS_C = lemin_main.c \
+	lemin_flags.c \
 	lemin_validate_input.c \
 	lemin_graph_maze.c \
 	lemin_get_rooms.c \

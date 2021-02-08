@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/08 12:30:19 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/08 13:45:33 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ int		main(int ac, char **av)
 	int 	ret;
 
 	input = NULL;
-	// if (ac > 1 && (save_flags(ac, av, &ah) == 0))
-	// 	return (0);
+	if (ac > 1 && (save_flags(ac, av, &ah) == 0))
+		return (0);
 	if ((ret = get_data(&ah, &input)) < 0)
 		return (handle_errors(ret));
 	// ft_strarr_print(ah.name);
@@ -99,8 +99,8 @@ int		main(int ac, char **av)
 	write(1, "\n", 1);
 	if ((ret = lem_in(&ah)) < 0) //remove error returns
 		return (handle_errors(ret));
-	// if (ac > 1 && ah.flags[4] == 1)
-	// 	parse_flags(&ah);
+	if (ac > 1 && ah.flags[4] == 1)
+		parse_flags(&ah);
 	ft_lstfree(input);
 	ft_printf("1\n");
 	free_struct_elements(&ah);
