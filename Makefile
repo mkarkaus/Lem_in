@@ -6,7 +6,7 @@
 #    By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2021/02/09 13:08:37 by sreijola         ###   ########.fr        #
+#    Updated: 2021/02/09 13:42:49 by sreijola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,6 @@ NAME = lem-in
 
 VIS = exe
 
-	# lemin_routes.c \
-	# lemin_routesB.c \
-	# lemin_bfsB.c 
 SRCS_C = lemin_main.c \
 	lemin_flags.c \
 	lemin_validate_input.c \
