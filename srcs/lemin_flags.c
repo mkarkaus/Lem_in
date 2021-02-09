@@ -6,13 +6,13 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:16:17 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/08 13:47:37 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/09 11:41:35 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-int		print_options()
+int		print_options(void)
 {
 	ft_printf("Options:\n-h: help\n-l: show amount of lines used\n");
 	ft_printf("-q: quiet mode, only print moves\n-r: print routes\n");
@@ -24,7 +24,7 @@ void	print_routes(int **routes, int paths, char **names)
 {
 	int i;
 	int row;
-	
+
 	row = -1;
 	while (++row < paths)
 	{
@@ -55,36 +55,27 @@ int		save_flags(int c, char **av, t_hill *ah)
 {
 	int	row;
 	int	i;
-	
+
 	row = 0;
 	ah->flags = (int *)ft_memalloc(sizeof(int) * 4);
 	while (av[++row])
 	{
 		i = 0;
-		if (av[row][0] == '-')
+		while (av[row][++i])
 		{
-			while (av[row][++i])
+			if (av[row][0] == '-' && ft_strchr("hlqrs", av[row][i]))
 			{
-				if (ft_strchr("hlqrs", av[row][i]))
-				{
-					ah->flags[4] = 1;
-					if (av[row][i] == 'h')
-						return (print_options());
-					if (av[row][i] == 'l')
-						ah->flags[0] = 1;
-					if (av[row][i] == 'q')
-						ah->flags[1] = 1;
-					if (av[row][i] == 'r')
-						ah->flags[2] = 1;
-					if (av[row][i] == 's')
-						ah->flags[3] = 1;
-				}
-				else
+				ah->flags[4] = 1;
+				if (av[row][i] == 'h')
 					return (print_options());
+				ah->flags[0] = (av[row][i] == 'l') ? 1 : 0;
+				ah->flags[1] = (av[row][i] == 'q') ? 1 : 0;
+				ah->flags[2] = (av[row][i] == 'r') ? 1 : 0;
+				ah->flags[3] = (av[row][i] == 's') ? 1 : 0;
 			}
+			else
+				return (print_options());
 		}
-		else
-			return (print_options());
 	}
 	return (1);
 }

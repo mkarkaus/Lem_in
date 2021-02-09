@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/08 13:45:33 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/09 11:59:11 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,26 @@
 **
 */
 
-void	free_struct_elements(t_hill *ah) //lista pitää vapauttaa get_datassa
+void	ft_grapher(t_graph *graph)
+{
+	t_node	*ptr;
+	int		i;
+
+	i = -1;
+	while (++i < graph->ver)
+	{
+		ptr = graph->array[i].head;
+		ft_printf("[ %d ] (dd:%d, level:%d, in:%d, out:%d)", i, graph->array[i].dd, graph->array[i].bfs_level, graph->array[i].in, graph->array[i].out);
+		while (ptr != NULL)
+		{
+			ft_printf(" -> %d", ptr->v);
+			ptr = ptr->next;
+		}
+		ft_printf("\n");
+	}
+}
+
+void	free_struct_elements(t_hill *ah, int ac)
 {
 	if (ah->name[0] != NULL)
 		ft_strarr_free(ah->name);
@@ -60,6 +79,8 @@ void	free_struct_elements(t_hill *ah) //lista pitää vapauttaa get_datassa
 		ft_tabarr_free(ah->link, ah->links);
 	if (ah->maze->array != NULL)
 		ft_graph_free(ah->maze);
+	if (ac > 1)
+		free(ah->flags);
 }
 
 int		handle_errors(int error)
@@ -97,13 +118,11 @@ int		main(int ac, char **av)
 	// ft_lstprint(input);
 	// ft_printf("%d\n", ft_lstlen(input));
 	write(1, "\n", 1);
-	if ((ret = lem_in(&ah)) < 0) //remove error returns
+	if ((ret = lem_in(&ah)) < 0)
 		return (handle_errors(ret));
 	if (ac > 1 && ah.flags[4] == 1)
 		parse_flags(&ah);
 	ft_lstfree(input);
-	ft_printf("1\n");
-	free_struct_elements(&ah);
-	ft_printf("2\n");
+	free_struct_elements(&ah, ac);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_print.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 12:38:29 by sreijola          #+#    #+#             */
-/*   Updated: 2021/01/25 17:23:12 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/09 13:20:58 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,19 @@ int		find_ant_move(int ant, int **res, int turn, int rooms)
 
 	rm = 2;
 	nxt_rm = 2;
-
 	while (rm < rooms && res[turn][rm] != ant)
 		rm++;
 	while (nxt_rm < rooms && res[turn + 1][nxt_rm] != ant)
 		nxt_rm++;
 	if ((nxt_rm == rm && nxt_rm != rooms && rm != rooms))
 		return (0);
-	else if ((nxt_rm == rm && nxt_rm == rooms && !sneaky_ant(res, turn, turn + 2, rooms)))
+	else if ((nxt_rm == rm && nxt_rm == rooms \
+			&& !sneaky_ant(res, turn, turn + 2, rooms)))
 		return (-1);
 	else if (nxt_rm == rooms && rm != rooms)
 		return (1);
-	else if ((nxt_rm == rm && nxt_rm == rooms && sneaky_ant(res, turn, turn + 2, rooms)))
+	else if ((nxt_rm == rm && nxt_rm == rooms \
+			&& sneaky_ant(res, turn, turn + 2, rooms)))
 		return (0);
 	return (nxt_rm);
 }

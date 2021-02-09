@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:59:14 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/11/02 20:16:04 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/09 12:15:08 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ void	save_room_info(t_hill *ah, t_list **lst, int i)
 
 int		check_doubles(t_hill *ah)
 {
-	int 	i;
+	int		i;
 	int		j;
-	
+
 	i = -1;
 	while (++i < ah->rooms)
 	{
 		j = i;
 		while (++j < ah->rooms)
-		{	
+		{
 			if (ft_strequ(ah->name[i], ah->name[j])
 			|| ft_tabnequ(ah->coor[i], ah->coor[j], 2))
 				return (1);
@@ -44,7 +44,6 @@ int		check_doubles(t_hill *ah)
 	}
 	return (0);
 }
-
 
 int		get_rooms(t_hill *ah, t_list *lst)
 {

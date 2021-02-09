@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_get_links.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 16:01:49 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/29 15:32:33 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/09 12:16:14 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int		convert_link(char *str, t_hill *ah, int k)
 	while (ah->name[i] != NULL && ft_strequ(ah->name[i], str + j + 1) == 0)
 		i++;
 	ah->link[k][1] = i;
-	// ft_strarr_print(ah->name);
-	// ft_printf("!!! [%s] !!!", str);
 	if (ah->name[i] == NULL)
 		return (-1);
 	return (0);
@@ -50,7 +48,6 @@ int		get_links(t_list *lst, t_hill *ah)
 	{
 		if (convert_link(tmp, ah, k) == -1)
 			return (-1);
-		// ft_pr_intarr(ah->link, k + 1, 2, 1);
 		lst = lst->next;
 		k++;
 	}
