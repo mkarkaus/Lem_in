@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 12:38:29 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/09 13:20:58 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/10 12:27:18 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,43 +36,44 @@ int		find_ant_move(int ant, int **res, int turn, int rooms)
 	return (nxt_rm);
 }
 
+
+void	print_content(t_hill *ah, int **in_end, int i, int sneaky)
+{
+	int first;
+	int ant;
+	int	rm;
+	
+	first = 1;
+	ant = 0;
+	while (++ant <= ah->ants)
+		if ((*in_end)[ant - 1] == 0 \
+			&& ((rm = find_ant_move(ant, ah->best_res, i, ah->rooms)) > 0 \
+			|| (rm == -1 && sneaky == 0)))
+		{
+			if (rm == -1 && (sneaky = 1))
+				rm = 1;
+			if (first == 0)
+				write(1, " ", 1);
+			if ((*in_end)[ant - 1] != 1)
+			{
+				if (rm == 1)
+					(*in_end)[ant - 1] = 1;
+				ft_printf("L%d-%s", ant, ah->name[rm]);
+				first = 0;
+			}
+		}
+}
+
 void	print_moves(t_hill *ah)
 {
 	int		i;
-	int		ant;
-	int		first;
-	int		rm;
 	int		*in_end;
-	int		sneaky;
 
 	in_end = (int *)ft_memalloc(ah->ants * sizeof(int));
 	i = 0;
-	// ft_pr_intarr(ah->best_res, ah->best_turns, ah->maze->ver, 1);
 	while (i + 1 < ah->best_turns)
 	{
-		first = 1;
-		ant = 0;
-		sneaky = 0;
-		while (++ant <= ah->ants)
-		{
-			if (in_end[ant - 1] == 0 && ((rm = find_ant_move(ant, ah->best_res, i, ah->rooms)) > 0 || (rm == -1 && sneaky == 0)))
-			{
-				if (rm == -1)
-				{
-					sneaky = 1;
-					rm = 1;
-				}
-				if (first == 0)
-					write(1, " ", 1);
-				if (in_end[ant - 1] != 1)
-				{
-					if (rm == 1)
-						in_end[ant - 1] = 1;
-					ft_printf("L%d-%s", ant, ah->name[rm]);
-					first = 0;
-				}
-			}
-		}
+		print_content(ah, &in_end, i, 0);
 		i++;
 		write(1, "\n", 1);
 	}

@@ -49,11 +49,8 @@ void	fill_new_paths(t_graph *maze, int fork, int *visited)
 				maze->route[fork][i + 1] = ptr->v;
 			else
 			{
-				// m = i;
 				ft_memcpy(maze->route[k], maze->route[fork], maze->max_level * sizeof(int));
 				maze->route[k][i + 1] = ptr->v;
-				// while (++m <= maze->max_level && ptr->v == 1)
-				// 	maze->route[k][m] = 1;
 				k++;
 			}
 		}
@@ -176,6 +173,7 @@ void	add_to_route(t_graph *maze, int prev_room, int *row, int len)
 	{
 		maze->paths += (ret - 1);
 		add_paths(maze->paths, &maze->route, maze->paths - (ret - 1), maze->max_level);
+		// ft_printf("%d\n", maze->paths);
 		fill_new_paths(maze, *row, visited);
 	}
 	else if ((ret == 1 || ret == -1) && maze->been[ptr->v] != 1 && visited[ptr->v] == 0)
@@ -216,5 +214,8 @@ void	create_set(t_graph *maze)
 				i = -1;
 			}
 		}
+		// if (len % 5 == 0)
+		// 	ft_pr_intarr(maze->route, maze->paths, 120, 1);
+		// write(1, "\n", 1);
 	}
 }

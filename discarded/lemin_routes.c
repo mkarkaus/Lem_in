@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 10:45:15 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/08 14:08:44 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/10 12:16:55 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,93 +85,93 @@ int		sneaky_ant(int **res, int move, int turns, int rooms)
 	return (1);
 }
 
-void	next_steps(t_graph *maze, int ***res, t_list **route, int turns)
-{
-	int		score;
-	t_node	*ptr;
-	int		rm;
-	int		move;
-	int		*been;
+// void	next_steps(t_graph *maze, int ***res, t_list **route, int turns)
+// {
+// 	int		score;
+// 	t_node	*ptr;
+// 	int		rm;
+// 	int		move;
+// 	int		*been;
 
-	been = (int *)ft_memalloc(sizeof(int) * maze->ver);
-	rm = 0;
-	move = 1;
-	score = maze->array[0].dd;
-	while (rm != 1)
-	{
-		ptr = maze->array[rm].head;
-		while (ptr)
-		{
-			if (score >= maze->array[ptr->v].dd \
-				&& maze->array[ptr->v].dd != -2 \
-				&& ((move < turns && ((*res)[move][ptr->v] == 0 || ptr->v == 1)) || move >= turns) \
-				&& been[ptr->v] != 1 \
-				&& (ptr->v != 1 || sneaky_ant(*res, move - 1, turns, maze->ver)))
-			{
-				score = maze->array[ptr->v].dd;
-				rm = ptr->v;
-			}
-			ptr = ptr->next;
-		}
-		been[rm] = 1;
-		(*route)->next = ft_lstnew(&rm, sizeof(int));
-		*route = (*route)->next;
-		move++;
-	}
-	free(been);
-}
+// 	been = (int *)ft_memalloc(sizeof(int) * maze->ver);
+// 	rm = 0;
+// 	move = 1;
+// 	score = maze->array[0].dd;
+// 	while (rm != 1)
+// 	{
+// 		ptr = maze->array[rm].head;
+// 		while (ptr)
+// 		{
+// 			if (score >= maze->array[ptr->v].dd \
+// 				&& maze->array[ptr->v].dd != -2 \
+// 				&& ((move < turns && ((*res)[move][ptr->v] == 0 || ptr->v == 1)) || move >= turns) \
+// 				&& been[ptr->v] != 1 \
+// 				&& (ptr->v != 1 || sneaky_ant(*res, move - 1, turns, maze->ver)))
+// 			{
+// 				score = maze->array[ptr->v].dd;
+// 				rm = ptr->v;
+// 			}
+// 			ptr = ptr->next;
+// 		}
+// 		been[rm] = 1;
+// 		(*route)->next = ft_lstnew(&rm, sizeof(int));
+// 		*route = (*route)->next;
+// 		move++;
+// 	}
+// 	free(been);
+// }
 
-void	find_route(t_list **route, t_graph *maze, int ***res, int turns)
-{
-	t_list	*tmp;
-	int		help;
+// void	find_route(t_list **route, t_graph *maze, int ***res, int turns)
+// {
+// 	t_list	*tmp;
+// 	int		help;
 
-	help = 0;
-	tmp = ft_lstnew(&help, sizeof(int));
-	*route = tmp;
-	next_steps(maze, res, &tmp, turns);
-	// ft_lstprint(*route);
-	tmp = (*route)->next;
-	free((*route)->content);
-	free(*route);
-	*route = tmp;
-}
+// 	help = 0;
+// 	tmp = ft_lstnew(&help, sizeof(int));
+// 	*route = tmp;
+// 	next_steps(maze, res, &tmp, turns);
+// 	// ft_lstprint(*route);
+// 	tmp = (*route)->next;
+// 	free((*route)->content);
+// 	free(*route);
+// 	*route = tmp;
+// }
 
-int		save_route(int ant, int *turns, int ***res, t_graph *maze)
-{
-	t_list	*route;
-	t_list	*free_route;
-	int		move;
-	int		tmp;
+// int		save_route(int ant, int *turns, int ***res, t_graph *maze)
+// {
+// 	t_list	*route;
+// 	t_list	*free_route;
+// 	int		move;
+// 	int		tmp;
 
-	find_route(&route, maze, res, *turns);
-	free_route = route;
-	move = ft_lstlen(route) + 1;
-	if (move > *turns)
-	{
-		add_turns(move, maze, res, *turns);
-		*turns = move;
-	}
-	move = 1;
-	while (route)
-	{
-		tmp = *((int *)(route->content));
-		if (tmp == 1)
-		{
-			while (move < *turns)
-			{
-				(*res)[move][1]++;
-				move++;
-			}
-		}
-		else
-			(*res)[move][tmp] = ant;
-		move++;
-		route = route->next;
-	}
-	ft_lstfree(free_route);
-	return (0);
-}
+// 	find_route(&route, maze, res, *turns);
+// 	free_route = route;
+// 	move = ft_lstlen(route) + 1;
+// 	if (move > *turns)
+// 	{
+// 		add_turns(move, maze, res, *turns);
+// 		*turns = move;
+// 	}
+// 	move = 1;
+// 	while (route)
+// 	{
+// 		tmp = *((int *)(route->content));
+// 		if (tmp == 1)
+// 		{
+// 			while (move < *turns)
+// 			{
+// 				(*res)[move][1]++;
+// 				move++;
+// 			}
+// 		}
+// 		else
+// 			(*res)[move][tmp] = ant;
+// 		move++;
+// 		route = route->next;
+// 	}
+// 	ft_lstfree(free_route);
+// 	return (0);
+// }
 
 void	sort_routes(int ***route, int max_paths)
 {
@@ -252,7 +252,6 @@ int		path_clear(int **res, t_graph *maze, int path, int turns)
 	int		i;
 
 	i = 0;
-	// ft_printf("path:%d, turns:%d\n", path, turns);
 	while (i + 1 < maze->max_level && i < turns && maze->route[path][i + 1] != 1)
 	{
 		if (res[i][maze->route[path][i + 1]] != 0)
@@ -296,21 +295,6 @@ void	other_ants(int ***res, t_hill *ah, int cur, int *turns)
 	}
 }
 
-void	rotate_routes(t_graph *maze)
-{
-	int		*temp;
-	int		i;
-
-	i = 0;
-	while (i + 1 < maze->paths)
-	{
-		temp = maze->route[i];
-		maze->route[i] = maze->route[i + 1];
-		maze->route[i + 1] = temp;
-		i++;
-	}
-}
-
 void	reserve_moves(int ***res, t_hill *ah, int *turns)
 {
 	int		move;
@@ -319,7 +303,7 @@ void	reserve_moves(int ***res, t_hill *ah, int *turns)
 	set = -1;
 	ah->best_turns = INT_MAX;
 	ah->start_i = -1;
-	while (++set < 30 && ah->maze->sets[set][0][0] != 0)
+	while (++set < ah->maze->max_sets && ah->maze->sets[set][0][0] != 0)
 	{
 		*res = NULL;
 		*turns = 0;
@@ -343,16 +327,16 @@ void	reserve_moves(int ***res, t_hill *ah, int *turns)
 	}
 }
 
-int		lem_in(t_hill *ah)
-{
-	int		**res;
-	int		turns;
+// int		lem_in(t_hill *ah)
+// {
+// 	int		**res;
+// 	int		turns;
 
-	turns = 0;
-	find_route_sets(ah->maze, ah->ants);
-	reserve_moves(&res, ah, &turns);
-	print_moves(ah);
-	ft_printf("turns: %d\n", ah->best_turns - 1);
-	// ft_tabarr_free(res, turns);
-	return (0);
-}
+// 	turns = 0;
+// 	find_route_sets(ah->maze, ah->ants);
+// 	reserve_moves(&res, ah, &turns);
+// 	print_moves(ah);
+// 	ft_printf("turns: %d\n", ah->best_turns - 1);
+// 	// ft_tabarr_free(res, turns);
+// 	return (0);
+// }

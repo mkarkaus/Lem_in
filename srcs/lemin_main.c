@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/09 11:59:11 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/10 16:30:13 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,33 +50,48 @@
 **
 */
 
-void	ft_grapher(t_graph *graph)
-{
-	t_node	*ptr;
-	int		i;
+// void	ft_grapher(t_graph *graph)
+// {
+// 	t_node	*ptr;
+// 	int		i;
 
-	i = -1;
-	while (++i < graph->ver)
-	{
-		ptr = graph->array[i].head;
-		ft_printf("[ %d ] (dd:%d, level:%d, in:%d, out:%d)", i, graph->array[i].dd, graph->array[i].bfs_level, graph->array[i].in, graph->array[i].out);
-		while (ptr != NULL)
-		{
-			ft_printf(" -> %d", ptr->v);
-			ptr = ptr->next;
-		}
-		ft_printf("\n");
-	}
-}
+// 	i = -1;
+// 	while (++i < graph->ver)
+// 	{
+// 		ptr = graph->array[i].head;
+// 		ft_printf("[ %d ] (dd:%d, level:%d)", i, graph->array[i].dd, graph->array[i].bfs_level);
+// 		while (ptr != NULL)
+// 		{
+// 			ft_printf(" -> %d", ptr->v);
+// 			ptr = ptr->next;
+// 		}
+// 		ft_printf("\n");
+// 	}
+// }
 
 void	free_struct_elements(t_hill *ah, int ac)
 {
+	int		i;
+	int		temp;
+
+	i = 0;
 	if (ah->name[0] != NULL)
 		ft_strarr_free(ah->name);
 	if (ah->rooms > 0)
 		ft_tabarr_free(ah->coor, ah->rooms);
 	if (ah->links > 0)
 		ft_tabarr_free(ah->link, ah->links);
+	if (ah->best_res > 0)
+		ft_tabarr_free(ah->best_res, ah->best_turns);
+	while (ah->maze->max_sets > 0 && i < SEARCH_TIMES)
+	{
+		temp = ah->maze->sets[i][0][0] + 1;
+		while (--temp >= 0)
+			free(ah->maze->sets[i][temp]);
+		free(ah->maze->sets[i]); //koska tallennetaan vain lyhin reitti ja sen määrä 0:teen
+		i++;
+	}
+	free(ah->maze->sets);
 	if (ah->maze->array != NULL)
 		ft_graph_free(ah->maze);
 	if (ac > 1)
@@ -106,20 +121,20 @@ int		main(int ac, char **av)
 	t_hill	ah;
 	t_list	*input;
 	int 	ret;
+	int		**res;
+	int		turns;
 
+	turns = 0;
 	input = NULL;
 	if (ac > 1 && (save_flags(ac, av, &ah) == 0))
 		return (0);
 	if ((ret = get_data(&ah, &input)) < 0)
 		return (handle_errors(ret));
-	// ft_strarr_print(ah.name);
-	// ft_pr_intarr(ah.coor, ah.rooms, 2, 1);
-	// if (ah.flags[1] != 1)
-	// ft_lstprint(input);
-	// ft_printf("%d\n", ft_lstlen(input));
+	(ac > 1 && ah.flags[1] != 1) ? ft_lstprint(input) : 0;
 	write(1, "\n", 1);
-	if ((ret = lem_in(&ah)) < 0)
-		return (handle_errors(ret));
+	find_route_sets(ah.maze, ah.ants);
+	reserve_moves(&res, &ah, &turns);
+	print_moves(&ah);
 	if (ac > 1 && ah.flags[4] == 1)
 		parse_flags(&ah);
 	ft_lstfree(input);

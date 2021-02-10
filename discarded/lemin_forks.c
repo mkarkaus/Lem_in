@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_forks.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:19:54 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/01 10:04:01 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/10 11:53:07 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void	init_routes(t_graph *maze)
 	maze->paths = i;
 }
 
-void	create_routes(t_graph *maze)
-{
-	maze->been = (int *)ft_memalloc(maze->ver * sizeof(int));
-	maze->route = ft_tabarr_malloc(maze->array[0].out, maze->max_level + 1);
-	init_routes(maze);
+// void	create_routes(t_graph *maze)
+// {
+// 	maze->been = (int *)ft_memalloc(maze->ver * sizeof(int));
+// 	maze->route = ft_tabarr_malloc(maze->array[0].out, maze->max_level + 1);
+// 	init_routes(maze);
 	// ft_pr_intarr(maze->route, maze->paths, maze->max_level, 1);
 	// handle_input_forks(maze);
 	// ft_grapher(maze);
@@ -49,4 +49,4 @@ void	create_routes(t_graph *maze)
 	// ft_printf("\n");
 	// handle_output_forks(maze);
 	// ft_tabarr_free(route, maze->array[0].out);
-}
+// }

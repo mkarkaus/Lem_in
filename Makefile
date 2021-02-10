@@ -6,7 +6,7 @@
 #    By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2021/02/09 13:42:49 by sreijola         ###   ########.fr        #
+#    Updated: 2021/02/10 12:15:43 by sreijola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ NAME = lem-in
 
 VIS = exe
 
+	# lemin_del_links.c
 SRCS_C = lemin_main.c \
 	lemin_flags.c \
 	lemin_validate_input.c \
@@ -24,10 +25,9 @@ SRCS_C = lemin_main.c \
 	lemin_get_links.c\
 	lemin_graph_maze.c \
 	lemin_bfs.c \
-	lemin_del_links.c \
-	lemin_forks.c \
-	lemin_forks_in.c \
-	lemin_routes.c \
+	lemin_bfs_utils.c \
+	lemin_create_set.c \
+	lemin_reserve_moves.c \
 	lemin_print.c \
 	ft_lstfree.c \
 	ft_lstlen.c \
@@ -42,8 +42,7 @@ SRCS_C = lemin_main.c \
 	ft_graph_new.c \
 	ft_graph_nodenew.c \
 	ft_graph_free.c \
-	ft_graph_print.c \
-	output_forks.c
+	ft_graph_print.c 
 
 #	lemin_move_ants.c
 

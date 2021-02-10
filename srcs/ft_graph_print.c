@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_graph_print.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:35:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/12/10 14:27:27 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/10 11:53:59 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_graph_print(t_graph *graph, char **name)
 	while (++i < graph->ver)
 	{
 		ptr = graph->array[i].head;
-		ft_printf("[ %d ][%s] (dd:%d, level:%d, in:%d, out:%d)", i, name[i], graph->array[i].dd, graph->array[i].bfs_level, graph->array[i].in, graph->array[i].out);
+		ft_printf("[ %d ][%s] (dd:%d, level:%d)", i, name[i], graph->array[i].dd, graph->array[i].bfs_level);
 		while (ptr != NULL)
 		{
 			ft_printf(" -> %d", ptr->v);

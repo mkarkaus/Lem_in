@@ -32,19 +32,17 @@ typedef struct	s_alhead
 {
 	int				dd;
 	int				bfs_level;
-	int				in;
-	int				out;
 	t_node			*head;
 }				t_alhead;
 
 typedef struct	s_graph
 {
 	int				**used;
-	int				*shrt;
 	int				*been;
 	int				paths;
 	int				max_level;
 	int				ver;
+	int				max_sets;
 	int				***sets;
 	int				**route;
 	int				*flow;
@@ -76,7 +74,7 @@ void			init_struct(t_hill *ah);
 int				valid_content(t_hill *ah, t_list *lst);
 int				graph_maze(t_hill *ah);
 void			fill_distances(t_hill *ah);
-int				lem_in(t_hill *ah);
+void			reserve_moves(int ***res, t_hill *ah, int *turns);
 void			print_moves(t_hill *ah);
 int				sneaky_ant(int **res, int move, int turns, int rooms);
 
@@ -97,6 +95,7 @@ t_node			*ft_graph_nodenew(int dest_ver);
 t_graph			*ft_graph_new(int vertices);
 void			ft_graph_edgeadd(t_graph *graph, int a, int b, int dir);
 void	find_route_sets(t_graph *maze, int ants);
+void	init_sets(t_graph *maze, int path);
 void	create_set(t_graph *maze);
 void	handle_output_forks(t_graph *maze);
 void	del_allbutone(t_graph *maze, int rem, int infork, int index);

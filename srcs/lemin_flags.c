@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:16:17 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/09 11:41:35 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/10 15:30:39 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	print_stats(int rms, int lnks, int a)
 void	parse_flags(t_hill *ah)
 {
 	if (ah->flags[0] == 1)
-		ft_printf("\nLines/turns needed: %d\n\n", ah->best_turns - 1);
+		ft_printf("\nTurns used: %d\n\n", ah->best_turns - 1);
 	// if (ah->flags[2] == 1)
 	// 	print_routes(ah->maze->best_set, ah->maze->best_paths, ah->name);
 	if (ah->flags[3] == 1)
@@ -57,7 +57,7 @@ int		save_flags(int c, char **av, t_hill *ah)
 	int	i;
 
 	row = 0;
-	ah->flags = (int *)ft_memalloc(sizeof(int) * 4);
+	ah->flags = (int *)ft_memalloc(sizeof(int) * 5);
 	while (av[++row])
 	{
 		i = 0;
