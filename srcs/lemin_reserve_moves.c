@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 10:45:15 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/10 13:48:15 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/12 16:03:28 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	set_ants_on_paths(int ***res, t_hill *ah, int cur, int *turns)
 	int		route_i;
 
 	turn = 1;
-	route_i = -1;
+	// route_i = -1;
 	while (cur <= ah->ants)
 	{
 		route_i = 0;
@@ -138,7 +138,7 @@ void	set_ants_on_paths(int ***res, t_hill *ah, int cur, int *turns)
 			sum_i = -1;
 			while (++sum_i != route_i)
 				len_sum += ah->maze->route[route_i][0] - ah->maze->route[sum_i][0];
-			if (ah->ants - cur > len_sum - 1 && path_clear(*res + turn, ah->maze, route_i, *turns - turn))
+			if (ah->ants - cur > len_sum - 1 && path_clear(*res + turn, ah->maze, route_i, *turns - turn))// path_clear may be removable
 			{
 				if (*turns < turn + ah->maze->route[route_i][0])
 				{
@@ -180,8 +180,11 @@ void	reserve_moves(int ***res, t_hill *ah, int *turns)
 				ft_tabarr_free(ah->best_res, ah->best_turns);
 			ah->best_res = *res;
 			ah->best_turns = *turns;
+			// ft_printf("better:\n");
+			// ft_pr_intarr(ah->maze->route, ah->maze->paths, 40, 1);
 		}
 		else
 			ft_tabarr_free(*res, *turns);
 	}
+	// ft_pr_intarr(ah->best_res, ah->best_turns, ah->maze->ver, 1);
 }

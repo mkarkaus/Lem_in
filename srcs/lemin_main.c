@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/10 16:30:13 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/12 17:29:24 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,24 +50,27 @@
 **
 */
 
-// void	ft_grapher(t_graph *graph)
-// {
-// 	t_node	*ptr;
-// 	int		i;
+void	ft_grapher(t_graph *graph, int rm)
+{
+	t_node	*ptr;
+	int		i;
 
-// 	i = -1;
-// 	while (++i < graph->ver)
-// 	{
-// 		ptr = graph->array[i].head;
-// 		ft_printf("[ %d ] (dd:%d, level:%d)", i, graph->array[i].dd, graph->array[i].bfs_level);
-// 		while (ptr != NULL)
-// 		{
-// 			ft_printf(" -> %d", ptr->v);
-// 			ptr = ptr->next;
-// 		}
-// 		ft_printf("\n");
-// 	}
-// }
+	i = -1;
+	while (++i < graph->ver)
+	{
+		if (i == rm || i == -1)
+		{
+			ptr = graph->array[i].head;
+			ft_printf("[ %d ] (dd:%d, level:%d)", i, graph->array[i].dd, graph->array[i].bfs_level);
+			while (ptr != NULL)
+			{
+				ft_printf(" -> %d", ptr->v);
+				ptr = ptr->next;
+			}
+			ft_printf("\n");
+		}
+	}
+}
 
 void	free_struct_elements(t_hill *ah, int ac)
 {
@@ -133,6 +136,17 @@ int		main(int ac, char **av)
 	(ac > 1 && ah.flags[1] != 1) ? ft_lstprint(input) : 0;
 	write(1, "\n", 1);
 	find_route_sets(ah.maze, ah.ants);
+	
+	int	i;
+	i = 0;
+	while (i < ah.maze->max_sets)
+	{
+		// ft_printf("%d\n", ah.maze->sets[i][0][0]);
+		ft_pr_intarr(ah.maze->sets[i], 1, 3, 1);
+		ft_pr_intarr(ah.maze->sets[i] + 1, ah.maze->sets[i][0][0], 40, 1);
+		i++;
+	}
+	
 	reserve_moves(&res, &ah, &turns);
 	print_moves(&ah);
 	if (ac > 1 && ah.flags[4] == 1)
