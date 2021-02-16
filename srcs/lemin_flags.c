@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:16:17 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/16 15:28:36 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/16 22:39:20 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,10 @@ void	print_routes(int **routes, int paths, char **names)
 	{
 		i = 0;
 		ft_printf("Route %d: ", row);
-		while (++i < routes[row][0])
+		while (++i <= routes[row][0])
 			ft_printf("%s ", names[routes[row][i]]);
 		ft_printf("\n");
 	}
-}
-
-void	print_stats(int rms, int lnks, int a)
-{
-	ft_printf("\nANTHILL:\nAnts: %d\nRooms: %d\nLinks: %d\n\n", a, rms, lnks);
 }
 
 void	parse_flags(t_hill *ah)
@@ -46,9 +41,25 @@ void	parse_flags(t_hill *ah)
 	if (ah->flags[0] == 1)
 		ft_printf("\nTurns used: %d\n\n", ah->best_turns - 1);
 	if (ah->flags[2] == 1)
-		print_routes(ah->best_set, ah->best_set[0][0], ah->name);
+		print_routes(ah->best_set + 1, ah->best_set[0][0], ah->name);
 	if (ah->flags[3] == 1)
-		print_stats(ah->rooms, ah->links, ah->ants);
+	{
+		ft_printf("\nANTHILL:\nAnts: %d\n", ah->ants);
+		ft_printf("Rooms: %d\nLinks: %d\n\n", ah->rooms, ah->links);
+	}
+}
+
+void	which_flags(char c, int **flags)
+{
+	(*flags)[4] = 1;
+	if (c == 'l')
+		(*flags)[0] = 1;
+	if (c == 'q')
+		(*flags)[1] = 1;
+	if (c == 'r')
+		(*flags)[2] = 1;
+	if (c == 's')
+		(*flags)[3] = 1;
 }
 
 int		save_flags(char **av, t_hill *ah)
@@ -65,13 +76,9 @@ int		save_flags(char **av, t_hill *ah)
 		{
 			if (av[row][0] == '-' && ft_strchr("hlqrs", av[row][i]))
 			{
-				ah->flags[4] = 1;
 				if (av[row][i] == 'h')
 					return (print_options());
-				ah->flags[0] = (av[row][i] == 'l') ? 1 : 0;
-				ah->flags[1] = (av[row][i] == 'q') ? 1 : 0;
-				ah->flags[2] = (av[row][i] == 'r') ? 1 : 0;
-				ah->flags[3] = (av[row][i] == 's') ? 1 : 0;
+				which_flags(av[row][i], &ah->flags);
 			}
 			else
 				return (print_options());
