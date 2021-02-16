@@ -90,7 +90,7 @@ void	find_route_sets(t_graph *maze, int ants)
 		ft_bzero(maze->been, sizeof(int) * maze->ver);
 		init_routes(maze);
 		bfs_search_sets(maze, ants);
-		free(maze->route);
+		ft_tabarr_free(maze->route, maze->paths);
 		maze->route = NULL;
 		ft_printf("SET CHANGED\n");
 	}

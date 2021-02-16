@@ -20,9 +20,9 @@ void	ft_graph_free(t_graph *graph)
 	{
 		while (graph->array[graph->ver].head)
 		{
-			tmp = graph->array[graph->ver].head;
-			graph->array[graph->ver].head = graph->array[graph->ver].head->next;
-			free(tmp);
+			tmp = graph->array[graph->ver].head->next;
+			free(graph->array[graph->ver].head);
+			graph->array[graph->ver].head = tmp;
 		}
 	}
 	free(graph->array);

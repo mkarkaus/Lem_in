@@ -92,7 +92,7 @@ void			ft_graph_edgeadd(t_graph *graph, int a, int b, int dir);
 void			print_routes(int **routes, int paths, char **names);
 void			print_stats(int rms, int links, int ants);
 void			parse_flags(t_hill *ah);
-int				save_flags(int c, char **av, t_hill *ah);
+int				save_flags(char **av, t_hill *ah);
 
 void			fill_distances(t_hill *ah);
 int				graph_maze(t_hill *ah);

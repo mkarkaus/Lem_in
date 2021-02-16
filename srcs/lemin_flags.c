@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:16:17 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/16 14:01:04 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/16 15:28:36 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	parse_flags(t_hill *ah)
 		print_stats(ah->rooms, ah->links, ah->ants);
 }
 
-int		save_flags(int c, char **av, t_hill *ah)
+int		save_flags(char **av, t_hill *ah)
 {
 	int	row;
 	int	i;
