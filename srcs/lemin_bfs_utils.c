@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:19:54 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/12 17:16:13 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/15 14:56:23 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	init_routes(t_graph *maze)
 	maze->route = ft_tabarr_malloc(count_potential_paths(maze), maze->max_level);
 	while (ptr) //init routes with links from start and cross-check
 	{
-		if (maze->been[ptr->v] == 0)
+		if (maze->been[ptr->v] == 0 && !(maze->sets[maze->max_sets][0][0] > 0 && maze->sets[maze->max_sets][1][1] == 1 && ptr->v == 1))
 		{
 			len = -1;
 			while (++len < maze->max_level)

@@ -6,76 +6,97 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 12:38:29 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/10 12:27:18 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/16 14:04:07 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-int		find_ant_move(int ant, int **res, int turn, int rooms)
+int		use_path(int path, int **set, int ant, int max_ants)
 {
-	int		rm;
-	int		nxt_rm;
+	int		row;
+	int		len_sum;
 
-	rm = 2;
-	nxt_rm = 2;
-	while (rm < rooms && res[turn][rm] != ant)
-		rm++;
-	while (nxt_rm < rooms && res[turn + 1][nxt_rm] != ant)
-		nxt_rm++;
-	if ((nxt_rm == rm && nxt_rm != rooms && rm != rooms))
-		return (0);
-	else if ((nxt_rm == rm && nxt_rm == rooms \
-			&& !sneaky_ant(res, turn, turn + 2, rooms)))
-		return (-1);
-	else if (nxt_rm == rooms && rm != rooms)
+	len_sum = 0;
+	row = 0;
+	while (++row != path)
+		len_sum += set[path][0] - set[row][0];
+	if (max_ants - ant > len_sum - 1)
 		return (1);
-	else if ((nxt_rm == rm && nxt_rm == rooms \
-			&& sneaky_ant(res, turn, turn + 2, rooms)))
-		return (0);
-	return (nxt_rm);
+	return (0);
 }
 
-
-void	print_content(t_hill *ah, int **in_end, int i, int sneaky)
+void	apply_path(t_hill *ah, int *path, int ant, int start_turn)
 {
-	int first;
-	int ant;
-	int	rm;
-	
-	first = 1;
-	ant = 0;
-	while (++ant <= ah->ants)
-		if ((*in_end)[ant - 1] == 0 \
-			&& ((rm = find_ant_move(ant, ah->best_res, i, ah->rooms)) > 0 \
-			|| (rm == -1 && sneaky == 0)))
+	char	*move;
+	int		i;
+
+	i = 1;
+	while (i <= path[0])
+	{
+		move = ft_strjoin(ft_strjoin(" L", ft_itoa(ant), 2), \
+				ft_strjoin("-", ah->name[path[i]], 0), 3);
+		ft_lstadd(&ah->moves[start_turn + i - 1], ft_lstnew(move, ft_strlen(move)));
+		free(move);
+		i++;
+	}
+}
+
+void	init_moves(t_hill *ah)
+{
+	int		i;
+
+	i = 0;
+	ah->moves = (t_list **)ft_memalloc(sizeof(t_list *) * ah->best_turns);
+	while (i < ah->best_turns)
+	{
+		ah->moves[i] = NULL;
+		i++;
+	}
+}
+
+void	save_moves(t_hill *ah)
+{
+	int		cur_turn;
+	int		ant;
+	int		path;
+
+	ant = 1;
+	cur_turn = 0;
+	path = 1;
+	init_moves(ah);
+	while (ant <= ah->ants)
+	{
+		if (path <= ah->best_set[0][0] && \
+			use_path(path, ah->best_set, ant, ah->ants))
 		{
-			if (rm == -1 && (sneaky = 1))
-				rm = 1;
-			if (first == 0)
-				write(1, " ", 1);
-			if ((*in_end)[ant - 1] != 1)
-			{
-				if (rm == 1)
-					(*in_end)[ant - 1] = 1;
-				ft_printf("L%d-%s", ant, ah->name[rm]);
-				first = 0;
-			}
+			apply_path(ah, ah->best_set[path], ant, cur_turn);
+			path++;
+			ant++;
 		}
+		else
+		{
+			cur_turn++;
+			path = 1;
+		}
+	}
 }
 
 void	print_moves(t_hill *ah)
 {
 	int		i;
-	int		*in_end;
-
-	in_end = (int *)ft_memalloc(ah->ants * sizeof(int));
-	i = 0;
-	while (i + 1 < ah->best_turns)
+	
+	i = -1;
+	save_moves(ah);
+	while (++i < ah->best_turns && ah->moves[i])
 	{
-		print_content(ah, &in_end, i, 0);
-		i++;
+		ft_printf("%s", ah->moves[i]->content + 1);
+		ah->moves[i] = ah->moves[i]->next;
+		while (ah->moves[i] != NULL)
+		{
+			ft_printf("%s", ah->moves[i]->content);
+			ah->moves[i] = ah->moves[i]->next;
+		}
 		write(1, "\n", 1);
 	}
-	free(in_end);
 }

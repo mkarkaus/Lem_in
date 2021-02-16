@@ -15,6 +15,7 @@
 
 # include "../libft/includes/libft.h"
 # include <limits.h>
+# include <time.h>// REMOVE
 
 /*
 **	Defines how many times bfs-search is performed
@@ -35,6 +36,11 @@ typedef struct	s_alhead
 	t_node			*head;
 }				t_alhead;
 
+// typedef struct	s_tlhead
+// {
+// 	t_list			*turn;
+// }				t_tlhead;
+
 typedef struct	s_graph
 {
 	int				**used;
@@ -51,8 +57,10 @@ typedef struct	s_graph
 
 typedef struct	s_hill
 {
+	t_list		**moves;
 	int			**best_res;
 	int			best_turns;
+	int			**best_set;
 	int			start_i;
 	t_graph		*maze;
 	int			ants;
@@ -111,9 +119,9 @@ void	del_allbutone(t_graph *maze, int rem, int infork, int index);
 void	ft_grapher(t_graph *graph, int rm); //poista
 void	del_route(t_graph *maze, int del);
 void	create_routes(t_graph *maze);
+void	del_deadends(t_graph *maze);
+void	del_edge(t_node **head, t_node **del);
 
-
-// void	del_edge(t_node **head, t_node **del);
 // void	del_twoway(t_graph *maze);
 // void	del_zero_inputs(t_graph *maze);
 // void	del_zero_outputs(t_graph *maze);

@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/12 17:29:24 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/16 14:15:18 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,17 +136,6 @@ int		main(int ac, char **av)
 	(ac > 1 && ah.flags[1] != 1) ? ft_lstprint(input) : 0;
 	write(1, "\n", 1);
 	find_route_sets(ah.maze, ah.ants);
-	
-	int	i;
-	i = 0;
-	while (i < ah.maze->max_sets)
-	{
-		// ft_printf("%d\n", ah.maze->sets[i][0][0]);
-		ft_pr_intarr(ah.maze->sets[i], 1, 3, 1);
-		ft_pr_intarr(ah.maze->sets[i] + 1, ah.maze->sets[i][0][0], 40, 1);
-		i++;
-	}
-	
 	reserve_moves(&res, &ah, &turns);
 	print_moves(&ah);
 	if (ac > 1 && ah.flags[4] == 1)
@@ -155,3 +144,8 @@ int		main(int ac, char **av)
 	free_struct_elements(&ah, ac);
 	return (0);
 }
+
+	// clock_t begin = clock();
+	// clock_t end = clock();
+	// double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+	// ft_printf("{b_red}time_spent:%.2lf{r}\n", time_spent);

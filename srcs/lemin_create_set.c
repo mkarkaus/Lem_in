@@ -16,18 +16,14 @@ void	del_route(t_graph *maze, int del)
 {
 	int		*temp;
 
-	while (del < maze->paths - 1)// swaps the to-be-deleted path until it's the last
-	{
-		temp = maze->route[del];
-		maze->route[del] = maze->route[del + 1];
-		maze->route[del + 1] = temp;
-		del++;
-	}
-	free(maze->route[del]);
+	temp = maze->route[del];
+	maze->route[del] = maze->route[maze->paths - 1];
+	maze->route[maze->paths - 1] = temp;
+	free(maze->route[maze->paths - 1]);
 	maze->paths--;
 }
 
-void	fill_new_paths(t_graph *maze, int fork, int *visited)
+void	fill_new_paths(t_graph *maze, int fork)
 {
 	t_node	*ptr;
 	int		i;
@@ -42,7 +38,7 @@ void	fill_new_paths(t_graph *maze, int fork, int *visited)
 	ptr = maze->array[maze->route[fork][i]].head;
 	while (k < maze->paths && ptr)
 	{
-		if (visited[ptr->v] == 0 && maze->been[ptr->v] == 0 \
+		if (maze->been[ptr->v] == 0 \
 		&& !(maze->flow[maze->route[fork][i]] == 1 && maze->flow[ptr->v] == 1))
 		{
 			if (maze->route[fork][i + 1] == -1)// If statement maybe useless
@@ -51,6 +47,8 @@ void	fill_new_paths(t_graph *maze, int fork, int *visited)
 			{
 				ft_memcpy(maze->route[k], maze->route[fork], maze->max_level * sizeof(int));
 				maze->route[k][i + 1] = ptr->v;
+				if (ptr->v != 1)
+					maze->been[ptr->v] = 1;
 				k++;
 			}
 		}
@@ -79,7 +77,7 @@ void	add_paths(int paths, int ***route, int prev, int max_level)
 	*route = tmp;
 }
 
-int		count_new_routes(t_graph *maze, int fork, int *visited)
+int		count_new_routes(t_graph *maze, int fork)
 {
 	t_node	*ptr;
 	int		valid_routes;
@@ -88,7 +86,7 @@ int		count_new_routes(t_graph *maze, int fork, int *visited)
 	valid_routes = 0;
 	while (ptr)
 	{
-		if (visited[ptr->v] == 0 && maze->been[ptr->v] != 1 \
+		if (maze->been[ptr->v] != 1 \
 			&& !(maze->flow[fork] == 1 && maze->flow[ptr->v] == 1))
 		{
 			if (ptr->v == 1)
@@ -133,21 +131,19 @@ void	add_to_route(t_graph *maze, int prev_room, int *row, int len)
 {
 	int		ret;
 	t_node	*ptr;
-	int		*visited;
-	
-	fill_visited(maze, *row, &visited);
-	ret = count_new_routes(maze, prev_room, visited);
+
+	ret = count_new_routes(maze, prev_room);
 	ptr = maze->array[prev_room].head;
-	while (ptr && (maze->been[ptr->v] == 1 || visited[ptr->v] == 1 \
+	while (ptr && (maze->been[ptr->v] == 1 \
 		|| (maze->flow[prev_room] == 1 && maze->flow[ptr->v] == 1)))
 		ptr = ptr->next;
 	if (ret > 1)
 	{
 		maze->paths += (ret - 1);
 		add_paths(maze->paths, &maze->route, maze->paths - (ret - 1), maze->max_level);
-		fill_new_paths(maze, *row, visited);
+		fill_new_paths(maze, *row);
 	}
-	else if ((ret == 1 || ret == -1) && maze->been[ptr->v] != 1 && visited[ptr->v] == 0)
+	else if ((ret == 1 || ret == -1) && maze->been[ptr->v] != 1)
 	{
 		if (ret == -1)
 			maze->route[*row][len] = 1;
@@ -158,12 +154,7 @@ void	add_to_route(t_graph *maze, int prev_room, int *row, int len)
 		}
 	}
 	else
-	{
 		del_route(maze, *row);
-		// if (*row != 0)
-		// 	(*row)--;
-	}
-	free(visited);
 }
 
 int		calculate_cost(int **set, int *new_route, int ants)
@@ -189,8 +180,22 @@ int		calculate_cost(int **set, int *new_route, int ants)
 		set[0][2] = mod;
 		return (1);
 	}
-	ft_printf("len too much:%d\n", new_route[0]);
+	// ft_printf("len too much:%d\n", new_route[0]);
 	return (0);
+}
+
+void	save_path(t_graph *maze, int *len, int i)
+{
+	int			**cur_set;
+	
+	cur_set = maze->sets[maze->max_sets];
+	cur_set[0][0]++;
+	cur_set[cur_set[0][0]] = ft_memalloc(maze->max_level * sizeof(int));
+	cur_set[cur_set[0][0]] = ft_memcpy(cur_set[cur_set[0][0]], maze->route[i], *len * sizeof(int));
+	update_been(maze);
+	ft_tabarr_free(maze->route, maze->paths);
+	init_routes(maze);
+	*len = 2;
 }
 
 void	create_set(t_graph *maze, int ants)
@@ -198,32 +203,20 @@ void	create_set(t_graph *maze, int ants)
 	int			prev_room;
 	int			len;
 	int			i;
-	int			**cur_set;
 
 	len = 1;
-	cur_set = maze->sets[maze->max_sets];
 	while (++len < maze->max_level && maze->paths != 0)
 	{
 		i = -1;
 		while (++i < maze->paths && maze->paths != 0)
-		{
 			if (maze->route[i][len] == -1)
 			{
 				prev_room = maze->route[i][len - 1];
 				if (maze->route[i][len - 1] == 1)
 				{
 					route_length(&maze->route[i]);
-					if (calculate_cost(cur_set, maze->route[i], ants))// we should use these values in picking the best set
-					{
-						cur_set[0][0]++;
-						cur_set[cur_set[0][0]] = ft_memalloc(maze->max_level * sizeof(int));
-						cur_set[cur_set[0][0]] = ft_memcpy(cur_set[cur_set[0][0]], maze->route[i], len * sizeof(int));
-						// ft_pr_intarr(&maze->sets[maze->max_sets][maze->sets[maze->max_sets][0][0]], 1, 40, 1);
-						update_been(maze);
-						ft_tabarr_free(maze->route, maze->paths);
-						init_routes(maze);
-						len = 2;
-					}
+					if (calculate_cost(maze->sets[maze->max_sets], maze->route[i], ants))// we should use these values in picking the best set
+						save_path(maze, &len, i);
 					else
 						return ;
 				}
@@ -231,6 +224,5 @@ void	create_set(t_graph *maze, int ants)
 					add_to_route(maze, prev_room, &i, len);
 				i = -1;
 			}
-		}
 	}
 }

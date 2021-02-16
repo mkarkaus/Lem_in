@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:16:17 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/10 15:30:39 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/16 14:01:04 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	parse_flags(t_hill *ah)
 {
 	if (ah->flags[0] == 1)
 		ft_printf("\nTurns used: %d\n\n", ah->best_turns - 1);
-	// if (ah->flags[2] == 1)
-	// 	print_routes(ah->maze->best_set, ah->maze->best_paths, ah->name);
+	if (ah->flags[2] == 1)
+		print_routes(ah->best_set, ah->best_set[0][0], ah->name);
 	if (ah->flags[3] == 1)
 		print_stats(ah->rooms, ah->links, ah->ants);
 }
