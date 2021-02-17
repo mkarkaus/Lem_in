@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validate_input.c                                   :+:      :+:    :+:   */
+/*   lemin_validate_input.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 15:13:44 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/06 15:51:23 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/17 16:06:23 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ int		valid_content(t_hill *ah, t_list *lst)
 			return (-1);
 		lst = lst->next;
 	}
-	if (lst != NULL || start != 1 || end != 1 || ah->rooms == 0)
+	if (lst != NULL || start != 1 || end != 1 \
+	|| ah->rooms == 0 || ah->links == 0)
 		return (-1);
 	return (0);
 }

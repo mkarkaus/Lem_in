@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:28:46 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/15 12:41:22 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/17 15:49:52 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,8 @@ void	bfs_levels(t_graph *maze)
 	}
 	free(q);
 	maze->array[1].bfs_level = INT_MAX;
-	// maze->max_level = (level + 1) * 2;
-	maze->max_level = 200;
+	// maze->max_len = (level + 1) * 2;
+	maze->max_len = 200;
 }
 
 void	del_edge(t_node **head, t_node **del)
@@ -176,7 +176,8 @@ void	del_deadends(t_graph *maze)
 				while (ptr->v != i)
 					ptr = ptr->next;
 				del_edge(&maze->array[maze->array[i].head->v].head, &ptr);
-				del_edge(&maze->array[i].head, &maze->array[i].head);
+				ptr = maze->array[i].head;
+				del_edge(&maze->array[i].head, &ptr);
 				changed = 1;
 			}
 			i++;
@@ -192,8 +193,8 @@ int		graph_maze(t_hill *ah)
 	ah->maze = ft_graph_new(ah->rooms);
 	while (++i < ah->links)
 		ft_graph_edgeadd(ah->maze, ah->link[i][0], ah->link[i][1], 0);
-	ah->maze->max_level = 200;
-	// fill_distances(ah);
+	ah->maze->max_len = 200;
+	fill_distances(ah);
 	// bfs_levels(ah->maze);
 	// ft_graph_print(ah->maze, ah->name);
 	del_deadends(ah->maze);

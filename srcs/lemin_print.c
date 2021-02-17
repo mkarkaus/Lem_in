@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 12:38:29 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/16 17:36:57 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/17 12:52:19 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		use_path(int path, int **set, int ant, int max_ants)
 
 void	apply_path(t_hill *ah, int *path, int ant, int start_turn)
 {
+	t_list	*tmp;
 	char	*move;
 	int		i;
 
@@ -36,24 +37,11 @@ void	apply_path(t_hill *ah, int *path, int ant, int start_turn)
 	{
 		move = ft_strjoin(ft_strjoin(" L", ft_itoa(ant), 2), \
 				ft_strjoin("-", ah->name[path[i]], 0), 3);
-		ft_lstadd(&ah->moves[start_turn + i - 1], ft_lstnew(move, ft_strlen(move) + 1));
-		// ft_lstapp(&ah->moves[start_turn + i - 1], ft_lstnew(move, ft_strlen(move) + 1));
+		tmp = ft_lstnew(move, ft_strlen(move) + 1);
+		ft_lstadd(&ah->moves[start_turn + i - 1], tmp);
 		free(move);
 		i++;
 	}
-}
-
-void	init_moves(t_hill *ah)
-{
-	// int		i;
-
-	// i = 0;
-	ah->moves = (t_list **)ft_memalloc(sizeof(t_list *) * ah->best_turns);
-	// while (i < ah->best_turns)
-	// {
-	// 	ah->moves[i] = NULL;
-	// 	i++;
-	// }
 }
 
 void	save_moves(t_hill *ah)
@@ -65,7 +53,7 @@ void	save_moves(t_hill *ah)
 	ant = 1;
 	cur_turn = 0;
 	path = 1;
-	init_moves(ah);
+	ah->moves = (t_list **)ft_memalloc(sizeof(t_list *) * ah->best_turns);
 	while (ant <= ah->ants)
 	{
 		if (path <= ah->best_set[0][0] && \
@@ -108,10 +96,5 @@ void	print_moves(t_hill *ah)
 		write(1, "\n", 1);
 	}
 	i = -1;
-	ft_printf("best_turns:%d\n", ah->best_turns);
-	// while (++i < ah->best_turns)
-	// {
-	// 	ft_lstfree(ah->moves[i]);
-	// }
 	free(ah->moves);
 }

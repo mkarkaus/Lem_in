@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 10:45:15 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/16 14:02:23 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/17 10:59:08 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int		path_clear(int **res, t_graph *maze, int path, int turns)
 	int		i;
 
 	i = 0;
-	while (i + 1 < maze->max_level && i < turns && maze->route[path][i + 1] != 1)
+	while (i + 1 < maze->max_len && i < turns && maze->route[path][i + 1] != 1)
 	{
 		if (res[i][maze->route[path][i + 1]] != 0)
 			return (0);

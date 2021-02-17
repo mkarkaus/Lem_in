@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 12:42:03 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/10 10:29:57 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/17 16:07:58 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,20 @@ int		save_input(t_list **head)
 
 int		get_data(t_hill *ah, t_list **input)
 {
-	t_list	*data;
-
+	// t_list	*data;
+	ah->data = NULL;
 	init_struct(ah);
 	if (save_input(input) == -1)
-		return (-4);
-	if (input_to_data(input, &data, ah) == -1 || valid_content(ah, data) == -1)
 		return (-1);
-	if (get_rooms(ah, data) == -1)
-		return (-6);
-	if (get_links(data, ah) == -1)
+	if (input_to_data(input, &ah->data, ah) == -1 || valid_content(ah, ah->data) == -1)
 		return (-2);
-	if (graph_maze(ah) == -1)
+	if (get_rooms(ah, ah->data) == -1)
 		return (-3);
+	if (get_links(ah->data, ah) == -1)
+		return (-4);
+	if (graph_maze(ah) == -1)
+		return (-5);
 	// ft_lstprint(data);
-	ft_lstfree(data);
+	// ft_lstfree(data);
 	return (0);
 }

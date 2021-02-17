@@ -46,7 +46,8 @@ typedef struct	s_graph
 	int				**used;
 	int				*been;
 	int				paths;
-	int				max_level;
+	int				start_to_end_found;
+	int				max_len;
 	int				ver;
 	int				max_sets;
 	int				***sets;
@@ -63,6 +64,8 @@ typedef struct	s_hill
 	int			**best_set;
 	int			start_i;
 	t_graph		*maze;
+	t_list		*input;
+	t_list		*data;
 	int			ants;
 	int			rooms;
 	char		**name;
@@ -89,6 +92,7 @@ t_node			*ft_graph_nodenew(int dest_ver);
 t_graph			*ft_graph_new(int vertices);
 void			ft_graph_edgeadd(t_graph *graph, int a, int b, int dir);
 
+int				print_options(int *flags);
 void			print_routes(int **routes, int paths, char **names);
 void			print_stats(int rms, int links, int ants);
 void			parse_flags(t_hill *ah);

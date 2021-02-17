@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/16 15:30:42 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/17 16:00:15 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,76 +72,79 @@ void	ft_grapher(t_graph *graph, int rm)
 	}
 }
 
-void	free_struct_elements(t_hill *ah, int ac)
+void	free_struct_elements(t_hill *ah, int error, int ac)
 {
 	int		i;
 	int		temp;
 
 	i = 0;
-	if (ah->name[0] != NULL)
-		ft_strarr_free(ah->name);
-	if (ah->rooms > 0)
-		ft_tabarr_free(ah->coor, ah->rooms);
-	if (ah->links > 0)
-		ft_tabarr_free(ah->link, ah->links);
-	if (ah->best_res)
-		ft_tabarr_free(ah->best_res, ah->best_turns);
-	while (ah->maze->max_sets > 0 && i < SEARCH_TIMES)
+	if (error <= -2)
 	{
-		temp = ah->maze->sets[i][0][0] + 1;
-		while (--temp >= 0)
-			free(ah->maze->sets[i][temp]);
-		free(ah->maze->sets[i]); //koska tallennetaan vain lyhin reitti ja sen määrä 0:teen
-		i++;
+		ft_lstfree(ah->input);
+		ft_lstfree(ah->data);
 	}
-	free(ah->maze->sets);
-	if (ah->maze->array != NULL)
+	if (error <= -3)
+		ft_strarr_free(ah->name);
+	if (ah->rooms > 0 && error <= -3)
+		ft_tabarr_free(ah->coor, ah->rooms);
+	if (ah->links > 0 && error <= -4)
+		ft_tabarr_free(ah->link, ah->links);
+	if (ah->links > 0 && error <= -5)
 		ft_graph_free(ah->maze);
+	if (error < -5)
+	{
+		ft_tabarr_free(ah->best_res, ah->best_turns);
+		while (ah->maze->max_sets > 0 && i < SEARCH_TIMES)
+		{
+			temp = ah->maze->sets[i][0][0] + 1;
+			while (--temp >= 0)
+				free(ah->maze->sets[i][temp]);
+			free(ah->maze->sets[i]); //koska tallennetaan vain lyhin reitti ja sen määrä 0:teen
+			i++;
+		}
+		free(ah->maze->sets);
+	}
 	if (ac > 1)
 		free(ah->flags);
 }
 
-int		handle_errors(int error)
+int		handle_errors(t_hill *ah, int error, int ac)
 {
 	if (error == -1)
-		ft_printf("{fd}ERROR: Invalid input!\n", 2);
-	else if (error == -2)
-		ft_printf("{fd}ERROR: No links or invalid link!\n", 2);
-	else if (error == -3)
-		ft_printf("{fd}ERROR: No valid routes to the end of the maze!\n", 2);
-	else if (error == -4)
 		ft_printf("{fd}ERROR: Empty map!\n", 2);
-	else if (error == -5)
-		ft_printf("{fd}ERROR: Routing error!\n", 2);
-	else if (error == -6)
+	else if (error == -2)
+		ft_printf("{fd}ERROR: Invalid input!\n", 2);
+	else if (error == -3)
 		ft_printf("{fd}ERROR: Rooms are invalid!\n", 2);
-	//free_struct_elements(&ah);
+	else if (error == -4)
+		ft_printf("{fd}ERROR: Invalid link!\n", 2);
+	else if (error == -5)
+		ft_printf("{fd}ERROR: No valid routes to the end of the maze!\n", 2);
+	free_struct_elements(ah, error, ac);
 	return (error);
 }
 
 int		main(int ac, char **av)
 {
 	t_hill	ah;
-	t_list	*input;
 	int 	ret;
 	int		**res;
 	int		turns;
 
 	turns = 0;
-	input = NULL;
+	ah.input = NULL;
 	if (ac > 1 && (save_flags(av, &ah) == 0))
 		return (0);
-	if ((ret = get_data(&ah, &input)) < 0)
-		return (handle_errors(ret));
-	(ac > 1 && ah.flags[1] != 1) ? ft_lstprint(input) : 0;
+	if ((ret = get_data(&ah, &ah.input)) < 0)
+		return (handle_errors(&ah, ret, ac));
+	(ac > 1 && ah.flags[1] != 1) ? ft_lstprint(ah.input) : 0;
 	write(1, "\n", 1);
 	find_route_sets(ah.maze, ah.ants);
 	reserve_moves(&res, &ah, &turns);
 	print_moves(&ah);
 	if (ac > 1 && ah.flags[4] == 1)
 		parse_flags(&ah);
-	ft_lstfree(input);
-	free_struct_elements(&ah, ac);
+	free_struct_elements(&ah, -6, ac);
 	return (0);
 }
 

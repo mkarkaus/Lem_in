@@ -33,7 +33,7 @@ void	fill_new_paths(t_graph *maze, int fork)
 	i = 0;
 	while (maze->route[k][0] != -1)
 		k++;
-	while (i < maze->max_level && maze->route[fork][i + 1] != -1)
+	while (i < maze->max_len && maze->route[fork][i + 1] != -1)
 		i++;
 	ptr = maze->array[maze->route[fork][i]].head;
 	while (k < maze->paths && ptr)
@@ -45,7 +45,7 @@ void	fill_new_paths(t_graph *maze, int fork)
 				maze->route[fork][i + 1] = ptr->v;
 			else
 			{
-				ft_memcpy(maze->route[k], maze->route[fork], maze->max_level * sizeof(int));
+				ft_memcpy(maze->route[k], maze->route[fork], maze->max_len * sizeof(int));
 				maze->route[k][i + 1] = ptr->v;
 				if (ptr->v != 1)
 					maze->been[ptr->v] = 1;
@@ -140,7 +140,7 @@ void	add_to_route(t_graph *maze, int prev_room, int *row, int len)
 	if (ret > 1)
 	{
 		maze->paths += (ret - 1);
-		add_paths(maze->paths, &maze->route, maze->paths - (ret - 1), maze->max_level);
+		add_paths(maze->paths, &maze->route, maze->paths - (ret - 1), maze->max_len);
 		fill_new_paths(maze, *row);
 	}
 	else if ((ret == 1 || ret == -1) && maze->been[ptr->v] != 1)
@@ -180,18 +180,19 @@ int		calculate_cost(int **set, int *new_route, int ants)
 		set[0][2] = mod;
 		return (1);
 	}
-	// ft_printf("len too much:%d\n", new_route[0]);
 	return (0);
 }
 
 void	save_path(t_graph *maze, int *len, int i)
 {
-	int			**cur_set;
+	int	**set;
+	int	row;
 	
-	cur_set = maze->sets[maze->max_sets];
-	cur_set[0][0]++;
-	cur_set[cur_set[0][0]] = ft_memalloc(maze->max_level * sizeof(int));
-	cur_set[cur_set[0][0]] = ft_memcpy(cur_set[cur_set[0][0]], maze->route[i], *len * sizeof(int));
+	set = maze->sets[maze->max_sets];
+	set[0][0]++;
+	row = set[0][0];
+	set[row] = ft_memalloc(maze->max_len * sizeof(int));
+	set[row] = ft_memcpy(set[row], maze->route[i], *len * sizeof(int));
 	update_been(maze);
 	ft_tabarr_free(maze->route, maze->paths);
 	init_routes(maze);
@@ -205,7 +206,7 @@ void	create_set(t_graph *maze, int ants)
 	int			i;
 
 	len = 1;
-	while (++len < maze->max_level && maze->paths != 0)
+	while (++len < maze->max_len && maze->paths != 0)
 	{
 		i = -1;
 		while (++i < maze->paths && maze->paths != 0)

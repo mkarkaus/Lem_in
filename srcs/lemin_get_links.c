@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 16:01:49 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/09 12:16:14 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/17 15:48:47 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int		convert_link(char *str, t_hill *ah, int k)
 
 	i = 0;
 	j = 0;
-	ah->link[k] = (int *)ft_memalloc(sizeof(int) * 2);
 	while (str[j] != '-')
 		j++;
 	while (ah->name[i] != NULL && ft_strnequ(ah->name[i], str, j) == 0)
@@ -40,7 +39,7 @@ int		get_links(t_list *lst, t_hill *ah)
 	char	*tmp;
 
 	k = 0;
-	ah->link = (int **)ft_memalloc(ah->links * sizeof(int *));
+	ah->link = ft_tabarr_malloc(ah->links, 2 * sizeof(int *));
 	while (lst != NULL && (tmp = lst->content) && ft_strchr(tmp, '-') == NULL)
 		lst = lst->next;
 	while (lst != NULL && (tmp = lst->content) \

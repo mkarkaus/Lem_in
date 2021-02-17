@@ -6,17 +6,18 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:16:17 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/16 22:39:20 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/17 12:04:42 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-int		print_options(void)
+int		print_options(int *flags)
 {
 	ft_printf("Options:\n-h: help\n-l: show amount of lines used\n");
 	ft_printf("-q: quiet mode, only print moves\n-r: print routes\n");
 	ft_printf("-s: print anthill stats\n");
+	free(flags);
 	return (0);
 }
 
@@ -77,11 +78,11 @@ int		save_flags(char **av, t_hill *ah)
 			if (av[row][0] == '-' && ft_strchr("hlqrs", av[row][i]))
 			{
 				if (av[row][i] == 'h')
-					return (print_options());
+					return (print_options(ah->flags));
 				which_flags(av[row][i], &ah->flags);
 			}
 			else
-				return (print_options());
+				return (print_options(ah->flags));
 		}
 	}
 	return (1);

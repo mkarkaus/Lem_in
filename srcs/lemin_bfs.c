@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 12:22:11 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/15 15:29:00 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/17 12:35:35 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int		count_potential_paths(t_graph *maze)
 	node = maze->array[0].head;
 	while (node != NULL)
 	{
-		if (maze->been[node->v] == 0)
+		if (maze->been[node->v] == 0 \
+		&& !(node->v == 1 && maze->start_to_end_found))
 			i++;
 		node = node->next;
 	}
@@ -55,9 +56,12 @@ void	set_flow(t_graph *maze)
 
 	row = 1;
 	i = 1;
-	while (row < maze->sets[maze->max_sets][0][0] + 1 && (maze->sets[maze->max_sets][row][2] == 1 || was_used(maze->used, maze->sets[maze->max_sets][row])))
+	while (row < maze->sets[maze->max_sets][0][0] + 1 \
+			&& (maze->sets[maze->max_sets][row][2] == 1 \
+			|| was_used(maze->used, maze->sets[maze->max_sets][row])))
 		row++;
-	while (row != maze->sets[maze->max_sets][0][0] + 1 && maze->sets[maze->max_sets][row][i] != 1)
+	while (row != maze->sets[maze->max_sets][0][0] + 1 \
+			&& maze->sets[maze->max_sets][row][i] != 1)
 	{
 		maze->flow[0] = 1;
 		maze->flow[maze->sets[maze->max_sets][row][i]] = 1;
@@ -72,9 +76,12 @@ void	set_flow(t_graph *maze)
 
 void	bfs_search_sets(t_graph *maze, int ants)
 {
+	int		max_paths;
+	
 	create_set(maze, ants);
+	max_paths = maze->sets[maze->max_sets][0][0] + 1;
 	if (maze->sets[maze->max_sets][0][0] > 0)
-		sort_routes(&maze->sets[maze->max_sets], maze->sets[maze->max_sets][0][0] + 1);
+		sort_routes(&maze->sets[maze->max_sets], max_paths);
 	else
 		maze->max_sets--;
 	ft_bzero(maze->flow, sizeof(int) * maze->ver);
@@ -88,8 +95,10 @@ void	find_route_sets(t_graph *maze, int ants)
 	while (++maze->max_sets < SEARCH_TIMES && maze->flow[0] == 1)
 	{
 		ft_bzero(maze->been, sizeof(int) * maze->ver);
+		maze->start_to_end_found = 0;
 		init_routes(maze);
 		bfs_search_sets(maze, ants);
+		// ft_pr_intarr(maze->route, );
 		ft_tabarr_free(maze->route, maze->paths);
 		maze->route = NULL;
 		ft_printf("SET CHANGED\n");

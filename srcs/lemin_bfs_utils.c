@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:19:54 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/15 14:56:23 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/17 12:47:51 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,12 @@ void	init_sets(t_graph *maze)
 	maze->flow = (int *)ft_memalloc(sizeof(int) * maze->ver);
 	maze->flow[0] = 1;
 	maze->been = (int *)ft_memalloc(sizeof(int) * maze->ver);
-	maze->sets = (int ***)ft_memalloc(sizeof(int **) * SEARCH_TIMES);// 3 stands for 3 sets
+	maze->sets = (int ***)ft_memalloc(sizeof(int **) * SEARCH_TIMES);
+	maze->start_to_end_found = 0;
 	while (i < SEARCH_TIMES)
 	{
-		maze->sets[i] = (int **)ft_memalloc(sizeof(int *) * (count_potential_paths(maze) + 1)); //koska tallennetaan vain lyhin reitti ja sen määrä 0:teen
+		maze->sets[i] = \
+		(int **)ft_memalloc(sizeof(int *) * (count_potential_paths(maze) + 1)); //koska tallennetaan vain lyhin reitti ja sen määrä 0:teen
 		maze->sets[i][0] = (int *)ft_memalloc(sizeof(int) * 3);
 		maze->sets[i][0][1] = INT_MAX;
 		maze->sets[i][0][2] = INT_MAX;
@@ -79,17 +81,20 @@ void	init_routes(t_graph *maze)
 	ptr = maze->array[0].head;
 	i = 0;
 	maze->been[0] = 1;
-	maze->route = ft_tabarr_malloc(count_potential_paths(maze), maze->max_level);
+	maze->route = ft_tabarr_malloc(count_potential_paths(maze), maze->max_len);
 	while (ptr) //init routes with links from start and cross-check
 	{
-		if (maze->been[ptr->v] == 0 && !(maze->sets[maze->max_sets][0][0] > 0 && maze->sets[maze->max_sets][1][1] == 1 && ptr->v == 1))
+		if (maze->been[ptr->v] == 0 \
+			&& !(ptr->v == 1 && maze->start_to_end_found))
 		{
 			len = -1;
-			while (++len < maze->max_level)
+			while (++len < maze->max_len)
 				maze->route[i][len] = -1;
 			maze->route[i][0] = 0;
 			maze->route[i][1] = ptr->v;
 			maze->been[ptr->v] = 1;
+			if (ptr->v == 1)
+				maze->start_to_end_found = 1;
 			i++;
 		}
 		ptr = ptr->next;
