@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 12:38:29 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/17 12:52:19 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/18 15:40:24 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,13 @@ void	print_moves(t_hill *ah)
 {
 	int		i;
 	t_list	*tmp;
-	
+
 	i = -1;
 	save_moves(ah);
 	while (++i < ah->best_turns && ah->moves[i])
 	{
-		write(1, ah->moves[i]->content + 1, ft_strlen(ah->moves[i]->content) - 1);
+		write(1, ah->moves[i]->content + 1, \
+			ft_strlen(ah->moves[i]->content) - 1);
 		tmp = ah->moves[i]->next;
 		free(ah->moves[i]->content);
 		free(ah->moves[i]);

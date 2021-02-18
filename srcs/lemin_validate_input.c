@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 15:13:44 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/17 16:06:23 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/18 15:13:34 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ int		check_format(char *contents)
 	int		i;
 
 	i = 0;
-	while (contents[i] != ' ' && contents[i] != '-' && contents[i] != '#')
+	while (contents[i] && contents[i] != ' ' \
+		&& contents[i] != '-' && contents[i] != '#')
 		i++;
-	if (contents[i] == ' ' && ft_isdigit(contents[i + 1]) && i != 0 && ++i)// contents[0] != 'L' tän pitää chekata myös se iso L
+	if (contents[i] == ' ' && ft_isdigit(contents[i + 1]) && i != 0 && ++i)
 	{
 		while (ft_isdigit(contents[i]))
 			i++;
@@ -27,7 +28,7 @@ int		check_format(char *contents)
 			while (ft_isdigit(contents[i]))
 				i++;
 	}
-	else if (contents[i] == '-' && contents[i + 1] && i != 0 && ++i) //sama tässä 0. ja viivan jälkeinen ei oo 'L'
+	else if (contents[i] == '-' && contents[i + 1] && i != 0 && ++i)
 		while (contents[i] && contents[i] != ' ' && contents[i] != '-')
 			i++;
 	else if ((contents[0] == '#' && contents[1] != '#') || \
@@ -75,8 +76,6 @@ int		valid_content(t_hill *ah, t_list *lst)
 			return (-1);
 		lst = lst->next;
 	}
-	if (lst != NULL || start != 1 || end != 1 \
-	|| ah->rooms == 0 || ah->links == 0)
-		return (-1);
-	return (0);
+	return ((lst != NULL || start != 1 || end != 1 \
+		|| ah->rooms == 0 || ah->links == 0) ? -1 : 0);
 }

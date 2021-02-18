@@ -21,7 +21,7 @@
 **	Defines how many times bfs-search is performed
 */
 
-# define SEARCH_TIMES 50
+# define SEARCH_TIMES 30
 
 typedef struct	s_node
 {
@@ -36,17 +36,12 @@ typedef struct	s_alhead
 	t_node			*head;
 }				t_alhead;
 
-// typedef struct	s_tlhead
-// {
-// 	t_list			*turn;
-// }				t_tlhead;
-
 typedef struct	s_graph
 {
 	int				**used;
 	int				*been;
 	int				paths;
-	int				start_to_end_found;
+	int				start_to_end;
 	int				max_len;
 	int				ver;
 	int				max_sets;
@@ -98,6 +93,8 @@ void			print_stats(int rms, int links, int ants);
 void			parse_flags(t_hill *ah);
 int				save_flags(char **av, t_hill *ah);
 
+void			del_edge(t_node **head, t_node **del);
+void			del_deadends(t_graph *maze);
 void			fill_distances(t_hill *ah);
 int				graph_maze(t_hill *ah);
 int				get_links(t_list *lst, t_hill *ah);
@@ -115,20 +112,13 @@ void			init_routes(t_graph *maze);
 void			sort_routes(int ***route, int max_paths);
 void			route_length(int **route);
 
+void	add_to_route(t_graph *maze, int prev_room, int *row, int len);
 void	find_route_sets(t_graph *maze, int ants);
 void	init_sets(t_graph *maze);
 void	create_set(t_graph *maze, int ants);
-void	handle_output_forks(t_graph *maze);
-void	del_allbutone(t_graph *maze, int rem, int infork, int index);
-void	ft_grapher(t_graph *graph, int rm); //poista
 void	del_route(t_graph *maze, int del);
-void	create_routes(t_graph *maze);
-void	del_deadends(t_graph *maze);
-void	del_edge(t_node **head, t_node **del);
+void	ft_grapher(t_graph *graph, int rm); //poista
 
-// void	del_twoway(t_graph *maze);
-// void	del_zero_inputs(t_graph *maze);
-// void	del_zero_outputs(t_graph *maze);
 /*
 	name = names of the rooms
 	res  = is room reserved by an ant (and by which ant)

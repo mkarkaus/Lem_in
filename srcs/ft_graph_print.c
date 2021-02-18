@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:35:45 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/10 11:53:59 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/18 15:38:38 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_graph_print(t_graph *graph, char **name)
 	while (++i < graph->ver)
 	{
 		ptr = graph->array[i].head;
-		ft_printf("[ %d ][%s] (dd:%d, level:%d)", i, name[i], graph->array[i].dd, graph->array[i].bfs_level);
+		ft_printf("[ %d ][%s]", i, name[i]);
 		while (ptr != NULL)
 		{
 			ft_printf(" -> %d", ptr->v);

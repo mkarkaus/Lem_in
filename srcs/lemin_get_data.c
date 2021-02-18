@@ -6,7 +6,7 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 12:42:03 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/17 16:07:58 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/18 11:25:21 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ int		input_to_data(t_list **input, t_list **data, t_hill *ah)
 			&& !(ft_strequ("##start", tmp) || ft_strequ("##end", tmp)))\
 			|| (tmp[0] == '#' && tmp[1] != '#')))
 		it = it->next;
-	add = ft_lstnew(it->content, it->content_size);
+	add = ft_lstnew(it->content, ft_strlen(it->content) + 1);
 	*data = add;
 	while ((it = it->next) && it != NULL)
 		if ((tmp = it->content) && !(tmp[0] == '#' && tmp[1] != '#') \
 			&& !(tmp[0] == '#' && tmp[1] == '#' \
 			&& !(ft_strequ("##start", tmp) || ft_strequ("##end", tmp))))
 		{
-			add->next = ft_lstnew(it->content, it->content_size);
+			add->next = ft_lstnew(it->content, ft_strlen(it->content) + 1);
 			add = add->next;
 		}
 	return (0);
@@ -68,12 +68,12 @@ int		save_input(t_list **head)
 
 int		get_data(t_hill *ah, t_list **input)
 {
-	// t_list	*data;
 	ah->data = NULL;
 	init_struct(ah);
 	if (save_input(input) == -1)
 		return (-1);
-	if (input_to_data(input, &ah->data, ah) == -1 || valid_content(ah, ah->data) == -1)
+	if (input_to_data(input, &ah->data, ah) == -1 \
+	|| valid_content(ah, ah->data) == -1)
 		return (-2);
 	if (get_rooms(ah, ah->data) == -1)
 		return (-3);
@@ -81,7 +81,5 @@ int		get_data(t_hill *ah, t_list **input)
 		return (-4);
 	if (graph_maze(ah) == -1)
 		return (-5);
-	// ft_lstprint(data);
-	// ft_lstfree(data);
 	return (0);
 }

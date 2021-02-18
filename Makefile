@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+         #
+#    By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2021/02/12 10:24:53 by sreijola         ###   ########.fr        #
+#    Updated: 2021/02/18 17:40:07 by mkarkaus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ NAME = lem-in
 
 VIS = exe
 
-	# lemin_del_links.c
 SRCS_C = lemin_main.c \
 	lemin_flags.c \
 	lemin_validate_input.c \
@@ -27,6 +26,7 @@ SRCS_C = lemin_main.c \
 	lemin_bfs.c \
 	lemin_bfs_utils.c \
 	lemin_create_set.c \
+	lemin_build_route.c \
 	lemin_reserve_moves.c \
 	lemin_print.c \
 	ft_lstfree.c \
@@ -43,8 +43,6 @@ SRCS_C = lemin_main.c \
 	ft_graph_nodenew.c \
 	ft_graph_free.c \
 	ft_graph_print.c 
-
-#	lemin_move_ants.c
 
 SRCS_PATH = ./srcs/
 

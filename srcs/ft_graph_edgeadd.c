@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_graph_edgeadd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:29:18 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/06 13:32:15 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/18 10:37:42 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-void	ft_graph_edgeadd(t_graph *graph, int a, int b, int dir)// former add_edge
+void	ft_graph_edgeadd(t_graph *graph, int a, int b, int dir)
 {
 	t_node	*node;
 

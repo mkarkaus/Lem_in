@@ -3,31 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_bfs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 12:22:11 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/17 12:35:35 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/18 17:26:58 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
-
-int		count_potential_paths(t_graph *maze)
-{
-	int		i;
-	t_node	*node;
-
-	i = 0;
-	node = maze->array[0].head;
-	while (node != NULL)
-	{
-		if (maze->been[node->v] == 0 \
-		&& !(node->v == 1 && maze->start_to_end_found))
-			i++;
-		node = node->next;
-	}
-	return (i);
-}
 
 int		was_used(int **used, int *route)
 {
@@ -74,10 +57,35 @@ void	set_flow(t_graph *maze)
 	}
 }
 
+void	sort_routes(int ***route, int max_paths)
+{
+	int		row;
+	int		swapped;
+	int		*temp;
+
+	swapped = 1;
+	while (swapped == 1)
+	{
+		swapped = 0;
+		row = 1;
+		while (row + 1 < max_paths)
+		{
+			if ((*route)[row][0] > (*route)[row + 1][0])
+			{
+				temp = (*route)[row];
+				(*route)[row] = (*route)[row + 1];
+				(*route)[row + 1] = temp;
+				swapped = 1;
+			}
+			row++;
+		}
+	}
+}
+
 void	bfs_search_sets(t_graph *maze, int ants)
 {
 	int		max_paths;
-	
+
 	create_set(maze, ants);
 	max_paths = maze->sets[maze->max_sets][0][0] + 1;
 	if (maze->sets[maze->max_sets][0][0] > 0)
@@ -95,13 +103,11 @@ void	find_route_sets(t_graph *maze, int ants)
 	while (++maze->max_sets < SEARCH_TIMES && maze->flow[0] == 1)
 	{
 		ft_bzero(maze->been, sizeof(int) * maze->ver);
-		maze->start_to_end_found = 0;
+		maze->start_to_end = 0;
 		init_routes(maze);
 		bfs_search_sets(maze, ants);
-		// ft_pr_intarr(maze->route, );
 		ft_tabarr_free(maze->route, maze->paths);
 		maze->route = NULL;
-		ft_printf("SET CHANGED\n");
 	}
 	free(maze->used[0]);
 	free(maze->used);

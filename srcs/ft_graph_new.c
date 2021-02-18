@@ -6,13 +6,13 @@
 /*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:28:39 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/27 15:51:31 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/18 10:31:16 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-t_graph		*ft_graph_new(int vertices)// formerly known as create_graph()
+t_graph		*ft_graph_new(int vertices)
 {
 	t_graph		*graph;
 	int			i;
