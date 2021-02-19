@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:36:48 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/18 17:25:31 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/19 11:49:28 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,32 @@ void	update_been(t_graph *maze)
 	}
 }
 
+// int		calculate_cost(int **set, int *new_route, int ants)
+// {
+// 	int		prev_cost;
+// 	int		path;
+// 	int		cost;
+// 	int		mod;
+
+// 	path = 1;
+// 	cost = new_route[0];
+// 	prev_cost = set[0][1];
+// 	while (path <= set[0][0])
+// 	{
+// 		cost += set[path][0];
+// 		path++;
+// 	}
+// 	cost = (cost + ants) / path;
+// 	mod = (cost + ants) % path;
+// 	if ((cost < prev_cost || (cost == prev_cost && mod < set[0][2])))
+// 	{
+// 		set[0][1] = cost;
+// 		set[0][2] = mod;
+// 		return (1);
+// 	}
+// 	return (0);
+// }
+
 int		calculate_cost(int **set, int *new_route, int ants)
 {
 	int		prev_cost;
@@ -49,15 +75,15 @@ int		calculate_cost(int **set, int *new_route, int ants)
 	int		mod;
 
 	path = 1;
-	cost = new_route[0];
+	cost = new_route[0] - 1;
 	prev_cost = set[0][1];
 	while (path <= set[0][0])
 	{
-		cost += set[path][0];
+		cost += (set[path][0] - 1);
 		path++;
 	}
-	cost = (cost + ants) / path;
 	mod = (cost + ants) % path;
+	cost = (cost + ants) / path;
 	if ((cost < prev_cost || (cost == prev_cost && mod < set[0][2])))
 	{
 		set[0][1] = cost;

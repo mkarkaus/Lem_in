@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_reserve_moves.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 10:45:15 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/17 10:59:08 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/19 10:56:31 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,8 +168,8 @@ void	reserve_moves(int ***res, t_hill *ah, int *turns)
 		ah->maze->paths = ah->maze->sets[set][0][0];
 		ah->maze->route = ah->maze->sets[set] + 1;
 		move = (ah->maze->route[0][0] - ah->maze->sets[0][0][0] > 1) ? \
-			ah->maze->sets[0][0][0] + (ah->maze->route[0][0] - ah->maze->sets[0][0][0]) :\
-			ah->maze->sets[0][0][0] + 1;
+			ah->maze->sets[0][0][0] + (ah->maze->route[0][0] - \
+			ah->maze->sets[0][0][0]) : ah->maze->sets[0][0][0] + 1;
 		add_turns(move, ah->maze, res, *turns);
 		*turns = move;
 		set_ants_on_paths(res, ah, 1, turns);
