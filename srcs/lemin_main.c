@@ -6,40 +6,14 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/25 12:54:06 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/25 15:55:23 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-void	ft_grapher(t_graph *graph, int rm)
-{
-	t_node	*ptr;
-	int		i;
-
-	i = -1;
-	while (++i < graph->ver)
-	{
-		if (i == rm || rm == -1)
-		{
-			ptr = graph->array[i].head;
-			ft_printf("[ %d ] (dd:%d)", i, graph->array[i].dd);
-			while (ptr != NULL)
-			{
-				ft_printf(" -> %d", ptr->v);
-				ptr = ptr->next;
-			}
-			ft_printf("\n");
-		}
-	}
-}
-
 void	free_struct_elements(t_hill *ah, int error)
 {
-	int		i;
-	int		temp;
-
-	i = -1;
 	(error <= -2) ? ft_lstfree(ah->input) : 0;
 	(error <= -2) ? ft_lstfree(ah->data) : 0;
 	(error <= -3) ? ft_strarr_free(ah->name) : 0;
@@ -75,10 +49,7 @@ int		main(int ac, char **av)
 {
 	t_hill	ah;
 	int		ret;
-	int		**res;
-	int		turns;
 
-	turns = 0;
 	ah.input = NULL;
 	if (save_flags(av, &ah) == 0)
 		return (0);
@@ -87,15 +58,9 @@ int		main(int ac, char **av)
 	(ah.flags[1] != 1) ? ft_lstprint(ah.input) : 0;
 	write(1, "\n", 1);
 	find_route_sets(ah.maze, ah.ants);
-	// reserve_moves(&res, &ah, &turns);
 	print_moves(&ah);
 	if (ac > 1 && ah.flags[4] == 1)
 		parse_flags(&ah);
 	free_struct_elements(&ah, -6);
 	return (0);
 }
-
-	// clock_t begin = clock();
-	// clock_t end = clock();
-	// double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-	// ft_printf("{b_red}time_spent:%.2lf{r}\n", time_spent);

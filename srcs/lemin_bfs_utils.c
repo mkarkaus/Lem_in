@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:19:54 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/25 13:03:18 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/25 16:37:56 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ int		count_potential_paths(t_graph *maze)
 
 void	init_sets(t_graph *maze)
 {
-	int		i;
-
-	i = 0;
-	maze->used = ft_tabarr_malloc(SEARCH_TIMES + 1, maze->max_len);
+	maze->used = ft_tabarr_malloc(SEARCH_TIMES + 1, LEN_MAX);
 	maze->flow = (int *)ft_memalloc(sizeof(int) * maze->ver);
 	maze->flow[0] = 1;
 	maze->been = (int *)ft_memalloc(sizeof(int) * maze->ver);
@@ -54,13 +51,13 @@ void	init_routes(t_graph *maze)
 	ptr = maze->array[0].head;
 	i = 0;
 	maze->been[0] = 1;
-	maze->route = ft_tabarr_malloc(count_potential_paths(maze), maze->max_len);
+	maze->route = ft_tabarr_malloc(count_potential_paths(maze), LEN_MAX);
 	while (ptr)
 	{
 		if (maze->been[ptr->v] == 0 && !(ptr->v == 1 && maze->start_to_end))
 		{
 			len = -1;
-			while (++len < maze->max_len)
+			while (++len < LEN_MAX)
 				maze->route[i][len] = -1;
 			maze->route[i][0] = 0;
 			maze->route[i][1] = ptr->v;

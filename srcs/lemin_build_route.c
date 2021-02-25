@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 16:15:28 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/25 12:27:58 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/25 16:27:48 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	fill_new_paths(t_graph *maze, int fork, int k, int i)
 {
 	t_node	*ptr;
 
-	while (i < maze->max_len && maze->route[fork][i + 1] != -1)
+	while (i < LEN_MAX && maze->route[fork][i + 1] != -1)
 		i++;
 	ptr = maze->array[maze->route[fork][i]].head;
 	while (k < maze->paths && ptr)
@@ -40,7 +40,7 @@ void	fill_new_paths(t_graph *maze, int fork, int k, int i)
 			else
 			{
 				ft_memcpy(maze->route[k], maze->route[fork], \
-					maze->max_len * sizeof(int));
+					LEN_MAX * sizeof(int));
 				maze->route[k][i + 1] = ptr->v;
 				if (ptr->v != 1)
 					maze->been[ptr->v] = 1;
@@ -108,14 +108,14 @@ void	add_to_route(t_graph *maze, int prev_room, int *row, int len)
 	{
 		maze->paths += (ret - 1);
 		add_paths(maze->paths, &maze->route, maze->paths - (ret - 1), \
-					maze->max_len);
+					LEN_MAX);
 		fill_new_paths(maze, *row, maze->paths - (ret - 1), 0);
 	}
 	else if ((ret == 1 || ret == -1) && maze->been[ptr->v] != 1)
 	{
 		if (ret == -1)
 			maze->route[*row][len] = 1;
-		else if (maze->been[ptr->v] = 1)
+		else if ((maze->been[ptr->v] = 1))
 			maze->route[*row][len] = ptr->v;
 	}
 	else

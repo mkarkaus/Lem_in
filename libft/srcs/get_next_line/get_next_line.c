@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 13:03:14 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/09 10:19:00 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/25 15:09:16 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,17 @@ ssize_t		ft_makeline(char **line, char **tab, const int fd)
 		free(tab[fd]);
 		return (0);
 	}
+	if (!(*line = ft_strsub(tab[fd], 0, k)))
+		return (-1);
 	if (tab[fd][k] == '\n')
 	{
-		if (!(*line = ft_strsub(tab[fd], 0, k)))
-			return (-1);
 		if (!(temp = ft_strdup(tab[fd] + (k + 1))))
 			return (-1);
 		free(tab[fd]);
 		tab[fd] = temp;
 	}
 	else
-	{
-		if (!(*line = ft_strsub(tab[fd], 0, k)))
-			return (-1);
 		tab[fd][0] = '\0';
-	}
 	return (1);
 }
 

@@ -15,13 +15,19 @@
 
 # include "../libft/includes/libft.h"
 # include <limits.h>
-# include <time.h>// REMOVE
+# include <time.h>//REMOVE
 
 /*
 **	Defines how many times bfs-search is performed
 */
 
 # define SEARCH_TIMES 30
+
+/*
+**	Defines maximum route length
+*/
+
+# define LEN_MAX 100
 
 typedef struct	s_node
 {
@@ -32,7 +38,6 @@ typedef struct	s_node
 typedef struct	s_alhead
 {
 	int				dd;
-	int				bfs_level;
 	t_node			*head;
 }				t_alhead;
 
@@ -40,16 +45,13 @@ typedef struct	s_graph
 {
 	int				**used;
 	int				*been;
+	int				*flow;
 	int				paths;
 	int				start_to_end;
-	int				max_len;
 	int				ver;
-	int				max_sets;
 	int				**best_set;
 	int				**set;
-	// int				***sets;
 	int				**route;
-	int				*flow;
 	t_alhead		*array;
 }				t_graph;
 
@@ -57,7 +59,6 @@ typedef struct	s_hill
 {
 	t_list		**moves;
 	int			best_turns;
-	int			start_i;
 	t_graph		*maze;
 	t_list		*input;
 	t_list		*data;
@@ -102,27 +103,15 @@ int				get_rooms(t_hill *ah, t_list *lst);
 int				get_data(t_hill *ah, t_list **input);
 void			init_struct(t_hill *ah);
 int				valid_content(t_hill *ah, t_list *lst);
-
-void			reserve_moves(int ***res, t_hill *ah, int *turns);
 void			print_moves(t_hill *ah);
-int				sneaky_ant(int **res, int move, int turns, int rooms);
-
 int				count_potential_paths(t_graph *maze);
 void			init_routes(t_graph *maze);
 void			sort_routes(int ***route, int max_paths);
 void			route_length(int **route);
-
-void	add_to_route(t_graph *maze, int prev_room, int *row, int len);
-void	find_route_sets(t_graph *maze, int ants);
-void	init_sets(t_graph *maze);
-void	create_set(t_graph *maze, int ants);
-void	del_route(t_graph *maze, int del);
-void	ft_grapher(t_graph *graph, int rm); //poista
-
-/*
-	name = names of the rooms
-	res  = is room reserved by an ant (and by which ant)
-	link = all the links from the room link[0]    mikko#maija#antti
-*/
+void			add_to_route(t_graph *maze, int prev_room, int *row, int len);
+void			find_route_sets(t_graph *maze, int ants);
+void			init_sets(t_graph *maze);
+void			create_set(t_graph *maze, int ants);
+void			del_route(t_graph *maze, int del);
 
 #endif

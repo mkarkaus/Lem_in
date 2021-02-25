@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 12:22:11 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/25 13:03:49 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/25 16:37:59 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,35 +85,33 @@ void	sort_routes(int ***route, int max_paths)
 
 void	bfs_search_sets(t_graph *maze, int ants)
 {
-	int		max_paths;
-
+	maze->set = (int **)ft_memalloc(sizeof(int *) * \
+					(count_potential_paths(maze) + 1));
+	maze->set[0] = (int *)ft_memalloc(sizeof(int) * 3);
+	maze->set[0][1] = INT_MAX;
+	maze->set[0][2] = INT_MAX;
+	init_routes(maze);
 	create_set(maze, ants);
-	max_paths = maze->set[0][0] + 1;
 	if (maze->set[0][0] > 0)
-		sort_routes(&maze->set, max_paths);
-	else
-		maze->max_sets--;
+		sort_routes(&maze->set, maze->set[0][0] + 1);
 	ft_bzero(maze->flow, sizeof(int) * maze->ver);
 	set_flow(maze);
 }
 
 void	find_route_sets(t_graph *maze, int ants)
 {
-	maze->max_sets = -1;
+	int		set_count;
+
+	set_count = -1;
 	init_sets(maze);
-	while (++maze->max_sets < SEARCH_TIMES && maze->flow[0] == 1)
+	while (++set_count < SEARCH_TIMES && maze->flow[0] == 1)
 	{
 		ft_bzero(maze->been, sizeof(int) * maze->ver);
 		maze->start_to_end = 0;
-		maze->set = (int **)ft_memalloc(sizeof(int *) * (count_potential_paths(maze) + 1));
-		maze->set[0] = (int *)ft_memalloc(sizeof(int) * 3);
-		maze->set[0][1] = INT_MAX;
-		maze->set[0][2] = INT_MAX;
-		init_routes(maze);
 		bfs_search_sets(maze, ants);
 		if (maze->best_set[0][1] > maze->set[0][1] \
-				|| (maze->best_set[0][1] == maze->set[0][1] \
-				&& maze->best_set[0][2] > maze->set[0][2]))
+			|| (maze->best_set[0][1] == maze->set[0][1] \
+			&& maze->best_set[0][2] > maze->set[0][2]))
 		{
 			ft_tabarr_free(maze->best_set, maze->best_set[0][0] + 1);
 			maze->best_set = maze->set;

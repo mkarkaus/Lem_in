@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:28:46 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/19 10:08:33 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/25 16:15:10 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	remake_queue(t_graph *maze, int **queue, int only_clear, int *been)
 			node = ptr[temp[k]].head;
 			while (node != NULL)
 			{
-				if ((ptr[node->v].dd == -1 && been == NULL) \
-				&& !ft_tabint_find(*queue, node->v, maze->ver) \
+				if (((ptr[node->v].dd == -1 && been == NULL) \
+				&& !ft_tabint_find(*queue, node->v, maze->ver)) \
 				|| (been != NULL && ptr[node->v].dd != -3 \
 				&& !ft_tabint_find(been, node->v, maze->ver)))
 					(*queue)[i++] = node->v;
@@ -147,7 +147,6 @@ int		graph_maze(t_hill *ah)
 		if (!is_duplicate_link(ah->maze->array[ah->link[i][0]].head, \
 				ah->link[i][1]))
 			ft_graph_edgeadd(ah->maze, ah->link[i][0], ah->link[i][1], 0);
-	ah->maze->max_len = 200;
 	fill_distances(ah);
 	del_deadends(ah->maze);
 	if (ah->maze->array[0].dd == -1)
