@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_flags.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:16:17 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/18 10:21:35 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/25 10:52:10 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	print_routes(int **routes, int paths, char **names)
 void	parse_flags(t_hill *ah)
 {
 	if (ah->flags[0] == 1)
-		ft_printf("\nTurns used: %d\n\n", ah->best_turns - 1);
+		ft_printf("\nTurns used: %d\n\n", ah->best_turns);
 	if (ah->flags[2] == 1)
-		print_routes(ah->best_set + 1, ah->best_set[0][0], ah->name);
+		print_routes(ah->maze->best_set + 1, ah->maze->best_set[0][0], ah->name);
 	if (ah->flags[3] == 1)
 	{
 		ft_printf("\nANTHILL:\nAnts: %d\n", ah->ants);

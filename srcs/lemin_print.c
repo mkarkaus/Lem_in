@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin_print.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 12:38:29 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/18 15:40:24 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/25 10:47:15 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,14 @@ void	save_moves(t_hill *ah)
 	ant = 1;
 	cur_turn = 0;
 	path = 1;
+	ah->best_turns = ah->maze->best_set[0][1] + (ah->maze->best_set[0][2] > 0);
 	ah->moves = (t_list **)ft_memalloc(sizeof(t_list *) * ah->best_turns);
 	while (ant <= ah->ants)
 	{
-		if (path <= ah->best_set[0][0] && \
-			use_path(path, ah->best_set, ant, ah->ants))
+		if (path <= ah->maze->best_set[0][0] && \
+			use_path(path, ah->maze->best_set, ant, ah->ants))
 		{
-			apply_path(ah, ah->best_set[path], ant, cur_turn);
+			apply_path(ah, ah->maze->best_set[path], ant, cur_turn);
 			path++;
 			ant++;
 		}

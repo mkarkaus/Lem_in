@@ -45,6 +45,7 @@ typedef struct	s_graph
 	int				max_len;
 	int				ver;
 	int				max_sets;
+	int				**best_set;
 	int				***sets;
 	int				**route;
 	int				*flow;
@@ -54,9 +55,7 @@ typedef struct	s_graph
 typedef struct	s_hill
 {
 	t_list		**moves;
-	int			**best_res;
 	int			best_turns;
-	int			**best_set;
 	int			start_i;
 	t_graph		*maze;
 	t_list		*input;

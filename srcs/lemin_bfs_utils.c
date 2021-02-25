@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:19:54 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/19 10:07:23 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/25 10:30:21 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ void	init_sets(t_graph *maze)
 	maze->been = (int *)ft_memalloc(sizeof(int) * maze->ver);
 	maze->sets = (int ***)ft_memalloc(sizeof(int **) * SEARCH_TIMES);
 	maze->start_to_end = 0;
+	maze->best_set = (int **)ft_memalloc(sizeof(int *));
+	maze->best_set[0] = (int *)ft_memalloc(sizeof(int) * 3);
+	maze->best_set[0][1] = INT_MAX;
+	maze->best_set[0][2] = INT_MAX;
 	while (i < SEARCH_TIMES)
 	{
 		maze->sets[i] = \

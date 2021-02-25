@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/20 10:41:41 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/25 10:51:02 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	free_struct_elements(t_hill *ah, int error)
 	(error <= -4 && ah->links > 0) ? ft_tabarr_free(ah->link, ah->links) : 0;
 	if (error == -6)
 	{
-		ft_tabarr_free(ah->best_res, ah->best_turns);
 		while (ah->maze->max_sets > 0 && ++i < SEARCH_TIMES)
 		{
 			temp = ah->maze->sets[i][0][0] + 1;
@@ -94,7 +93,7 @@ int		main(int ac, char **av)
 	(ah.flags[1] != 1) ? ft_lstprint(ah.input) : 0;
 	write(1, "\n", 1);
 	find_route_sets(ah.maze, ah.ants);
-	reserve_moves(&res, &ah, &turns);
+	// reserve_moves(&res, &ah, &turns);
 	print_moves(&ah);
 	if (ac > 1 && ah.flags[4] == 1)
 		parse_flags(&ah);

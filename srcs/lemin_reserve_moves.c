@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 10:45:15 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/19 10:56:31 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/25 10:54:26 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,35 +153,35 @@ void	set_ants_on_paths(int ***res, t_hill *ah, int cur, int *turns)
 	}
 }
 
-void	reserve_moves(int ***res, t_hill *ah, int *turns)
-{
-	int		move;
-	int		set;
+// void	reserve_moves(int ***res, t_hill *ah, int *turns)
+// {
+// 	int		move;
+// 	int		set;
 
-	set = -1;
-	ah->best_turns = INT_MAX;
-	ah->start_i = -1;
-	while (++set < ah->maze->max_sets && ah->maze->sets[set][0][0] != 0)
-	{
-		*res = NULL;
-		*turns = 0;
-		ah->maze->paths = ah->maze->sets[set][0][0];
-		ah->maze->route = ah->maze->sets[set] + 1;
-		move = (ah->maze->route[0][0] - ah->maze->sets[0][0][0] > 1) ? \
-			ah->maze->sets[0][0][0] + (ah->maze->route[0][0] - \
-			ah->maze->sets[0][0][0]) : ah->maze->sets[0][0][0] + 1;
-		add_turns(move, ah->maze, res, *turns);
-		*turns = move;
-		set_ants_on_paths(res, ah, 1, turns);
-		if (*turns < ah->best_turns)
-		{
-			if (ah->best_turns != INT_MAX)
-				ft_tabarr_free(ah->best_res, ah->best_turns);
-			ah->best_res = *res;
-			ah->best_turns = *turns;
-			ah->best_set = ah->maze->sets[set];
-		}
-		else
-			ft_tabarr_free(*res, *turns);
-	}
-}
+// 	set = -1;
+// 	ah->best_turns = INT_MAX;
+// 	ah->start_i = -1;
+// 	while (++set < ah->maze->max_sets && ah->maze->sets[set][0][0] != 0)
+// 	{
+// 		*res = NULL;
+// 		*turns = 0;
+// 		ah->maze->paths = ah->maze->sets[set][0][0];
+// 		ah->maze->route = ah->maze->sets[set] + 1;
+// 		move = (ah->maze->route[0][0] - ah->maze->sets[0][0][0] > 1) ? \
+// 			ah->maze->sets[0][0][0] + (ah->maze->route[0][0] - \
+// 			ah->maze->sets[0][0][0]) : ah->maze->sets[0][0][0] + 1;
+// 		add_turns(move, ah->maze, res, *turns);
+// 		*turns = move;
+// 		set_ants_on_paths(res, ah, 1, turns);
+// 		if (*turns < ah->best_turns)
+// 		{
+// 			if (ah->best_turns != INT_MAX)
+// 				ft_tabarr_free(ah->best_res, ah->best_turns);
+// 			ah->best_res = *res;
+// 			ah->best_turns = *turns;
+// 			ah->best_set = ah->maze->sets[set];
+// 		}
+// 		else
+// 			ft_tabarr_free(*res, *turns);
+// 	}
+// }
