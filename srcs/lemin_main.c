@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/25 10:51:02 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/25 12:54:06 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,8 @@ void	free_struct_elements(t_hill *ah, int error)
 	(error <= -4 && ah->links > 0) ? ft_tabarr_free(ah->link, ah->links) : 0;
 	if (error == -6)
 	{
-		while (ah->maze->max_sets > 0 && ++i < SEARCH_TIMES)
-		{
-			temp = ah->maze->sets[i][0][0] + 1;
-			while (--temp >= 0)
-				free(ah->maze->sets[i][temp]);
-			free(ah->maze->sets[i]);
-		}
-		free(ah->maze->sets);
+		ft_tabarr_free(ah->maze->best_set, ah->maze->best_set[0][0] + 1);
+		ft_tabarr_free(ah->maze->used, SEARCH_TIMES + 1);
 	}
 	if (error <= -5)
 		ft_graph_free(ah->maze);

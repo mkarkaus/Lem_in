@@ -46,7 +46,8 @@ typedef struct	s_graph
 	int				ver;
 	int				max_sets;
 	int				**best_set;
-	int				***sets;
+	int				**set;
+	// int				***sets;
 	int				**route;
 	int				*flow;
 	t_alhead		*array;

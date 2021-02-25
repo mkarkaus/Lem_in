@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 12:22:11 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/25 10:43:48 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/25 13:03:49 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,21 @@ void	set_flow(t_graph *maze)
 
 	row = 1;
 	i = 1;
-	while (row < maze->sets[maze->max_sets][0][0] + 1 \
-			&& (maze->sets[maze->max_sets][row][2] == 1 \
-			|| was_used(maze->used, maze->sets[maze->max_sets][row])))
+	while (row < maze->set[0][0] + 1 \
+			&& (maze->set[row][2] == 1 \
+			|| was_used(maze->used, maze->set[row])))
 		row++;
-	while (row != maze->sets[maze->max_sets][0][0] + 1 \
-			&& maze->sets[maze->max_sets][row][i] != 1)
+	while (row != maze->set[0][0] + 1 \
+			&& maze->set[row][i] != 1)
 	{
 		maze->flow[0] = 1;
-		maze->flow[maze->sets[maze->max_sets][row][i]] = 1;
+		maze->flow[maze->set[row][i]] = 1;
 		i++;
 	}
-	if (row != maze->sets[maze->max_sets][0][0] + 1)
+	if (row != maze->set[0][0] + 1)
 	{
-		maze->used[maze->used[0][0] + 1] = maze->sets[maze->max_sets][row];
+		ft_memcpy(maze->used[maze->used[0][0] + 1], maze->set[row], \
+			(maze->set[row][0] + 1) * sizeof(int));
 		maze->used[0][0]++;
 	}
 }
@@ -87,9 +88,9 @@ void	bfs_search_sets(t_graph *maze, int ants)
 	int		max_paths;
 
 	create_set(maze, ants);
-	max_paths = maze->sets[maze->max_sets][0][0] + 1;
-	if (maze->sets[maze->max_sets][0][0] > 0)
-		sort_routes(&maze->sets[maze->max_sets], max_paths);
+	max_paths = maze->set[0][0] + 1;
+	if (maze->set[0][0] > 0)
+		sort_routes(&maze->set, max_paths);
 	else
 		maze->max_sets--;
 	ft_bzero(maze->flow, sizeof(int) * maze->ver);
@@ -104,18 +105,23 @@ void	find_route_sets(t_graph *maze, int ants)
 	{
 		ft_bzero(maze->been, sizeof(int) * maze->ver);
 		maze->start_to_end = 0;
+		maze->set = (int **)ft_memalloc(sizeof(int *) * (count_potential_paths(maze) + 1));
+		maze->set[0] = (int *)ft_memalloc(sizeof(int) * 3);
+		maze->set[0][1] = INT_MAX;
+		maze->set[0][2] = INT_MAX;
 		init_routes(maze);
 		bfs_search_sets(maze, ants);
-		if (maze->best_set[0][1] > maze->sets[maze->max_sets][0][1] \
-				|| (maze->best_set[0][1] == maze->sets[maze->max_sets][0][1] \
-				&& maze->best_set[0][2] > maze->sets[maze->max_sets][0][2]))
-			maze->best_set = maze->sets[maze->max_sets];
+		if (maze->best_set[0][1] > maze->set[0][1] \
+				|| (maze->best_set[0][1] == maze->set[0][1] \
+				&& maze->best_set[0][2] > maze->set[0][2]))
+		{
+			ft_tabarr_free(maze->best_set, maze->best_set[0][0] + 1);
+			maze->best_set = maze->set;
+		}
+		else
+			ft_tabarr_free(maze->set, maze->set[0][0] + 1);
 		ft_tabarr_free(maze->route, maze->paths);
-		maze->route = NULL;
 	}
-	ft_pr_intarr(maze->best_set, maze->best_set[0][0] + 1, 40, 1);
-	free(maze->used[0]);
-	free(maze->used);
 	free(maze->flow);
 	free(maze->been);
 }

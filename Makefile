@@ -6,7 +6,7 @@
 #    By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2021/02/18 17:40:07 by mkarkaus         ###   ########.fr        #
+#    Updated: 2021/02/25 11:28:13 by mkarkaus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ NAME = lem-in
 
 VIS = exe
 
+	# lemin_reserve_moves.c
 SRCS_C = lemin_main.c \
 	lemin_flags.c \
 	lemin_validate_input.c \
@@ -27,7 +28,6 @@ SRCS_C = lemin_main.c \
 	lemin_bfs_utils.c \
 	lemin_create_set.c \
 	lemin_build_route.c \
-	lemin_reserve_moves.c \
 	lemin_print.c \
 	ft_lstfree.c \
 	ft_lstlen.c \

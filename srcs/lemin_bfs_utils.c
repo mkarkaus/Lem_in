@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:19:54 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/25 10:30:21 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/25 13:03:18 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,27 +34,15 @@ void	init_sets(t_graph *maze)
 	int		i;
 
 	i = 0;
-	maze->used = (int **)ft_memalloc(sizeof(int *) * (SEARCH_TIMES + 1));
-	maze->used[0] = (int *)ft_memalloc(sizeof(int));
-	maze->used[0][0] = 0;
+	maze->used = ft_tabarr_malloc(SEARCH_TIMES + 1, maze->max_len);
 	maze->flow = (int *)ft_memalloc(sizeof(int) * maze->ver);
 	maze->flow[0] = 1;
 	maze->been = (int *)ft_memalloc(sizeof(int) * maze->ver);
-	maze->sets = (int ***)ft_memalloc(sizeof(int **) * SEARCH_TIMES);
 	maze->start_to_end = 0;
 	maze->best_set = (int **)ft_memalloc(sizeof(int *));
 	maze->best_set[0] = (int *)ft_memalloc(sizeof(int) * 3);
 	maze->best_set[0][1] = INT_MAX;
 	maze->best_set[0][2] = INT_MAX;
-	while (i < SEARCH_TIMES)
-	{
-		maze->sets[i] = \
-		(int **)ft_memalloc(sizeof(int *) * (count_potential_paths(maze) + 1));
-		maze->sets[i][0] = (int *)ft_memalloc(sizeof(int) * 3);
-		maze->sets[i][0][1] = INT_MAX;
-		maze->sets[i][0][2] = INT_MAX;
-		i++;
-	}
 }
 
 void	init_routes(t_graph *maze)

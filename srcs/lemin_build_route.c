@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 16:15:28 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/19 10:38:16 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/25 12:27:58 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	add_paths(int paths, int ***route, int prev, int max_level)
 		k++;
 	}
 	ft_tabarr_free(*route, prev);
+	*route = NULL;
 	*route = tmp;
 }
 

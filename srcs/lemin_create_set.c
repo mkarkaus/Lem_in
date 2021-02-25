@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:36:48 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/25 10:14:02 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/25 12:27:07 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ void	update_been(t_graph *maze)
 
 	row = 1;
 	ft_bzero(maze->been, maze->ver * sizeof(int));
-	while (row <= maze->sets[maze->max_sets][0][0])
+	while (row <= maze->set[0][0])
 	{
 		i = 1;
-		while (maze->sets[maze->max_sets][row][i] != 1)
+		while (maze->set[row][i] != 1)
 		{
-			maze->been[maze->sets[maze->max_sets][row][i]] = 1;
+			maze->been[maze->set[row][i]] = 1;
 			i++;
 		}
 		row++;
@@ -98,7 +98,7 @@ void	save_path(t_graph *maze, int *len, int i)
 	int	**set;
 	int	row;
 
-	set = maze->sets[maze->max_sets];
+	set = maze->set;
 	set[0][0]++;
 	row = set[0][0];
 	set[row] = ft_memalloc(maze->max_len * sizeof(int));
@@ -125,7 +125,7 @@ void	create_set(t_graph *maze, int ants)
 				if ((prev_room = maze->route[i][len - 1]) == 1)
 				{
 					route_length(&maze->route[i]);
-					if (calculate_cost(maze->sets[maze->max_sets], \
+					if (calculate_cost(maze->set, \
 							maze->route[i], ants))
 						save_path(maze, &len, i);
 					else

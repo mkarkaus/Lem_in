@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tabarr_malloc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 04:11:06 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/18 15:20:02 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/25 13:04:57 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int		**ft_tabarr_malloc(int max_rows, int max_cols)
 	int		i;
 
 	i = -1;
-	if (!(tmp = (int **)malloc((max_rows) * sizeof(int *))))
+	if (!(tmp = (int **)ft_memalloc((max_rows) * sizeof(int *))))
 		return (NULL);
 	while (++i < max_rows)
 	{
-		if (!(tmp[i] = (int *)malloc((max_cols) * sizeof(int))))
+		if (!(tmp[i] = (int *)ft_memalloc((max_cols) * sizeof(int))))
 			return (NULL);
 	}
 	return (tmp);
