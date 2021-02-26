@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_graph_nodenew.c                                 :+:      :+:    :+:   */
+/*   ft_tabarr_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/06 13:29:47 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/06 13:29:50 by mkarkaus         ###   ########.fr       */
+/*   Created: 2020/09/28 04:24:18 by sreijola          #+#    #+#             */
+/*   Updated: 2021/02/26 11:36:40 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem_in.h"
+#include "../../includes/libft.h"
 
-t_node	*ft_graph_nodenew(int dest_ver)
+void	ft_tabarr_free(int **tab, int max_rows)
 {
-	t_node	*new;
-
-	new = ft_memalloc(sizeof(t_node));
-	new->v = dest_ver;
-	new->next = NULL;
-	return (new);
+	if (!tab)
+		return ;
+	while (--max_rows >= 0)
+		free(tab[max_rows]);
+	free(tab);
 }

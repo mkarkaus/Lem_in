@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lemin_bfs.c                                        :+:      :+:    :+:   */
+/*   bfs.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 12:22:11 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/25 16:37:59 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/26 14:09:42 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	sort_routes(int ***route, int max_paths)
 	}
 }
 
-void	bfs_search_sets(t_graph *maze, int ants)
+int		bfs_search_sets(t_graph *maze, int ants)
 {
 	maze->set = (int **)ft_memalloc(sizeof(int *) * \
 					(count_potential_paths(maze) + 1));
@@ -94,11 +94,14 @@ void	bfs_search_sets(t_graph *maze, int ants)
 	create_set(maze, ants);
 	if (maze->set[0][0] > 0)
 		sort_routes(&maze->set, maze->set[0][0] + 1);
+	else
+		return (-1);
 	ft_bzero(maze->flow, sizeof(int) * maze->ver);
 	set_flow(maze);
+	return (0);
 }
 
-void	find_route_sets(t_graph *maze, int ants)
+int		find_route_sets(t_graph *maze, int ants)
 {
 	int		set_count;
 
@@ -108,7 +111,8 @@ void	find_route_sets(t_graph *maze, int ants)
 	{
 		ft_bzero(maze->been, sizeof(int) * maze->ver);
 		maze->start_to_end = 0;
-		bfs_search_sets(maze, ants);
+		if (bfs_search_sets(maze, ants) == -1 && set_count == 0)
+			return (-5);
 		if (maze->best_set[0][1] > maze->set[0][1] \
 			|| (maze->best_set[0][1] == maze->set[0][1] \
 			&& maze->best_set[0][2] > maze->set[0][2]))
@@ -122,4 +126,5 @@ void	find_route_sets(t_graph *maze, int ants)
 	}
 	free(maze->flow);
 	free(maze->been);
+	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lemin_create_set.c                                 :+:      :+:    :+:   */
+/*   create_set.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:36:48 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/25 16:32:35 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/26 12:43:22 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		calculate_cost(int **set, int *new_route, int ants)
 	}
 	mod = (cost + ants) % path;
 	cost = (cost + ants) / path;
-	if ((cost < prev_cost || (cost == prev_cost && mod < set[0][2])))
+	if (cost < prev_cost || (cost == prev_cost && mod < set[0][2]))
 	{
 		set[0][1] = cost;
 		set[0][2] = mod;

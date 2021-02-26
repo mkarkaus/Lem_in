@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strarr_free.c                                   :+:      :+:    :+:   */
+/*   ft_lstfree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/27 18:53:34 by sreijola          #+#    #+#             */
-/*   Updated: 2020/10/06 19:17:59 by sreijola         ###   ########.fr       */
+/*   Created: 2020/10/07 11:12:51 by sreijola          #+#    #+#             */
+/*   Updated: 2021/02/26 11:35:07 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem_in.h"
-//#include "./includes/libft.h"
+#include "../../includes/libft.h"
 
-void	ft_strarr_free(char **arr)
+void	ft_lstfree(t_list *lst)
 {
-	int	rows;
+	t_list	*tmp;
 
-	rows = ft_strarrsize(arr);
-	while (rows > -1)
+	while (lst)
 	{
-		ft_strdel(&arr[rows]);
-		rows--;
+		tmp = lst;
+		lst = lst->next;
+		free(tmp->content);
+		free(tmp);
 	}
-	free(arr);
-	arr = NULL;
 }

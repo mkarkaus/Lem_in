@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tabint_find.c                                   :+:      :+:    :+:   */
+/*   ft_tabarr_malloc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/08 15:22:02 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/08 15:25:03 by mkarkaus         ###   ########.fr       */
+/*   Created: 2020/09/28 04:11:06 by sreijola          #+#    #+#             */
+/*   Updated: 2021/02/26 11:36:47 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem_in.h"
+#include "../../includes/libft.h"
 
-int		ft_tabint_find(int *tab, int to_find, int tab_len)
+int		**ft_tabarr_malloc(int max_rows, int max_cols)
 {
+	int		**tmp;
 	int		i;
 
 	i = -1;
-	while (++i < tab_len)
+	if (!(tmp = (int **)ft_memalloc((max_rows) * sizeof(int *))))
+		return (NULL);
+	while (++i < max_rows)
 	{
-		if (tab[i] == to_find)
-			return (1);
+		if (!(tmp[i] = (int *)ft_memalloc((max_cols) * sizeof(int))))
+			return (NULL);
 	}
-	return (0);
+	return (tmp);
 }

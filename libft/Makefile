@@ -6,7 +6,7 @@
 #    By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/30 11:50:18 by mkarkaus          #+#    #+#              #
-#    Updated: 2020/09/30 16:50:58 by mkarkaus         ###   ########.fr        #
+#    Updated: 2021/02/26 12:21:33 by mkarkaus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,9 @@ ft_lstiter.c ft_lstmap.c ft_intlen.c ft_isupper.c ft_islower.c ft_swap.c \
 ft_isspace.c ft_longlen.c ft_itoa_llong.c ft_intlen_llong.c ft_itoa_ptr.c \
 ft_strrev.c ft_strcut.c ft_onlydigits.c ft_free_array.c ft_pr_intarr.c \
 ft_pr_chararr.c ft_lstapp.c ft_lstprint.c ft_strarr_free.c ft_strarr_malloc.c \
-ft_strarrsize.c
+ft_strarrsize.c ft_lstfree.c ft_lstlen.c ft_lstprintint.c ft_strarr_print.c \
+ft_strarr_size.c ft_tabarr_free.c ft_tabarr_malloc.c ft_tabint_find.c \
+ft_tabnequ.c
 
 LIBFT_SRC = $(addprefix $(LIBFT_SRC_PATH), $(LIBFT_SRC_FILES))
 

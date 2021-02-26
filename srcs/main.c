@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lemin_main.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/25 15:55:23 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/26 14:28:38 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,19 @@ void	free_struct_elements(t_hill *ah, int error)
 	(error <= -3) ? ft_strarr_free(ah->name) : 0;
 	(error <= -3 && ah->rooms > 0) ? ft_tabarr_free(ah->coor, ah->rooms) : 0;
 	(error <= -4 && ah->links > 0) ? ft_tabarr_free(ah->link, ah->links) : 0;
-	if (error == -6)
+	if (error == -5)
 	{
-		ft_tabarr_free(ah->maze->best_set, ah->maze->best_set[0][0] + 1);
-		ft_tabarr_free(ah->maze->used, SEARCH_TIMES + 1);
+		ft_tabarr_free(ah->maze->route, ah->maze->paths);
+		free(ah->maze->flow);
+		free(ah->maze->been);
+		ft_tabarr_free(ah->maze->set, ah->maze->set[0][0] + 1);
 	}
 	if (error <= -5)
+	{
+		ft_tabarr_free(ah->maze->used, SEARCH_TIMES + 1);
+		ft_tabarr_free(ah->maze->best_set, ah->maze->best_set[0][0] + 1);
 		ft_graph_free(ah->maze);
+	}
 	free(ah->flags);
 }
 
@@ -55,9 +61,13 @@ int		main(int ac, char **av)
 		return (0);
 	if ((ret = get_data(&ah, &ah.input)) < 0)
 		return (handle_errors(&ah, ret));
-	(ah.flags[1] != 1) ? ft_lstprint(ah.input) : 0;
-	write(1, "\n", 1);
-	find_route_sets(ah.maze, ah.ants);
+	if ((ret = find_route_sets(ah.maze, ah.ants)) < 0)
+		return (handle_errors(&ah, ret));
+	if (ah.flags[1] != 1)
+	{
+		ft_lstprint(ah.input);
+		write(1, "\n", 1);
+	}
 	print_moves(&ah);
 	if (ac > 1 && ah.flags[4] == 1)
 		parse_flags(&ah);

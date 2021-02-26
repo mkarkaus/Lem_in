@@ -1,73 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lemin_graph_maze.c                                 :+:      :+:    :+:   */
+/*   graph_maze.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:28:46 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/25 16:15:10 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/02/26 14:33:35 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
-
-void	remake_queue(t_graph *maze, int **queue, int only_clear, int *been)
-{
-	int			i;
-	int			k;
-	int			*temp;
-	t_node		*node;
-	t_alhead	*ptr;
-
-	i = -1;
-	temp = ft_memalloc(maze->ver * sizeof(int));
-	ft_memcpy(temp, *queue, maze->ver * sizeof(int));
-	while (++i < maze->ver)
-		(*queue)[i] = -1;
-	i = 0;
-	k = -1;
-	ptr = maze->array;
-	if (only_clear == 0)
-		while (temp[++k] != -1)
-		{
-			node = ptr[temp[k]].head;
-			while (node != NULL)
-			{
-				if (((ptr[node->v].dd == -1 && been == NULL) \
-				&& !ft_tabint_find(*queue, node->v, maze->ver)) \
-				|| (been != NULL && ptr[node->v].dd != -3 \
-				&& !ft_tabint_find(been, node->v, maze->ver)))
-					(*queue)[i++] = node->v;
-				node = node->next;
-			}
-		}
-	free(temp);
-}
-
-void	fill_distances(t_hill *ah)
-{
-	int			*q;
-	int			i;
-	int			dis;
-
-	dis = 0;
-	i = -1;
-	q = ft_memalloc(ah->rooms * sizeof(int));
-	remake_queue(ah->maze, &q, 1, NULL);
-	q[0] = 1;
-	while (++i < ah->rooms)
-		ah->maze->array[i].dd = -1;
-	while (q[0] > -1)
-	{
-		i = -1;
-		while (q[++i] != -1)
-			ah->maze->array[q[i]].dd = dis;
-		remake_queue(ah->maze, &q, 0, NULL);
-		dis++;
-	}
-	free(q);
-}
 
 void	del_edge(t_node **head, t_node **del)
 {
@@ -147,9 +90,6 @@ int		graph_maze(t_hill *ah)
 		if (!is_duplicate_link(ah->maze->array[ah->link[i][0]].head, \
 				ah->link[i][1]))
 			ft_graph_edgeadd(ah->maze, ah->link[i][0], ah->link[i][1], 0);
-	fill_distances(ah);
 	del_deadends(ah->maze);
-	if (ah->maze->array[0].dd == -1)
-		return (-1);
 	return (0);
 }

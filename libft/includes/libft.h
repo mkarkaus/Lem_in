@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 14:57:46 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/07 12:58:13 by sreijola         ###   ########.fr       */
+/*   Updated: 2021/02/26 12:45:15 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,15 @@ void			ft_pr_chararr(char **arr, int maxr, int fd);
 void			ft_strarr_free(char **arr);
 char			**ft_strarr_malloc(int rows, int cols);
 int				ft_strarrsize(char **arr);
+void			ft_lstfree(t_list *lst);
+int				ft_lstlen(t_list *lst);
+void			ft_tabarr_free(int **tab, int max_rows);
+int				**ft_tabarr_malloc(int max_rows, int max_cols);
+int				ft_tabint_find(int *tab, int to_find, int tab_len);
+int				ft_tabnequ(int *t1, int *t2, int n);
+
+int				ft_strarr_size(char **arr);
+void			ft_strarr_free(char **arr);
+void			ft_strarr_print(char **arr);
 
 #endif

@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strarr_free.c                                   :+:      :+:    :+:   */
+/*   ft_tabnequ.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/27 18:53:34 by sreijola          #+#    #+#             */
-/*   Updated: 2020/10/06 19:17:59 by sreijola         ###   ########.fr       */
+/*   Created: 2020/11/02 13:48:54 by sreijola          #+#    #+#             */
+/*   Updated: 2021/02/26 11:36:56 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem_in.h"
-//#include "./includes/libft.h"
+#include "../../includes/libft.h"
 
-void	ft_strarr_free(char **arr)
+int		ft_tabnequ(int *t1, int *t2, int n)
 {
-	int	rows;
+	int	i;
 
-	rows = ft_strarrsize(arr);
-	while (rows > -1)
-	{
-		ft_strdel(&arr[rows]);
-		rows--;
-	}
-	free(arr);
-	arr = NULL;
+	i = 0;
+	if (!t1 || !t2)
+		return (0);
+	while (i < n && t1[i] == t2[i])
+		i++;
+	if (i == n)
+		return (1);
+	return (0);
 }

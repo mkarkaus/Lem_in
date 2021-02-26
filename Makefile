@@ -6,7 +6,7 @@
 #    By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2021/02/25 16:18:38 by mkarkaus         ###   ########.fr        #
+#    Updated: 2021/02/26 15:08:40 by mkarkaus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,34 +14,19 @@
 
 NAME = lem-in
 
-VIS = exe
-
-SRCS_C = lemin_main.c \
-	lemin_flags.c \
-	lemin_validate_input.c \
-	lemin_get_data.c \
-	lemin_get_rooms.c \
-	lemin_get_links.c\
-	lemin_graph_maze.c \
-	lemin_bfs.c \
-	lemin_bfs_utils.c \
-	lemin_create_set.c \
-	lemin_build_route.c \
-	lemin_print.c \
-	ft_lstfree.c \
-	ft_lstlen.c \
-	ft_tabnequ.c \
-	ft_tabarr_malloc.c \
-	ft_tabarr_free.c \
-	ft_tabint_find.c \
-	ft_strarr_size.c \
-	ft_strarr_free.c \
-	ft_strarr_print.c \
-	ft_graph_edgeadd.c \
-	ft_graph_new.c \
-	ft_graph_nodenew.c \
-	ft_graph_free.c \
-	ft_graph_print.c 
+SRCS_C = main.c \
+	flags.c \
+	validate_input.c \
+	get_data.c \
+	get_rooms.c \
+	get_links.c \
+	graph_maze.c \
+	graph_utils.c \
+	bfs.c \
+	bfs_utils.c \
+	create_set.c \
+	build_route.c \
+	print.c
 
 SRCS_PATH = ./srcs/
 
@@ -97,13 +82,7 @@ lemf:
 
 vis: 
 	@make -C Visualizer
-
-#$(VIS)
-#$(VIS):
-# @g++ $(VIS_SRCS) -o $(VIS)
-# @echo "Visualizer $(VIS) made"
-#	g++ -o exe Visualizer/srcs/main.cpp Visualizer/srcs/get_input.cpp Visualizer/srcs/ants.cpp Visualizer/srcs/class_functions.cpp -lSDL2 -lSDL2_image -lSDL2_ttf
-#	g++ -o exe srcs/main.cpp srcs/get_input.cpp srcs/ants.cpp srcs/class_functions.cpp -lSDL2 -lSDL2_image -lSDL2_ttf
+	@cp lem-in Visualizer/ 
 
 vfclean:
 	@make -C Visualizer fclean

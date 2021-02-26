@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_graph_nodenew.c                                 :+:      :+:    :+:   */
+/*   ft_strarr_print.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/06 13:29:47 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/10/06 13:29:50 by mkarkaus         ###   ########.fr       */
+/*   Created: 2020/09/27 18:57:05 by sreijola          #+#    #+#             */
+/*   Updated: 2021/02/26 11:36:14 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem_in.h"
+#include "../../includes/libft.h"
 
-t_node	*ft_graph_nodenew(int dest_ver)
+void	ft_strarr_print(char **arr)
 {
-	t_node	*new;
+	int i;
 
-	new = ft_memalloc(sizeof(t_node));
-	new->v = dest_ver;
-	new->next = NULL;
-	return (new);
+	i = -1;
+	while (arr[++i] != NULL)
+		ft_printf("%s\n", arr[i]);
+	ft_printf("\n");
 }
