@@ -41,12 +41,13 @@ void	get_input(t_data *v)
 	stringstream			ss;
 
 	cin >> v->ants;
+	if (!cin.good())
+		exit(-1);
 	getline(cin, str);
 	v->coors.push_back({-1, -1});
 	v->coors.push_back({-1, -1});
 	v->names.push_back("start");
 	v->names.push_back("end");
-
 	while (getline(cin, str))
 	{
 		i = 0;

@@ -9,7 +9,6 @@ bool	antsMoving(vector<Ants *> *antv)
 		if ((*antv)[i]->moving())
 			return (true);
 	}
-	// SDL_Delay(1000);
 	return (false);
 }
 
@@ -61,15 +60,10 @@ int		main(int argc, char **argv)
 	vector<Ants *>		antv;
 
 	get_input(&v);
-	// for (int j = 0; j < v.moves.size(); j++)
-	// 	cout << v.moves[j] << endl;
-	// while (1);
-
 	for (int i = 0; i < v.ants; i++)
 		antv.push_back(new Ants);
 	vis = new Visualizer();
 	vis->init("Visualizer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 800, false, &v, antv);
-	// cout << v.coors[0][0] << ' ' << v.coors[0][1] << endl;
 
 	while (vis->running())
 	{

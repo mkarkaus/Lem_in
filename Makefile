@@ -6,7 +6,7 @@
 #    By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2021/02/26 15:08:40 by mkarkaus         ###   ########.fr        #
+#    Updated: 2021/03/02 15:50:41 by mkarkaus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,15 +31,6 @@ SRCS_C = main.c \
 SRCS_PATH = ./srcs/
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_C))
-
-VIS_SRCS_CPP = main.cpp \
-	get_input.cpp \
-	ants.cpp \
-	visualizer.cpp
-
-VIS_SRCS_PATH = ./Visualizer/srcs/
-
-VIS_SRCS = $(addprefix $(VIS_SRCS_PATH), $(VIS_SRCS_CPP))
 
 LIB = libft/libft.a
 

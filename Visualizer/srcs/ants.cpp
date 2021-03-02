@@ -18,6 +18,8 @@ void	Ants::init(SDL_Renderer *renderer, int dim)
 	}
 	antR.x = 0;
 	antR.y = 0;
+	xroundedUp = 0;
+	yroundedUp = 0;
 	isMoving = false;
 }
 
@@ -37,8 +39,32 @@ void	Ants::update(t_data *v, int dim, int speed)
 	}
 	else
 	{
-		antR.x += (dir[0] * speed);
-		antR.y += (dir[1] * speed);
+		if ((((dir[0] * speed) - (int)(dir[0] * speed)) != 0) && xroundedUp == 0)
+		{
+			xroundedUp = 1;
+			antR.x += (int)(dir[0] * speed) + 1;
+		}
+		else if ((((dir[0] * speed) - (int)(dir[0] * speed)) != 0) && xroundedUp == 1)
+		{
+			xroundedUp = 0;
+			antR.x += (int)(dir[0] * speed);
+		}
+		else
+			antR.x += (dir[0] * speed);
+		if ((((dir[1] * speed) - (int)(dir[1] * speed)) != 0) && yroundedUp == 0)
+		{
+			yroundedUp = 1;
+			antR.y += (int)(dir[1] * speed) + 1;
+		}
+		else if ((((dir[1] * speed) - (int)(dir[1] * speed)) != 0) && yroundedUp == 1)
+		{
+			yroundedUp = 0;
+			antR.y += (int)(dir[1] * speed);
+		}
+		else
+			antR.y += (dir[1] * speed);
+		// antR.x += (dir[0] * speed);
+		// antR.y += (dir[1] * speed);
 	}
 }
 

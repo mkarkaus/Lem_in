@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/18 14:36:48 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/26 12:43:22 by mkarkaus         ###   ########.fr       */
+/*   Created: 2021/03/02 15:21:50 by mkarkaus          #+#    #+#             */
+/*   Updated: 2021/03/02 15:22:15 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	save_path(t_graph *maze, int *len, int i)
 	set = maze->set;
 	set[0][0]++;
 	row = set[0][0];
-	set[row] = ft_memalloc(LEN_MAX * sizeof(int));
+	set[row] = ft_memalloc((LEN_MAX) * sizeof(int));
 	set[row] = ft_memcpy(set[row], maze->route[i], *len * sizeof(int));
 	update_been(maze);
 	ft_tabarr_free(maze->route, maze->paths);

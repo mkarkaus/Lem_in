@@ -26,6 +26,8 @@ class	Ants {
 		SDL_Texture	*antTex;
 		SDL_Rect	antR;
 		int			isDog;
+		int			xroundedUp;
+		int			yroundedUp;
 		double		dir[2];
 		double		des[2];
 		bool		isMoving;
