@@ -78,10 +78,10 @@ echo "?. Giving same coors to two separate rooms:"
 valgrind --leak-check=full ./lem-in < maps/v_giving_same_coor.map
 
 echo "\e[0;0m"
-echo "?. MAX_INT ants:"
-valgrind --leak-check=full ./lem-in < maps/v_max_ants.map
+# echo "?. MAX_INT ants:"
+# valgrind --leak-check=full ./lem-in < maps/v_max_ants.map
 
-echo " \e[0;0m"
+# echo " \e[0;0m"
 # echo "*Valid: Test map:" #says invalid because of spaces in room name
 # ./lem-in < maps/v_test_map.map
 # echo " "

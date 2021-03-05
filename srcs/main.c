@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/03/05 10:12:24 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/03/05 15:05:00 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	free_struct_elements(t_hill *ah, int error)
 		ft_tabarr_free(ah->maze->route, ah->maze->paths);
 		free(ah->maze->flow);
 		free(ah->maze->been);
-		ft_tabarr_free(ah->maze->set, ah->maze->set[0][0] + 1);
+		ft_arr_free((void **)ah->maze->set, ah->maze->set[0][0] + 1);
 	}
 	if (error <= -5)
 	{
-		ft_tabarr_free(ah->maze->used, SEARCH_TIMES + 1);
-		ft_tabarr_free(ah->maze->best_set, ah->maze->best_set[0][0] + 1);
+		ft_arr_free((void **)ah->maze->used, SEARCH_TIMES + 1);
+		ft_arr_free((void **)ah->maze->best_set, ah->maze->best_set[0][0] + 1);
 		ft_graph_free(ah->maze);
 	}
 	free(ah->flags);
@@ -67,7 +67,7 @@ int		main(int ac, char **av)
 		ft_lstprint(ah.input);
 		write(1, "\n", 1);
 	}
-	print_moves(&ah);
+	create_moves(&ah);
 	if (ac > 1 && ah.flags[4] == 1)
 		parse_flags(&ah);
 	free_struct_elements(&ah, -6);

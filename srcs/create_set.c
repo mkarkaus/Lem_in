@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/02 15:21:50 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/03/05 11:06:00 by mkarkaus         ###   ########.fr       */
+/*   Created: 2021/03/05 14:58:49 by mkarkaus          #+#    #+#             */
+/*   Updated: 2021/03/05 14:58:52 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	route_length(int **route)
 
 void	update_been(t_graph *maze)
 {
-	int		row;
-	int		i;
+	unsigned int	row;
+	int				i;
 
 	row = 1;
 	ft_bzero(maze->been, maze->ver * sizeof(int));
@@ -41,12 +41,12 @@ void	update_been(t_graph *maze)
 	}
 }
 
-int		calculate_cost(int **set, int *new_route, int ants)
+int		calculate_cost(unsigned int **set, int *new_route, unsigned int ants)
 {
-	int		prev_cost;
-	int		path;
-	int		cost;
-	int		mod;
+	unsigned int	prev_cost;
+	unsigned int	cost;
+	unsigned int	path;
+	unsigned int	mod;
 
 	path = 1;
 	cost = new_route[0] - 1;
@@ -69,8 +69,8 @@ int		calculate_cost(int **set, int *new_route, int ants)
 
 void	save_path(t_graph *maze, int *len, int i)
 {
-	int	**set;
-	int	row;
+	unsigned int	**set;
+	int				row;
 
 	set = maze->set;
 	set[0][0]++;
@@ -78,12 +78,12 @@ void	save_path(t_graph *maze, int *len, int i)
 	set[row] = ft_memalloc((LEN_MAX) * sizeof(int));
 	set[row] = ft_memcpy(set[row], maze->route[i], *len * sizeof(int));
 	update_been(maze);
-	ft_tabarr_free(maze->route, maze->paths);
+	ft_arr_free((void **)maze->route, maze->paths);
 	init_routes(maze);
 	*len = 2;
 }
 
-void	create_set(t_graph *maze, int ants)
+void	create_set(t_graph *maze, unsigned int ants)
 {
 	int			prev_room;
 	int			len;

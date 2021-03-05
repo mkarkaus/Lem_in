@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lemin_flags.c                                      :+:      :+:    :+:   */
+/*   flags.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:16:17 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/26 11:48:55 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/03/05 14:59:42 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int		print_options(int *flags)
 	return (0);
 }
 
-void	print_routes(int **routes, int paths, char **names)
+void	print_routes(unsigned int **routes, int paths, char **names)
 {
-	int i;
-	int row;
+	int unsigned	i;
+	int				row;
 
 	row = -1;
 	while (++row < paths)

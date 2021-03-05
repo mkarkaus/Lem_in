@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tabarr_free.c                                   :+:      :+:    :+:   */
+/*   ft_arr_malloc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/28 04:24:18 by sreijola          #+#    #+#             */
-/*   Updated: 2021/03/05 12:49:26 by mkarkaus         ###   ########.fr       */
+/*   Created: 2021/03/05 14:59:11 by mkarkaus          #+#    #+#             */
+/*   Updated: 2021/03/05 15:36:03 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-void	ft_tabarr_free(int **tab, int max_rows)
+void	**ft_arr_malloc(unsigned long ptrs, unsigned long bytes)
 {
-	if (!tab)
-		return ;
-	while (--max_rows >= 0)
-		free(tab[max_rows]);
-	free(tab);
+	void				**tmp;
+	unsigned long int	i;
+
+	i = -1;
+	if (!(tmp = ft_memalloc(ptrs * sizeof(void *))))
+		return (NULL);
+	while (++i < ptrs)
+	{
+		if (!(tmp[i] = ft_memalloc(bytes)))
+			return (NULL);
+	}
+	return (tmp);
 }

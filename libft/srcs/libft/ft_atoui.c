@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tabarr_free.c                                   :+:      :+:    :+:   */
+/*   ft_atoui.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/28 04:24:18 by sreijola          #+#    #+#             */
-/*   Updated: 2021/03/05 12:49:26 by mkarkaus         ###   ########.fr       */
+/*   Created: 2021/03/05 15:31:38 by mkarkaus          #+#    #+#             */
+/*   Updated: 2021/03/05 15:50:37 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-void	ft_tabarr_free(int **tab, int max_rows)
+unsigned int	ft_atoui(const char *str)
 {
-	if (!tab)
-		return ;
-	while (--max_rows >= 0)
-		free(tab[max_rows]);
-	free(tab);
+	int				i;
+	unsigned int	res;
+
+	res = 0;
+	i = 0;
+	while (str[i] && (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' ||
+				str[i] == '\v' || str[i] == '\f' || str[i] == '\r'))
+		i++;
+	if (str[i] == '+')
+		i++;
+	while (str[i] && str[i] >= '0' && str[i] <= '9')
+	{
+		res = res * 10 + (str[i] - '0');
+		i++;
+	}
+	return (res);
 }

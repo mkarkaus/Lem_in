@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lemin_bfs_utils.c                                  :+:      :+:    :+:   */
+/*   bfs_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:19:54 by sreijola          #+#    #+#             */
-/*   Updated: 2021/02/26 11:48:49 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/03/05 12:07:41 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ int		count_potential_paths(t_graph *maze)
 
 void	init_sets(t_graph *maze)
 {
-	maze->used = ft_tabarr_malloc(SEARCH_TIMES + 1, LEN_MAX);
+	maze->used = (unsigned int **)ft_tabarr_malloc(SEARCH_TIMES + 1, LEN_MAX);
 	maze->flow = (int *)ft_memalloc(sizeof(int) * maze->ver);
 	maze->flow[0] = 1;
 	maze->been = (int *)ft_memalloc(sizeof(int) * maze->ver);
 	maze->start_to_end = 0;
-	maze->best_set = (int **)ft_memalloc(sizeof(int *));
-	maze->best_set[0] = (int *)ft_memalloc(sizeof(int) * 3);
-	maze->best_set[0][1] = INT_MAX;
-	maze->best_set[0][2] = INT_MAX;
+	maze->best_set = (unsigned int **)ft_memalloc(sizeof(int *));
+	maze->best_set[0] = (unsigned int *)ft_memalloc(sizeof(int) * 3);
+	maze->best_set[0][1] = UINT_MAX;
+	maze->best_set[0][2] = UINT_MAX;
 }
 
 void	init_routes(t_graph *maze)

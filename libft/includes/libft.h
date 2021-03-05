@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 14:57:46 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/26 12:45:15 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/03/05 15:37:58 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ char			*ft_strrev(char *str, int free_str);
 char			**ft_strsplit(char const *s, char c);
 char			*ft_strcut(char *str, int vol, int dir, int free_str);
 int				ft_atoi(const char *str);
+unsigned int	ft_atoui(const char *str);
 char			*ft_itoa(int n);
 void			ft_putendl(char const *s);
 void			ft_putnbr(int n);
@@ -110,6 +111,8 @@ char			**ft_strarr_malloc(int rows, int cols);
 int				ft_strarrsize(char **arr);
 void			ft_lstfree(t_list *lst);
 int				ft_lstlen(t_list *lst);
+void			ft_arr_free(void **tab, int max_rows);
+void			**ft_arr_malloc(unsigned long ptrs, unsigned long bytes);
 void			ft_tabarr_free(int **tab, int max_rows);
 int				**ft_tabarr_malloc(int max_rows, int max_cols);
 int				ft_tabint_find(int *tab, int to_find, int tab_len);

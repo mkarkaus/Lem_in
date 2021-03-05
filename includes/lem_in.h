@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 14:36:47 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/03/05 11:06:06 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/03/05 15:03:31 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ typedef struct	s_graph
 {
 	int				ver;
 	int				paths;
-	int				**best_set;
-	int				**set;
+	unsigned int	**best_set;
+	unsigned int	**set;
 	int				**route;
-	int				**used;
+	unsigned int	**used;
 	int				*been;
 	int				*flow;
 	int				start_to_end;
@@ -54,11 +54,11 @@ typedef struct	s_graph
 typedef struct	s_hill
 {
 	t_list			**moves;
-	int				best_turns;
+	unsigned int	best_turns;
 	t_graph			*maze;
 	t_list			*input;
 	t_list			*data;
-	int				ants;
+	unsigned int	ants;
 	int				rooms;
 	char			**name;
 	int				links;
@@ -80,10 +80,10 @@ int				get_links(t_list *lst, t_hill *ah);
 int				graph_maze(t_hill *ah);
 int				count_potential_paths(t_graph *maze);
 void			init_routes(t_graph *maze);
-int				find_route_sets(t_graph *maze, int ants);
+int				find_route_sets(t_graph *maze, unsigned int ants);
 void			init_sets(t_graph *maze);
-void			create_set(t_graph *maze, int ants);
+void			create_set(t_graph *maze, unsigned int ants);
 void			add_to_route(t_graph *maze, int prev_room, int *row, int len);
-void			print_moves(t_hill *ah);
+void			create_moves(t_hill *ah);
 
 #endif
