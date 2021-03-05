@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lemin_get_rooms.c                                  :+:      :+:    :+:   */
+/*   get_rooms.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/06 15:59:14 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/09 12:15:08 by sreijola         ###   ########.fr       */
+/*   Created: 2021/03/04 12:55:16 by mkarkaus          #+#    #+#             */
+/*   Updated: 2021/03/05 10:12:18 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-void	save_room_info(t_hill *ah, t_list **lst, int i)
+void	save_room_info(t_hill *ah, t_list **lst, int k)
 {
-	char	**temp;
+	char	*temp;
+	int		len;
+	int		i;
 
-	ah->coor[i] = (int *)ft_memalloc(sizeof(int) * 2);
-	if (i < 2)
+	len = 0;
+	if (k < 2)
 		*lst = (*lst)->next;
-	temp = ft_strsplit((*lst)->content, ' ');
-	ah->name[i] = ft_strdup(temp[0]);
-	ah->coor[i][0] = ft_atoi(temp[1]);
-	ah->coor[i][1] = ft_atoi(temp[2]);
-	ft_strarr_free(temp);
+	temp = (*lst)->content;
+	while (temp[len] != ' ')
+		len++;
+	if (!(ah->name[k] = (char *)malloc((len + 1) * sizeof(char))))
+		return ;
+	i = 0;
+	while (i < len)
+	{
+		ah->name[k][i] = temp[i];
+		i++;
+	}
+	ah->name[k][i] = '\0';
 }
 
 int		check_doubles(t_hill *ah)
@@ -37,8 +46,7 @@ int		check_doubles(t_hill *ah)
 		j = i;
 		while (++j < ah->rooms)
 		{
-			if (ft_strequ(ah->name[i], ah->name[j])
-			|| ft_tabnequ(ah->coor[i], ah->coor[j], 2))
+			if (ft_strequ(ah->name[i], ah->name[j]))
 				return (1);
 		}
 	}
@@ -53,7 +61,6 @@ int		get_rooms(t_hill *ah, t_list *lst)
 	j = -1;
 	i = 2;
 	ah->name = (char **)ft_memalloc((ah->rooms + 1) * sizeof(char *));
-	ah->coor = (int **)ft_memalloc((ah->rooms) * sizeof(int *));
 	while (++j < ah->rooms)
 	{
 		if (ft_strequ(lst->content, "##start"))

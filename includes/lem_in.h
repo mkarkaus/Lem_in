@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 14:36:47 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/03/02 15:47:01 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/03/05 11:06:06 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ typedef struct	s_hill
 	int				ants;
 	int				rooms;
 	char			**name;
-	int				**coor;
 	int				links;
 	int				**link;
 	int				*flags;

@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/26 14:28:38 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/03/05 10:12:24 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	free_struct_elements(t_hill *ah, int error)
 	(error <= -2) ? ft_lstfree(ah->input) : 0;
 	(error <= -2) ? ft_lstfree(ah->data) : 0;
 	(error <= -3) ? ft_strarr_free(ah->name) : 0;
-	(error <= -3 && ah->rooms > 0) ? ft_tabarr_free(ah->coor, ah->rooms) : 0;
 	(error <= -4 && ah->links > 0) ? ft_tabarr_free(ah->link, ah->links) : 0;
 	if (error == -5)
 	{
