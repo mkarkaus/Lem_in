@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 12:15:12 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/03/05 15:05:00 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/03/08 18:15:20 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ void	free_struct_elements(t_hill *ah, int error)
 	if (error == -5)
 	{
 		ft_tabarr_free(ah->maze->route, ah->maze->paths);
-		free(ah->maze->flow);
-		free(ah->maze->been);
 		ft_arr_free((void **)ah->maze->set, ah->maze->set[0][0] + 1);
 	}
 	if (error <= -5)
 	{
+		free(ah->maze->flow);
+		free(ah->maze->been);
+		free(ah->maze->res);
 		ft_arr_free((void **)ah->maze->used, SEARCH_TIMES + 1);
 		ft_arr_free((void **)ah->maze->best_set, ah->maze->best_set[0][0] + 1);
 		ft_graph_free(ah->maze);
@@ -73,3 +74,6 @@ int		main(int ac, char **av)
 	free_struct_elements(&ah, -6);
 	return (0);
 }
+
+
+/* here, do your time-consuming job */

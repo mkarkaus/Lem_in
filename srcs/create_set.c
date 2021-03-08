@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:58:49 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/03/05 14:58:52 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/03/08 18:12:53 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,27 @@ void	update_been(t_graph *maze)
 	unsigned int	row;
 	int				i;
 
-	row = 1;
-	ft_bzero(maze->been, maze->ver * sizeof(int));
-	while (row <= maze->set[0][0])
+	ft_bzero(maze->res, maze->ver * sizeof(int));
+	row = maze->set[0][0];
+	i = 1;
+	while (maze->set[row][i] != 1)
 	{
-		i = 1;
-		while (maze->set[row][i] != 1)
-		{
-			maze->been[maze->set[row][i]] = 1;
-			i++;
-		}
-		row++;
+		maze->been[maze->set[row][i]] = 1;
+		i++;
 	}
+
+	// ft_bzero(maze->been, maze->ver * sizeof(int));
+	// row = 1;
+	// while (row <= maze->set[0][0])
+	// {
+	// 	i = 1;
+	// 	while (maze->set[row][i] != 1)
+	// 	{
+	// 		maze->been[maze->set[row][i]] = 1;
+	// 		i++;
+	// 	}
+	// 	row++;
+	// }
 }
 
 int		calculate_cost(unsigned int **set, int *new_route, unsigned int ants)
@@ -67,7 +76,7 @@ int		calculate_cost(unsigned int **set, int *new_route, unsigned int ants)
 	return (0);
 }
 
-void	save_path(t_graph *maze, int *len, int i)
+void	save_path(t_graph *maze, int *len, int *i)
 {
 	unsigned int	**set;
 	int				row;
@@ -76,11 +85,12 @@ void	save_path(t_graph *maze, int *len, int i)
 	set[0][0]++;
 	row = set[0][0];
 	set[row] = ft_memalloc((LEN_MAX) * sizeof(int));
-	set[row] = ft_memcpy(set[row], maze->route[i], *len * sizeof(int));
+	set[row] = ft_memcpy(set[row], maze->route[*i], *len * sizeof(int));
 	update_been(maze);
 	ft_arr_free((void **)maze->route, maze->paths);
 	init_routes(maze);
 	*len = 2;
+	*i = -1;
 }
 
 void	create_set(t_graph *maze, unsigned int ants)
@@ -94,19 +104,18 @@ void	create_set(t_graph *maze, unsigned int ants)
 	{
 		i = -1;
 		while (++i < maze->paths && maze->paths != 0)
-			if (maze->route[i][len] == -1)
+			if (maze->route[i][len] == 0)
 			{
 				if ((prev_room = maze->route[i][len - 1]) == 1)
 				{
 					route_length(&maze->route[i]);
 					if (calculate_cost(maze->set, maze->route[i], ants))
-						save_path(maze, &len, i);
+						save_path(maze, &len, &i);
 					else
 						return ;
 				}
 				else
 					add_to_route(maze, prev_room, &i, len);
-				i = -1;
 			}
 	}
 }

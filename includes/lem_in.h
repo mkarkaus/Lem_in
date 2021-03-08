@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 14:36:47 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/03/05 15:03:31 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/03/08 18:01:21 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,17 @@
 
 # include "../libft/includes/libft.h"
 # include <limits.h>
+# include <time.h>//DELETE
 
 /*
 **	Defines how many times bfs-search is performed
 */
-# define SEARCH_TIMES 30
+# define SEARCH_TIMES 5
 
 /*
 **	Defines maximum route length
 */
-# define LEN_MAX 100
+# define LEN_MAX 120
 
 typedef struct	s_node
 {
@@ -46,6 +47,7 @@ typedef struct	s_graph
 	int				**route;
 	unsigned int	**used;
 	int				*been;
+	int				*res;
 	int				*flow;
 	int				start_to_end;
 	t_alhead		*array;

@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 12:22:11 by sreijola          #+#    #+#             */
-/*   Updated: 2021/03/05 12:49:26 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/03/08 18:18:44 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int		find_route_sets(t_graph *maze, unsigned int ants)
 	init_sets(maze);
 	while (++set_count < SEARCH_TIMES && maze->flow[0] == 1)
 	{
+		ft_bzero(maze->res, sizeof(int) * maze->ver);
 		ft_bzero(maze->been, sizeof(int) * maze->ver);
 		maze->start_to_end = 0;
 		if (bfs_search_sets(maze, ants) == -1 && set_count == 0)
@@ -124,7 +125,5 @@ int		find_route_sets(t_graph *maze, unsigned int ants)
 			ft_arr_free((void **)maze->set, maze->set[0][0] + 1);
 		ft_arr_free((void **)maze->route, maze->paths);
 	}
-	free(maze->flow);
-	free(maze->been);
 	return (0);
 }

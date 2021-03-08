@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 12:54:57 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/03/05 15:35:11 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/03/08 18:52:34 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ int		input_to_data(t_list **input, t_list **data, t_hill *ah)
 	t_list	*it;
 
 	it = *input;
+	while (((char *)it->content)[0] == '#' && !(ft_strequ("##start", \
+			it->content) || ft_strequ("##end", it->content)))
+		it = it->next;
 	ah->ants = ft_atoui(it->content);
 	if (!ft_onlydigits(it->content) || ah->ants < 1 || ah->ants > INT_MAX)
 		return (-1);
