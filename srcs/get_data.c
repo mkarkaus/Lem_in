@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 12:54:57 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/03/08 18:52:34 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/03/10 19:46:39 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,10 @@ int		input_to_data(t_list **input, t_list **data, t_hill *ah)
 	*data = add;
 	while ((it = it->next) && it != NULL)
 		if ((tmp = it->content) && !(tmp[0] == '#' && tmp[1] != '#') \
-			&& !(tmp[0] == '#' && tmp[1] == '#' \
-			&& !(ft_strequ("##start", tmp) || ft_strequ("##end", tmp))))
-		{
-			add->next = ft_lstnew(it->content, ft_strlen(it->content) + 1);
+		&& !(tmp[0] == '#' && tmp[1] == '#' \
+		&& !(ft_strequ("##start", tmp) || ft_strequ("##end", tmp))) && \
+		(add->next = ft_lstnew(it->content, ft_strlen(it->content) + 1)))
 			add = add->next;
-		}
 	return (0);
 }
 

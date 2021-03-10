@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:58:49 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/03/08 18:12:53 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/03/10 18:58:59 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,6 @@ void	update_been(t_graph *maze)
 		maze->been[maze->set[row][i]] = 1;
 		i++;
 	}
-
-	// ft_bzero(maze->been, maze->ver * sizeof(int));
-	// row = 1;
-	// while (row <= maze->set[0][0])
-	// {
-	// 	i = 1;
-	// 	while (maze->set[row][i] != 1)
-	// 	{
-	// 		maze->been[maze->set[row][i]] = 1;
-	// 		i++;
-	// 	}
-	// 	row++;
-	// }
 }
 
 int		calculate_cost(unsigned int **set, int *new_route, unsigned int ants)
@@ -88,7 +75,7 @@ void	save_path(t_graph *maze, int *len, int *i)
 	set[row] = ft_memcpy(set[row], maze->route[*i], *len * sizeof(int));
 	update_been(maze);
 	ft_arr_free((void **)maze->route, maze->paths);
-	init_routes(maze);
+	init_routes(maze, 0);
 	*len = 2;
 	*i = -1;
 }
@@ -104,6 +91,7 @@ void	create_set(t_graph *maze, unsigned int ants)
 	{
 		i = -1;
 		while (++i < maze->paths && maze->paths != 0)
+		{
 			if (maze->route[i][len] == 0)
 			{
 				if ((prev_room = maze->route[i][len - 1]) == 1)
@@ -117,5 +105,6 @@ void	create_set(t_graph *maze, unsigned int ants)
 				else
 					add_to_route(maze, prev_room, &i, len);
 			}
+		}
 	}
 }

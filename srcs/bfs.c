@@ -6,57 +6,11 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 12:22:11 by sreijola          #+#    #+#             */
-/*   Updated: 2021/03/08 18:18:44 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/03/10 19:50:22 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
-
-int		was_used(unsigned int **used, unsigned int *route)
-{
-	int				i;
-	unsigned int	row;
-
-	row = 1;
-	while (row <= used[0][0])
-	{
-		i = 1;
-		while (used[row][i] == route[i])
-		{
-			if (used[row][i] == 1 && route[i] == 1)
-				return (1);
-			i++;
-		}
-		row++;
-	}
-	return (0);
-}
-
-void	set_flow(t_graph *maze)
-{
-	int				i;
-	unsigned int	row;
-
-	row = 1;
-	i = 1;
-	while (row < maze->set[0][0] + 1 \
-			&& (maze->set[row][2] == 1 \
-			|| was_used(maze->used, maze->set[row])))
-		row++;
-	while (row != maze->set[0][0] + 1 \
-			&& maze->set[row][i] != 1)
-	{
-		maze->flow[0] = 1;
-		maze->flow[maze->set[row][i]] = 1;
-		i++;
-	}
-	if (row != maze->set[0][0] + 1)
-	{
-		ft_memcpy(maze->used[maze->used[0][0] + 1], maze->set[row], \
-			(maze->set[row][0] + 1) * sizeof(int));
-		maze->used[0][0]++;
-	}
-}
 
 void	sort_routes(unsigned int ***route, int max_paths)
 {
@@ -86,28 +40,35 @@ void	sort_routes(unsigned int ***route, int max_paths)
 int		bfs_search_sets(t_graph *maze, unsigned int ants)
 {
 	maze->set = (unsigned int **)ft_memalloc(sizeof(unsigned int *) * \
-					(count_potential_paths(maze) + 1));
+					(count_potential_paths(maze, -1) + 1));
 	maze->set[0] = (unsigned int *)ft_memalloc(sizeof(unsigned int) * 3);
 	maze->set[0][1] = UINT_MAX;
 	maze->set[0][2] = UINT_MAX;
-	init_routes(maze);
+	init_routes(maze, 1);
+	maze->flow_set = 0;
+	search_flow(maze);
+	ft_bzero(maze->res, sizeof(int) * maze->ver);
+	ft_arr_free((void **)maze->route, maze->paths);
+	maze->start_to_end = 0;
+	init_routes(maze, 0);
 	create_set(maze, ants);
 	if (maze->set[0][0] > 0)
+	{
 		sort_routes(&maze->set, maze->set[0][0] + 1);
+		return (0);
+	}
 	else
 		return (-1);
-	ft_bzero(maze->flow, sizeof(int) * maze->ver);
-	set_flow(maze);
-	return (0);
 }
 
 int		find_route_sets(t_graph *maze, unsigned int ants)
 {
 	int		set_count;
 
-	set_count = -1;
+	set_count = 0;
 	init_sets(maze);
-	while (++set_count < SEARCH_TIMES && maze->flow[0] == 1)
+	maze->flow_set = 1;
+	while (maze->flow_set == 1)
 	{
 		ft_bzero(maze->res, sizeof(int) * maze->ver);
 		ft_bzero(maze->been, sizeof(int) * maze->ver);
@@ -124,6 +85,7 @@ int		find_route_sets(t_graph *maze, unsigned int ants)
 		else
 			ft_arr_free((void **)maze->set, maze->set[0][0] + 1);
 		ft_arr_free((void **)maze->route, maze->paths);
+		set_count++;
 	}
 	return (0);
 }

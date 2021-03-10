@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/26 14:36:47 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/03/08 18:01:21 by mkarkaus         ###   ########.fr       */
+/*   Created: 2021/03/10 19:42:00 by mkarkaus          #+#    #+#             */
+/*   Updated: 2021/03/10 19:42:04 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,16 @@
 
 # include "../libft/includes/libft.h"
 # include <limits.h>
-# include <time.h>//DELETE
-
-/*
-**	Defines how many times bfs-search is performed
-*/
-# define SEARCH_TIMES 5
 
 /*
 **	Defines maximum route length
 */
-# define LEN_MAX 120
+# define LEN_MAX 400
 
 typedef struct	s_node
 {
 	int				v;
+	int				flow;
 	struct s_node	*next;
 }				t_node;
 
@@ -45,10 +40,9 @@ typedef struct	s_graph
 	unsigned int	**best_set;
 	unsigned int	**set;
 	int				**route;
-	unsigned int	**used;
 	int				*been;
 	int				*res;
-	int				*flow;
+	int				flow_set;
 	int				start_to_end;
 	t_alhead		*array;
 }				t_graph;
@@ -80,12 +74,16 @@ int				get_data(t_hill *ah, t_list **input);
 int				get_rooms(t_hill *ah, t_list *lst);
 int				get_links(t_list *lst, t_hill *ah);
 int				graph_maze(t_hill *ah);
-int				count_potential_paths(t_graph *maze);
-void			init_routes(t_graph *maze);
+int				count_potential_paths(t_graph *maze, int for_flow);
+void			init_routes(t_graph *maze, int for_flow);
 int				find_route_sets(t_graph *maze, unsigned int ants);
 void			init_sets(t_graph *maze);
 void			create_set(t_graph *maze, unsigned int ants);
+void			apply_flow(t_graph *maze, int *path);
+void			search_flow(t_graph *maze);
 void			add_to_route(t_graph *maze, int prev_room, int *row, int len);
 void			create_moves(t_hill *ah);
+void			del_route(t_graph *maze, int *del);
+void			add_paths(int paths, int ***route, int prev);
 
 #endif

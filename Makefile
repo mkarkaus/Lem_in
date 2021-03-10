@@ -6,7 +6,7 @@
 #    By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/19 17:36:20 by sreijola          #+#    #+#              #
-#    Updated: 2021/03/04 12:15:08 by mkarkaus         ###   ########.fr        #
+#    Updated: 2021/03/09 16:26:11 by mkarkaus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS_C = main.c \
 	bfs_utils.c \
 	create_set.c \
 	build_route.c \
+	flow_utils.c \
 	print.c
 
 SRCS_PATH = ./srcs/

@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 16:15:28 by sreijola          #+#    #+#             */
-/*   Updated: 2021/03/08 18:20:33 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/03/10 19:48:14 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	fill_new_paths(t_graph *maze, int fork, int k, int i)
 	ptr = maze->array[maze->route[fork][i]].head;
 	while (k < maze->paths && ptr)
 	{
-		if (maze->been[ptr->v] == 0 && maze->res[ptr->v] == 0\
-		&& !(maze->flow[maze->route[fork][i]] == 1 && maze->flow[ptr->v] == 1))
+		if (maze->been[ptr->v] == 0 && maze->res[ptr->v] == 0 \
+		&& ptr->flow == 1)
 		{
 			if (maze->route[fork][i + 1] == 0)
 				maze->route[fork][i + 1] = ptr->v;
@@ -55,7 +55,6 @@ void	add_paths(int paths, int ***route, int prev)
 {
 	int		**tmp;
 	int		k;
-	int		i;
 
 	k = -1;
 	tmp = ft_tabarr_malloc(paths, LEN_MAX + 1);
@@ -75,8 +74,8 @@ int		count_new_routes(t_graph *maze, int fork)
 	valid_routes = 0;
 	while (ptr)
 	{
-		if (maze->been[ptr->v] != 1 && maze->res[ptr->v] != 1\
-			&& !(maze->flow[fork] == 1 && maze->flow[ptr->v] == 1))
+		if (maze->been[ptr->v] != 1 && maze->res[ptr->v] != 1 \
+			&& ptr->flow == 1)
 		{
 			if (ptr->v == 1)
 				return (-1);
@@ -94,8 +93,8 @@ void	add_to_route(t_graph *maze, int prev_room, int *row, int len)
 
 	ret = count_new_routes(maze, prev_room);
 	ptr = maze->array[prev_room].head;
-	while (ptr && (maze->been[ptr->v] == 1 || maze->res[ptr->v] == 1\
-		|| (maze->flow[prev_room] == 1 && maze->flow[ptr->v] == 1)))
+	while (ptr && (maze->been[ptr->v] == 1 || maze->res[ptr->v] == 1 \
+			|| ptr->flow != 1))
 		ptr = ptr->next;
 	if (ret > 1)
 	{
@@ -103,7 +102,8 @@ void	add_to_route(t_graph *maze, int prev_room, int *row, int len)
 		add_paths(maze->paths, &maze->route, maze->paths - (ret - 1));
 		fill_new_paths(maze, *row, maze->paths - (ret - 1), 0);
 	}
-	else if ((ret == 1 || ret == -1) && (maze->been[ptr->v] != 1 && maze->res[ptr->v] != 1))
+	else if ((ret == 1 || ret == -1) \
+		&& (maze->been[ptr->v] != 1 && maze->res[ptr->v] != 1))
 	{
 		if (ret == -1)
 			maze->route[*row][len] = 1;

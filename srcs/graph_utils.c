@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 12:05:41 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/02/26 13:49:53 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/03/09 15:46:07 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_node	*ft_graph_nodenew(int dest_ver)
 
 	new = ft_memalloc(sizeof(t_node));
 	new->v = dest_ver;
+	new->flow = 2;
 	new->next = NULL;
 	return (new);
 }
