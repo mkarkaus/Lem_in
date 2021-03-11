@@ -69,6 +69,10 @@ echo "?. Giving same coors to two separate rooms:"
 ./lem-in -rl < maps/v_giving_same_coor.map
 echo " "
 
+echo "?. Superconnected map:"
+./lem-in -rl < maps/v_superconnection.map
+echo " "
+
 # echo "?. MAX_INT ants:"
 # ./lem-in -rl < maps/v_max_ants.map
 echo " "

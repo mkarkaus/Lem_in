@@ -71,7 +71,6 @@ REQ_AVERAGE=$(( $REQ_RESULTS / $i))
 OWN_AVERAGE=$(( $OWN_RESULTS / $i))
 AV_DIF=$(( $OWN_AVERAGE - $REQ_AVERAGE ))
 printf "\nOur average difference per $i tests: $AV_DIF \n"
-echo "$slow times over 3.00s"
-echo "$over_max times over $dif_limit lines"
-echo "Longest time: $longest_time, biggest dif: $biggest_dif"
+echo "$slow times over 3.00s, biggest dif: $biggest_dif"
+echo "$over_max times over $dif_limit lines, Longest time: $longest_time"
 exit 0

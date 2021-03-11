@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_route.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 16:15:28 by sreijola          #+#    #+#             */
-/*   Updated: 2021/03/10 19:48:14 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/03/11 17:45:45 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ void	del_route(t_graph *maze, int *del)
 	maze->paths--;
 }
 
-void	fill_new_paths(t_graph *maze, int fork, int k, int i, int len)
+void	fill_new_paths(t_graph *maze, int fork, int k, int len)
 {
 	t_node	*ptr;
+	int		i;
 
+	i = 0;
 	while (i < len && maze->route[fork][i + 1] != 0)
 		i++;
 	ptr = maze->array[maze->route[fork][i]].head;
@@ -100,7 +102,7 @@ void	add_to_route(t_graph *maze, int prev_room, int *row, int len)
 	{
 		maze->paths += (ret - 1);
 		add_paths(maze->paths, &maze->route, maze->paths - (ret - 1), len);
-		fill_new_paths(maze, *row, maze->paths - (ret - 1), 0, len);
+		fill_new_paths(maze, *row, maze->paths - (ret - 1), len);
 	}
 	else if ((ret == 1 || ret == -1) \
 		&& (maze->been[ptr->v] != 1 && maze->res[ptr->v] != 1))

@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   flow_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: sreijola <sreijola@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 16:17:59 by mkarkaus          #+#    #+#             */
-/*   Updated: 2021/03/10 19:47:44 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2021/03/11 17:44:14 by sreijola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-void	fill_new_flow_paths(t_graph *maze, int fork, int k, int i, int len)
+void	fill_new_flow_paths(t_graph *maze, int fork, int k, int len)
 {
 	t_node	*ptr;
+	int		i;
 
+	i = 0;
 	while (i < len && maze->route[fork][i + 1] != 0)
 		i++;
 	ptr = maze->array[maze->route[fork][i]].head;
@@ -72,7 +74,7 @@ int		add_to_flow_route(t_graph *maze, int prev_room, int *row, int len)
 	{
 		maze->paths += (ret - 1);
 		add_paths(maze->paths, &maze->route, maze->paths - (ret - 1), len);
-		fill_new_flow_paths(maze, *row, maze->paths - (ret - 1), 0, len);
+		fill_new_flow_paths(maze, *row, maze->paths - (ret - 1), len);
 	}
 	else if (ret == 1)
 	{
