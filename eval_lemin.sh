@@ -55,9 +55,9 @@ do
 	# then
 	# 	cp -rf argFILE ./problem_maps/argOVER$DIF.map
 	# fi
-	# if (( $(echo "$TIME > $longest_time" |bc -l) )); then
-	# 	longest_time=$(echo "$TIME" |bc -l)
-	# fi
+	if (( $(echo "$TIME > $longest_time" |bc -l) )); then
+		longest_time=$(echo "$TIME" |bc -l)
+	fi
 	if (( $DIF > $biggest_dif )); then
 		biggest_dif=$(( $DIF ))
 	fi

@@ -12,11 +12,11 @@
 
 #include "../includes/lem_in.h"
 
-void	fill_new_flow_paths(t_graph *maze, int fork, int k, int i)
+void	fill_new_flow_paths(t_graph *maze, int fork, int k, int i, int len)
 {
 	t_node	*ptr;
 
-	while (i < LEN_MAX && maze->route[fork][i + 1] != 0)
+	while (i < len && maze->route[fork][i + 1] != 0)
 		i++;
 	ptr = maze->array[maze->route[fork][i]].head;
 	while (k < maze->paths && ptr)
@@ -28,7 +28,7 @@ void	fill_new_flow_paths(t_graph *maze, int fork, int k, int i)
 			else
 			{
 				ft_memcpy(maze->route[k], maze->route[fork], \
-					LEN_MAX * sizeof(int));
+					(len + 1) * sizeof(int));
 				maze->route[k][i + 1] = ptr->v;
 				maze->res[ptr->v] = 1;
 				k++;
@@ -71,8 +71,8 @@ int		add_to_flow_route(t_graph *maze, int prev_room, int *row, int len)
 	if (ret > 1)
 	{
 		maze->paths += (ret - 1);
-		add_paths(maze->paths, &maze->route, maze->paths - (ret - 1));
-		fill_new_flow_paths(maze, *row, maze->paths - (ret - 1), 0);
+		add_paths(maze->paths, &maze->route, maze->paths - (ret - 1), len);
+		fill_new_flow_paths(maze, *row, maze->paths - (ret - 1), 0, len);
 	}
 	else if (ret == 1)
 	{

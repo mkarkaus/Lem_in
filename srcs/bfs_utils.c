@@ -23,8 +23,8 @@ int		count_potential_paths(t_graph *maze, int for_flow)
 	{
 		if ((for_flow == -1 \
 		|| (for_flow == 0 && node->flow == 1 && maze->been[node->v] == 0) \
-		|| (for_flow == 1 && (node->flow == 2 || node->flow == -1))
-		&& maze->res[node->v] == 0) && !(node->v == 1 && maze->start_to_end))
+		|| (for_flow == 1 && (node->flow == 2 || node->flow == -1)))
+		&& maze->res[node->v] == 0 && !(node->v == 1 && maze->start_to_end))
 			i++;
 		node = node->next;
 	}

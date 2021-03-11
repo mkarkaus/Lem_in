@@ -19,7 +19,7 @@
 /*
 **	Defines maximum route length
 */
-# define LEN_MAX 400
+# define LEN_MAX 200
 
 typedef struct	s_node
 {
@@ -84,6 +84,6 @@ void			search_flow(t_graph *maze);
 void			add_to_route(t_graph *maze, int prev_room, int *row, int len);
 void			create_moves(t_hill *ah);
 void			del_route(t_graph *maze, int *del);
-void			add_paths(int paths, int ***route, int prev);
+void			add_paths(int paths, int ***route, int prev, int len);
 
 #endif
