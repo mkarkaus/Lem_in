@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: all clean fclean re fun lem vis vfclean vre ltest
+.PHONY: all clean fclean re fun vis vfclean vre relem etest vtest vetest vvtest
 
 NAME = lem-in
 
@@ -60,17 +60,10 @@ fun: re
 	@make -C libft clean
 	@echo "Only binaries and .cs left"
 
-lem:
-	@gcc $(SRCS) $(LIB) -o $(NAME)
-	@echo "$(NAME) made!"
-
 relem:
 	@rm -f $(NAME)
 	@gcc $(SRCS) $(LIB) -o $(NAME)
 	@echo "$(NAME) remade!"
-
-lemf:
-	@gcc $(SRCS) $(FLAGS) $(LIB) -o $(NAME)
 
 vis: 
 	@make -C Visualizer
@@ -85,5 +78,11 @@ vre:
 etest:
 	./maps/lemin_error.sh 
 
+vetest:
+	./maps/lemin_error_val.sh
+
 vtest:
 	./maps/lemin_valid.sh 
+
+vvtest:
+	./maps/lemin_valid_val.sh
