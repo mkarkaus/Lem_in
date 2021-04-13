@@ -1,10 +1,18 @@
 # Lem_in
 Second project of algorithm-branch of 42 coding curriculum in which a colony of ants must move from room 'start' to room 'end' through tunnels and rooms in as few turns as possible.
 
+![](lem-in.gif)
+**IMPORTANT: In case of severe myrmecophobia: Press 'C' during visualizer execution**
+
 #### Usage:
 ``` 
 make && ./lem-in [-hlqrs] < maps/subject3.map
 ```
+#### Usage with visualizer:
+``` 
+make && cp lem-in Visualizer/ && cd Visualizer/ && make && ./lem-in < ../maps/subject3.map | ./visu
+```
+**Note: the visualizer needs libraries SDL2, SDL2-image and SDL2-ttf to be installed to work.**
 #### Options:
 ```
 -h: help
@@ -13,7 +21,7 @@ make && ./lem-in [-hlqrs] < maps/subject3.map
 -r: print routes
 -s: print anthill stats
 ```
-#### Output:
+#### Output of lem-in executable:
 ```
 11
 ##start
@@ -55,11 +63,6 @@ The map consists of (in order):
 - optional comments that are always prepended with one `#` and are irrelevant to the execution of the program
 
 The second part is the moves in following format: `L[number of ant]-[name of the room it moved to]`
-#### Usage with visualizer:
-``` 
-make && cp lem-in Visualizer/ && cd Visualizer/ && make && ./lem-in < ../maps/subject3.map | ./visu
-```
-**Note: the visualizer needs libraries SDL2, SDL2-image and SDL2-ttf to be installed to work.**
 
 ## Algorithm
 Our final choice of algorithm was Edmonds Karp 'network flow' algorithm because of speed of its execution and excellent results in terms of turns that all ants needed to get to 'end' room. The Edmonds Karp that we implemented was slightly simpler than normal due to all the tunnels being able to occupy only one ant at a time.
@@ -92,8 +95,3 @@ We decided to build a Visualizer to ease the process of testing different algori
 Visuals were created using the SDL2 libraries and functions. They were perfect for our needs and provided tools to explore the basics of graphic libraries.
 
 Sprites and elements were from [freepik](https://freepik.com) and [gameart2d](https://www.gameart2d.com/).
-
-Here is what the algorithm in our visualizer looks like in action:
-
-![](lem-in.gif)
-**IMPORTANT: In case of severe myrmecophobia: Press 'C' during visualizer execution**
