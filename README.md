@@ -1,8 +1,8 @@
 # Lem_in
-Second project of algorithm-branch of 42 coding curriculum in which a colony of ants must move from room 'start' to room 'end' through tunnels and rooms in as few turns as possible.
+Second project of algorithm-branch of 42 coding curriculum in which a colony of ants must move from room 'start' to room 'end' through tunnels and rooms in as few turns as possible. :ant:
 
 ![](lem-in.gif)
-**IMPORTANT: In case of severe myrmecophobia: Press 'C' during visualizer execution**
+:warning:**IMPORTANT: In case of severe myrmecophobia: Press 'C' during visualizer execution**:warning:
 
 #### Usage:
 ``` 
